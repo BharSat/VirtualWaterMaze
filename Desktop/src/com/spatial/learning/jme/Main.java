@@ -19,7 +19,7 @@ public class Main {
         cfg.setVSync(true);   // prevents page tearing
         cfg.setFrequency(60); // set to screen refresh rate
         cfg.setResolution(1024, 768);   
-        cfg.setFullscreen(true); 
+        cfg.setFullscreen(false); 
         cfg.setSamples(2);    // anti-aliasing
         cfg.setTitle("My jMonkeyEngine 3 Game"); 
         app.setShowSettings(false); // or don't display splashscreen

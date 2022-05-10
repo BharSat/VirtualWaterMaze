@@ -15,19 +15,24 @@ import quick.game.app.QuickGameState;
  * @author Bhargav_NDL
  */
 public class SpatialTask extends SimpleApplication{
+    public final Object obj = new Object();
 
     @Override
     public void simpleInitApp() {
-        stateManager.attach(new QuickGameState());
-        try {
-            System.out.println("Initializing");
-            AfterInit obj = new AfterInit(this);
-            obj.start();
-            this.wait();
-        } catch (Exception e) {}
-        System.out.println("Initialized");
-        stateManager.getState(QuickGameState.class).createFloor(new Vector3f(-10f, 0, -10f), new Vector3f(10f, 0f, 10f));
-        
+        synchronized (obj) {
+            stateManager.attach(new QuickGameState());
+            try {
+                System.out.println("Initializing");
+                AfterInit obj = new AfterInit(this);
+                obj.start();
+                this.obj.wait();
+            } catch (Exception e) {}
+            System.out.println("Initialized");
+            try{
+                stateManager.getState(QuickGameState.class).createFloor(new Vector3f(-10f, 0, -10f), new Vector3f(10f, 0f, 10f));
+            }
+            catch (NullPointerException e) { System.out.println(stateManager.getState(QuickGameState.class).sceneState == null);}
+        }
     }
     
     @Override
@@ -42,15 +47,18 @@ public class SpatialTask extends SimpleApplication{
     private class AfterInit extends Thread {
         SpatialTask st;
         
+        @Override
         public void run() {
             Boolean go = false;
             if (st==null) {
                 return;
-            } else {
-                while (st.stateManager.getState(QuickGameState.class).initialized==false) {
+            }
+            synchronized (st.obj) {
+                while (st.stateManager.getState(QuickGameState.class).initialized==false || st.stateManager.getState(QuickGameState.class).sceneState == null) {
                     go=false;
+                    System.out.println(st.stateManager.getState(QuickGameState.class).initialized==true);
                 }
-                st.notify();
+                st.obj.notify();
                 go=true;
             }
         }
