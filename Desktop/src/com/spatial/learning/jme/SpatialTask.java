@@ -26,7 +26,6 @@ public class SpatialTask extends SimpleApplication{
             this.wait();
         } catch (Exception e) {}
         System.out.println("Initialized");
-        System.out.println(stateManager.getState(QuickGameState.class).playerAppState);
         stateManager.getState(QuickGameState.class).createFloor(new Vector3f(-10f, 0, -10f), new Vector3f(10f, 0f, 10f));
         
     }
