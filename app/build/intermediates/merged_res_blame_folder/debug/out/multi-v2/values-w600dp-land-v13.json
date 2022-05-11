@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\bhargav\\projects\\VWMandroid\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w600dp-land-v13\\values-w600dp-land-v13.xml",
+            "outputFile": "com.spatial.learning.jme.android.app-mergeDebugResources-22:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Bhargav_NDL\\.gradle\\caches\\transforms-3\\abb8004996e8d7d21a0f30141e152fb1\\transformed\\material-1.4.0\\res\\values-w600dp-land-v13\\values-w600dp-land-v13.xml",
+                    "source": "C:\\Users\\Bhargav_NDL\\.gradle\\caches\\transforms-3\\851f8dbbea09118f2bf4d1ad58826998\\transformed\\material-1.4.0\\res\\values-w600dp-land-v13\\values-w600dp-land-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

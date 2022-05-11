@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\bhargav\\projects\\VWMandroid\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-xlarge-v4\\values-xlarge-v4.xml",
+            "outputFile": "com.spatial.learning.jme.android.app-mergeDebugResources-22:/values-xlarge-v4/values-xlarge-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Bhargav_NDL\\.gradle\\caches\\transforms-3\\071dbe4bf565863868278380a18d49a0\\transformed\\appcompat-1.4.0\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
+                    "source": "C:\\Users\\Bhargav_NDL\\.gradle\\caches\\transforms-3\\254eba655640d52d10d58ef935f2a689\\transformed\\appcompat-1.4.0\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7",
                         "startColumns": "4,4,4,4,4,4",

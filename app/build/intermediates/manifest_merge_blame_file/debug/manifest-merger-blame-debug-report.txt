@@ -15,7 +15,7 @@
 12        android:allowBackup="true"
 12-->D:\bhargav\projects\VWMandroid\app\src\main\AndroidManifest.xml:7:9-35
 13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-13-->[androidx.core:core:1.7.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\0b7e83cca44d88daf140d5afb0a7aac0\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
+13-->[androidx.core:core:1.7.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\d8338c189490aee58604e111af57865f\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
 14        android:debuggable="true"
 15        android:extractNativeLibs="true"
 15-->D:\bhargav\projects\VWMandroid\app\src\main\AndroidManifest.xml:12:9-41
@@ -50,25 +50,25 @@
 30        </activity>
 31
 32        <provider
-32-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\cdfabed696f0f73c5dc8a1e3cac93aa5\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
+32-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\dafda43020c998140bb590dd363804eb\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
 33            android:name="androidx.startup.InitializationProvider"
-33-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\cdfabed696f0f73c5dc8a1e3cac93aa5\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:27:13-67
+33-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\dafda43020c998140bb590dd363804eb\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:27:13-67
 34            android:authorities="com.spatial.learning.jme.SpatialLearningVWM.androidx-startup"
-34-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\cdfabed696f0f73c5dc8a1e3cac93aa5\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:28:13-68
+34-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\dafda43020c998140bb590dd363804eb\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:28:13-68
 35            android:exported="false" >
-35-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\cdfabed696f0f73c5dc8a1e3cac93aa5\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:29:13-37
+35-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\dafda43020c998140bb590dd363804eb\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:29:13-37
 36            <meta-data
-36-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\cdfabed696f0f73c5dc8a1e3cac93aa5\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
+36-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\dafda43020c998140bb590dd363804eb\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
 37                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-37-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\cdfabed696f0f73c5dc8a1e3cac93aa5\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:32:17-75
+37-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\dafda43020c998140bb590dd363804eb\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:32:17-75
 38                android:value="androidx.startup" />
-38-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\cdfabed696f0f73c5dc8a1e3cac93aa5\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:33:17-49
+38-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\dafda43020c998140bb590dd363804eb\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:33:17-49
 39            <meta-data
-39-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\c22666d454137849ff5c598167a4515f\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
+39-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\fb7578b74fadc6b60a379e8d199d207c\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
 40                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-40-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\c22666d454137849ff5c598167a4515f\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
+40-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\fb7578b74fadc6b60a379e8d199d207c\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
 41                android:value="androidx.startup" />
-41-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\c22666d454137849ff5c598167a4515f\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
+41-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Bhargav_NDL\.gradle\caches\transforms-3\fb7578b74fadc6b60a379e8d199d207c\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
 42        </provider>
 43    </application>
 44
