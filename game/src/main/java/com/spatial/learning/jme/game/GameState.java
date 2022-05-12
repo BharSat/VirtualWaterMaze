@@ -29,6 +29,7 @@ public class GameState extends BaseAppState {
         this.assetManager = this.app.getAssetManager();
         this.physics = this.app.getPhysics();
         initialized=true;
+        System.out.println("Init Done2.");
     }
 
     @Override
@@ -38,7 +39,10 @@ public class GameState extends BaseAppState {
 
     @Override
     protected void onEnable() {
-        if (initialized) {initScene();}
+        if (initialized) {
+            initScene();
+            System.out.println("Scene Done");
+        } else {System.out.println("Not Init Yet");}
     }
 
     @Override
@@ -52,7 +56,7 @@ public class GameState extends BaseAppState {
 
     public void initScene() {
         DirectionalLight sun = new DirectionalLight();
-        sun.setDirection(new Vector3f(1,0,-2).normalizeLocal());
+        sun.setDirection(new Vector3f(0,0,0).normalizeLocal());
         sun.setColor(ColorRGBA.White);
         rootNode.addLight(sun);
 

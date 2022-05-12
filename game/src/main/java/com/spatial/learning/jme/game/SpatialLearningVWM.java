@@ -32,6 +32,8 @@ public class SpatialLearningVWM extends SimpleApplication {
     public void simpleInitApp() {
         this.physics = new BulletAppState();
         stateManager.attach(physics);
+        stateManager.attach(new GameState());
+        System.out.println("Init done.");
     }
 
     public float getTotalLocations() {
