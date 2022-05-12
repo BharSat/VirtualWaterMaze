@@ -1,0 +1,47 @@
+Manifest-Version: 1.0
+Main-Class: com.spatial.learning.jme.vrmodule.VrLauncher
+Class-Path: dependencies/game.jar dependencies/jme3-vr-3.5.2-stable.jar 
+ dependencies/jme3-effects-3.5.2-stable.jar dependencies/jme3-lwjgl3-3.5
+ .2-stable.jar dependencies/Minie-4.9.0.jar dependencies/jme3-terrain-3.
+ 5.2-stable.jar dependencies/lemur-1.16.0.jar dependencies/jme3-jogg-3.5
+ .2-stable.jar dependencies/jme3-plugins-3.5.2-stable.jar dependencies/j
+ me3-desktop-3.5.2-stable.jar dependencies/Heart-7.6.0.jar dependencies/
+ sim-math-1.5.0.jar dependencies/jme3-core-3.5.2-stable.jar dependencies
+ /tamarin-1.2.2.jar dependencies/lwjgl-glfw-3.3.1.jar dependencies/lwjgl
+ -glfw-3.3.1-natives-windows.jar dependencies/lwjgl-glfw-3.3.1-natives-w
+ indows-x86.jar dependencies/lwjgl-glfw-3.3.1-natives-linux.jar dependen
+ cies/lwjgl-glfw-3.3.1-natives-linux-arm32.jar dependencies/lwjgl-glfw-3
+ .3.1-natives-linux-arm64.jar dependencies/lwjgl-glfw-3.3.1-natives-maco
+ s.jar dependencies/lwjgl-glfw-3.3.1-natives-macos-arm64.jar dependencie
+ s/lwjgl-jemalloc-3.3.1.jar dependencies/lwjgl-jemalloc-3.3.1-natives-wi
+ ndows.jar dependencies/lwjgl-jemalloc-3.3.1-natives-windows-x86.jar dep
+ endencies/lwjgl-jemalloc-3.3.1-natives-linux.jar dependencies/lwjgl-jem
+ alloc-3.3.1-natives-linux-arm32.jar dependencies/lwjgl-jemalloc-3.3.1-n
+ atives-linux-arm64.jar dependencies/lwjgl-jemalloc-3.3.1-natives-macos.
+ jar dependencies/lwjgl-jemalloc-3.3.1-natives-macos-arm64.jar dependenc
+ ies/lwjgl-openal-3.3.1.jar dependencies/lwjgl-openal-3.3.1-natives-wind
+ ows.jar dependencies/lwjgl-openal-3.3.1-natives-windows-x86.jar depende
+ ncies/lwjgl-openal-3.3.1-natives-linux.jar dependencies/lwjgl-openal-3.
+ 3.1-natives-linux-arm32.jar dependencies/lwjgl-openal-3.3.1-natives-lin
+ ux-arm64.jar dependencies/lwjgl-openal-3.3.1-natives-macos.jar dependen
+ cies/lwjgl-openal-3.3.1-natives-macos-arm64.jar dependencies/lwjgl-open
+ cl-3.3.1.jar dependencies/lwjgl-opengl-3.3.1.jar dependencies/lwjgl-ope
+ ngl-3.3.1-natives-windows.jar dependencies/lwjgl-opengl-3.3.1-natives-w
+ indows-x86.jar dependencies/lwjgl-opengl-3.3.1-natives-linux.jar depend
+ encies/lwjgl-opengl-3.3.1-natives-linux-arm32.jar dependencies/lwjgl-op
+ engl-3.3.1-natives-linux-arm64.jar dependencies/lwjgl-opengl-3.3.1-nati
+ ves-macos.jar dependencies/lwjgl-opengl-3.3.1-natives-macos-arm64.jar d
+ ependencies/lwjgl-openvr-3.3.1-natives-linux.jar dependencies/lwjgl-ope
+ nvr-3.3.1-natives-macos.jar dependencies/lwjgl-openvr-3.3.1.jar depende
+ ncies/lwjgl-openvr-3.3.1-natives-windows.jar dependencies/lwjgl-ovr-3.3
+ .1.jar dependencies/lwjgl-ovr-3.3.1-natives-windows.jar dependencies/lw
+ jgl-3.3.1.jar dependencies/lwjgl-3.3.1-natives-windows.jar dependencies
+ /lwjgl-3.3.1-natives-windows-x86.jar dependencies/lwjgl-3.3.1-natives-l
+ inux.jar dependencies/lwjgl-3.3.1-natives-linux-arm32.jar dependencies/
+ lwjgl-3.3.1-natives-linux-arm64.jar dependencies/lwjgl-3.3.1-natives-ma
+ cos.jar dependencies/lwjgl-3.3.1-natives-macos-arm64.jar dependencies/j
+ naerator-runtime-0.12.jar dependencies/jna-5.8.0.jar dependencies/guava
+ -19.0.jar dependencies/slf4j-api-1.7.32.jar dependencies/j-ogg-all-1.0.
+ 1.jar dependencies/gson-2.8.1.jar dependencies/ochafik-util-0.12.jar de
+ pendencies/jmf-2.1.1e.jar
+
