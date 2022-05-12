@@ -4,10 +4,17 @@ package com.spatial.learning.jme.game;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppState;
 import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.bullet.util.CollisionShapeFactory;
+import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.*;
 import com.jme3.scene.shape.*;
+
+import java.util.List;
 
 public class SpatialLearningVWM extends SimpleApplication {
     private BulletAppState physics;
@@ -27,13 +34,16 @@ public class SpatialLearningVWM extends SimpleApplication {
         stateManager.attach(physics);
     }
 
-    public void initFloor() {
-        Box floorMesh = new Box(new Vector3f(0f-(locations/2), ground, 0f-(locations/2)), new Vector3f(0f+(locations/2), ground, 0f+(locations/2)));
-        Geometry floorGeom = new Geometry("floorGeom", floorMesh);
-        Material floorMat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        floorMat.setTexture("floorTex", assetManager.loadTexture("Textures/Floor.png"));
+    public float getTotalLocations() {
+        return this.locations;
     }
 
-    public void initScene() {}
+    public float getGround () {
+        return this.ground;
+    }
 
+
+    public BulletAppState getPhysics() {
+        return physics;
+    }
 }
