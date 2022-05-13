@@ -1,0 +1,38 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.spatial.learning.jme.android.app-mergeDebugResources-22:/values-v16/values-v16.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Bhargav_NDL\\.gradle\\caches\\transforms-3\\d8338c189490aee58604e111af57865f\\transformed\\core-1.7.0\\res\\values-v16\\values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Bhargav_NDL\\.gradle\\caches\\transforms-3\\254eba655640d52d10d58ef935f2a689\\transformed\\appcompat-1.4.0\\res\\values-v16\\values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "223"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "121",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "289"
+                    }
+                }
+            ]
+        }
+    ]
+}
