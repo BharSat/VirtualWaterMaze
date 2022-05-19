@@ -4,6 +4,25 @@
             "outputFile": "com.spatial.learning.jme.android.app-mergeDebugResources-22:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
+                    "source": "D:\\bhargav\\projects\\SpatialLearningVWM\\app\\src\\main\\res\\values-night\\themes.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "102",
+                        "endLines": "14",
+                        "endColumns": "12",
+                        "endOffsets": "836"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "100",
+                        "endLines": "14",
+                        "endColumns": "12",
+                        "endOffsets": "699"
+                    }
+                },
+                {
                     "source": "C:\\Users\\Bhargav_NDL\\.gradle\\caches\\transforms-3\\254eba655640d52d10d58ef935f2a689\\transformed\\appcompat-1.4.0\\res\\values-night-v8\\values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
@@ -18,25 +37,6 @@
                         "startOffsets": "704,774,858,942,1038,1140,1242,3198",
                         "endColumns": "69,83,83,95,101,101,93,88",
                         "endOffsets": "769,853,937,1033,1135,1237,1331,3282"
-                    }
-                },
-                {
-                    "source": "D:\\bhargav\\projects\\VWMandroid\\app\\src\\main\\res\\values-night\\themes.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "100",
-                        "endLines": "14",
-                        "endColumns": "12",
-                        "endOffsets": "822"
-                    },
-                    "to": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "100",
-                        "endLines": "14",
-                        "endColumns": "12",
-                        "endOffsets": "699"
                     }
                 },
                 {

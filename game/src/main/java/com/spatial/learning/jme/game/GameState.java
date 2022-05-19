@@ -7,6 +7,7 @@ import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.bullet.util.CollisionShapeFactory;
+import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
@@ -60,12 +61,21 @@ public class GameState extends BaseAppState {
         sun.setColor(ColorRGBA.White);
         rootNode.addLight(sun);
 
-        Spatial scene = assetManager.loadModel("Models/scene.obj");
+        AmbientLight al = new AmbientLight();
+        al.setColor(ColorRGBA.White.mult(1.3f));
+        rootNode.addLight(al);
+
+        Spatial scene = assetManager.loadModel("Models/scene.glb");
+        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        scene.setMaterial(mat);
         scene.scale(2f, 2f, 2f);
+        scene.setLocalTranslation(0f, -10f, 0f);
         rootNode.attachChild(scene);
         CollisionShape sceneShape = CollisionShapeFactory.createMeshShape(scene);
         RigidBodyControl scenePhyControl = new RigidBodyControl(sceneShape, 0f);
         this.physics.getPhysicsSpace().add(scenePhyControl);
+
+        this.app.getCamera().lookAt(new Vector3f(0f, 0f, 0f), new Vector3f(0f, 0f, 0f));
     }
 
     public void initFloor() {
