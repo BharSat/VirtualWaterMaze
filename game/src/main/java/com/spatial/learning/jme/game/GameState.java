@@ -5,7 +5,6 @@ import com.jme3.app.state.AppStateManager;
 import com.jme3.app.state.BaseAppState;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
-import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -25,6 +24,7 @@ import com.jme3.scene.control.LightControl;
 
 public class GameState extends BaseAppState implements ActionListener {
     public Boolean initialized = false;
+    boolean up = false, down = false, right = false, left = false;
     private Boolean sceneInitialized = false;
     private Camera cam;
     private SpatialLearningVWM app;
@@ -35,11 +35,9 @@ public class GameState extends BaseAppState implements ActionListener {
     private BulletAppState physics;
     private BetterCharacterControl player;
     private InputManager inputManager;
-
     private Vector3f camDir = new Vector3f();
     private Vector3f camLeft = new Vector3f();
     private Vector3f walkDirection = new Vector3f();
-    boolean up = false, down = false, right = false, left = false;
 
     public GameState() {
     }
@@ -65,12 +63,7 @@ public class GameState extends BaseAppState implements ActionListener {
 
     @Override
     protected void onEnable() {
-        if (initialized) {
-            initScene();
-            sceneInitialized = true;
-        } else {
-            throw new RuntimeException("Game Has not Initialized yet");
-        }
+
     }
 
     @Override
@@ -81,10 +74,9 @@ public class GameState extends BaseAppState implements ActionListener {
 
     @Override
     public void update(float tpf) {
-//        cam.getLocation().setY(0f);
         if (sceneInitialized) {
-            camDir.set(cam.getDirection()).multLocal(16f);
-            camLeft.set(cam.getLeft()).multLocal(10f);
+            camDir.set(cam.getDirection()).multLocal(5f);
+            camLeft.set(cam.getLeft()).multLocal(1f);
             walkDirection.set(0, 0, 0);
             if (left) {
                 walkDirection.addLocal(camLeft);
@@ -109,14 +101,16 @@ public class GameState extends BaseAppState implements ActionListener {
     }
 
     private void initScene() {
-
         physics.setDebugEnabled(true);
+
+        app.getViewPort().setBackgroundColor(ColorRGBA.fromRGBA255(51, 204, 255, 255));
 
         LightControl playerLight = initLight();
         flyCam.setMoveSpeed(40f);
 
         Node scene = (Node) assetManager.loadModel("Models/scene.glb");
-        scene.setLocalTranslation(0f, -10f, 0f);
+        scene.setLocalTranslation(0f, this.getVWMApplication().getGround(), 0f);
+        scene.scale(1f, 2f, 1f);
         scene.addControl(playerLight);
 
         CollisionShape sceneShape = CollisionShapeFactory.createMeshShape(scene);
@@ -124,11 +118,9 @@ public class GameState extends BaseAppState implements ActionListener {
         physics.getPhysicsSpace().add(landscape);
         rootNode.attachChild(scene);
 
-        CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(1.5f, 6f, 1);
         player = new BetterCharacterControl(1.5f, 6f, 0.05f);
-        player.setGravity(new Vector3f(0f, -30f, 0f));
-        player.warp(new Vector3f(0f, 30f, 0f));
         physics.getPhysicsSpace().add(player);
+        player.setGravity(new Vector3f(0f, -30f, 0f));
 
         inputManager.addMapping("Left", new KeyTrigger(KeyInput.KEY_A));
         inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_D));
@@ -160,11 +152,28 @@ public class GameState extends BaseAppState implements ActionListener {
         if (binding.equals("Left")) {
             left = isPressed;
         } else if (binding.equals("Right")) {
-            right= isPressed;
+            right = isPressed;
         } else if (binding.equals("Up")) {
             up = isPressed;
         } else if (binding.equals("Down")) {
             down = isPressed;
+        } else if (binding.equals("Jump") && player.getRigidBody().getPhysicsLocation().y < 1f) {
+            player.jump();
+            player.setJumpForce(new Vector3f(0f, 0.5f, 0f));
         }
+    }
+
+    public void start() {
+        if (initialized) {
+            initScene();
+            this.stateManager.getState(ModelHandler.class).start();
+            sceneInitialized = true;
+        } else {
+            throw new RuntimeException("Game Has not Initialized yet");
+        }
+    }
+
+    public BetterCharacterControl getPlayer() {
+        return player;
     }
 }

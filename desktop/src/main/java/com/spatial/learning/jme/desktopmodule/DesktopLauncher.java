@@ -13,8 +13,11 @@ public class DesktopLauncher {
 
         final AppSettings appSettings = new AppSettings(true);
 
+        appSettings.setFullscreen(true);
+
         game.setSettings(appSettings);
-        game.setShowSettings(true);
+        game.setShowSettings(false);
+        game.setDisplayStatView(false);
         game.start();
     }
 }

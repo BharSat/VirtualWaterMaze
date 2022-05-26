@@ -11,3 +11,7 @@ def start_loc():
 		arr3.append(new_i)
 	print(arr3)
 	return arr3
+
+def platform_locations():
+	radius = 5
+	
