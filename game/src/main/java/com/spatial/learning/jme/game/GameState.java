@@ -15,7 +15,9 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
+import com.jme3.light.Light;
 import com.jme3.light.PointLight;
+import com.jme3.light.SpotLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
@@ -23,7 +25,12 @@ import com.jme3.scene.Node;
 import com.jme3.scene.control.LightControl;
 
 public class GameState extends BaseAppState implements ActionListener {
+    private final Vector3f camDir = new Vector3f();
+    private final Vector3f camLeft = new Vector3f();
+    private final Vector3f walkDirection = new Vector3f();
+    private final Node lightNode = new Node();
     public Boolean initialized = false;
+    public Boolean enabled = false;
     boolean up = false, down = false, right = false, left = false;
     private Boolean sceneInitialized = false;
     private Camera cam;
@@ -35,9 +42,8 @@ public class GameState extends BaseAppState implements ActionListener {
     private BulletAppState physics;
     private BetterCharacterControl player;
     private InputManager inputManager;
-    private Vector3f camDir = new Vector3f();
-    private Vector3f camLeft = new Vector3f();
-    private Vector3f walkDirection = new Vector3f();
+    private DirectionalLight sun;
+    private SpotLight sceneLight;
 
     public GameState() {
     }
@@ -101,7 +107,6 @@ public class GameState extends BaseAppState implements ActionListener {
     }
 
     private void initScene() {
-        physics.setDebugEnabled(true);
 
         app.getViewPort().setBackgroundColor(ColorRGBA.fromRGBA255(51, 204, 255, 255));
 
@@ -139,32 +144,40 @@ public class GameState extends BaseAppState implements ActionListener {
         DirectionalLight sun = new DirectionalLight();
         sun.setDirection(new Vector3f(-0.5f, -0.5f, -0.5f).normalizeLocal());
         sun.setColor(ColorRGBA.White);
-        rootNode.addLight(sun);
+        lightNode.addLight(sun);
 
-        PointLight playerLight = new PointLight();
-        playerLight.setColor(ColorRGBA.White.mult(0.3f));
-        rootNode.addLight(playerLight);
-        return new LightControl(playerLight);
+        PointLight sceneLight = new PointLight();
+        sceneLight.setColor(ColorRGBA.White.mult(0.3f));
+        lightNode.addLight(sceneLight);
+        return new LightControl(sceneLight);
     }
 
     @Override
     public void onAction(String binding, boolean isPressed, float tpf) {
-        if (binding.equals("Left")) {
-            left = isPressed;
-        } else if (binding.equals("Right")) {
-            right = isPressed;
-        } else if (binding.equals("Up")) {
-            up = isPressed;
-        } else if (binding.equals("Down")) {
-            down = isPressed;
-        } else if (binding.equals("Jump") && player.getRigidBody().getPhysicsLocation().y < 1f) {
-            player.jump();
-            player.setJumpForce(new Vector3f(0f, 0.5f, 0f));
+        if (enabled) {
+            if (binding.equals("Left")) {
+                left = isPressed;
+            } else if (binding.equals("Right")) {
+                right = isPressed;
+            } else if (binding.equals("Up")) {
+                up = isPressed;
+            } else if (binding.equals("Down")) {
+                down = isPressed;
+            } else if (binding.equals("Jump") && player.getRigidBody().getPhysicsLocation().y < 1f) {
+                player.jump();
+                player.setJumpForce(new Vector3f(0f, 0.5f, 0f));
+            }
+        } else {
+            this.up = false;
+            this.left = false;
+            this.right = false;
+            this.down = false;
         }
     }
 
     public void start() {
         if (initialized) {
+            enabled = true;
             initScene();
             this.stateManager.getState(ModelHandler.class).start();
             sceneInitialized = true;
@@ -175,5 +188,24 @@ public class GameState extends BaseAppState implements ActionListener {
 
     public BetterCharacterControl getPlayer() {
         return player;
+    }
+
+    public void stopLight() {
+        for (Light light : lightNode.getLocalLightList()) {
+            rootNode.removeLight(light);
+        }
+        this.app.getViewPort().setBackgroundColor(ColorRGBA.Black);
+    }
+
+    public void startLight() {
+        for (Light light : lightNode.getLocalLightList()) {
+            rootNode.addLight(light);
+        }
+
+        this.app.getViewPort().setBackgroundColor(ColorRGBA.fromRGBA255(51, 204, 255, 255));
+    }
+
+    public Node getLightNode() {
+        return lightNode;
     }
 }

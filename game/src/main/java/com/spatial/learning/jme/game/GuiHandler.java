@@ -2,36 +2,30 @@ package com.spatial.learning.jme.game;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
-import com.jme3.scene.Node;
 import com.simsilica.lemur.Button;
-import com.simsilica.lemur.Command;
 import com.simsilica.lemur.Container;
 import com.simsilica.lemur.GuiGlobals;
 import com.simsilica.lemur.HAlignment;
 import com.simsilica.lemur.Label;
-import com.simsilica.lemur.component.BorderLayout;
 import com.simsilica.lemur.style.BaseStyles;
 
 public class GuiHandler extends BaseAppState {
 
     SpatialLearningVWM app;
     Container mainContainer;
+    Container nextRoundScreen;
+    Container startScreen;
 
     @Override
     protected void initialize(Application app) {
-        GuiGlobals.initialize(app);
+        this.app = (SpatialLearningVWM) app;
+        GuiGlobals.initialize(this.app);
         BaseStyles.loadGlassStyle();
         GuiGlobals.getInstance().getStyles().setDefaultStyle("glass");
-        this.app = (SpatialLearningVWM) app;
-
-        this.mainContainer = new Container();
-
+        mainContainer = new Container();
         this.app.getGuiNode().attachChild(mainContainer);
-        mainContainer.setLocalTranslation(250, 350, 0);
-        mainContainer.setLayout(new BorderLayout());
-        mainContainer.scale(2f);
-
-        mainContainer.addChild(startGui());
+        mainContainer.setLocalTranslation(200, 400, -10f);
+        startGui();
     }
 
     @Override
@@ -62,38 +56,27 @@ public class GuiHandler extends BaseAppState {
         this.app.startGame();
     }
 
-    public Node startGui() {
-        Container container = new Container();
-        container.addChild(new Label("Welcome\n"));
-        Button button = new Button("Start");
-        button.setTextHAlignment(HAlignment.Center);
-        button.addClickCommands(new Command<Button>() {
-            @Override
-            public void execute(Button source) {
-                start();
-            }
-        });
-        container.addChild(button);
-        return container;
+    public void startGui() {
+        mainContainer.addChild(new Label("Welcome to the lawn!"));
+        Button clickMe = mainContainer.addChild(new Button("Lets Start."));
+        clickMe.addClickCommands(source -> start());
+        clickMe.setTextHAlignment(HAlignment.Center);
     }
 
     public void initGuiBetweenRounds(ModelHandler modelHandler) {
         this.app.getInputManager().setCursorVisible(false);
-        Container container = new Container();
-        container.addChild(new Label("Great Job!\n"));
-        Button button = new Button("Next Round");
+        mainContainer.addChild(new Label("Great Job!\n"));
+        Button button = mainContainer.addChild(new Button("Next Round"));
         button.setTextHAlignment(HAlignment.Center);
-        button.addClickCommands(new Command<Button>() {
-            @Override
-            public void execute(Button source) {
-                modelHandler.nextPosition();
-            }
+        button.addClickCommands(source -> {
+            app.getGuiNode().detachAllChildren();
+            mainContainer.detachAllChildren();
+            app.getFlyByCamera().setEnabled(true);
+            app.getInputManager().setCursorVisible(false);
+            modelHandler.nextTrial();
         });
-        container.addChild(button);
-        mainContainer.attachChild(container);
-        this.app.getGuiNode().attachChild(mainContainer);
-        System.out.println("kkkk");
         this.app.getFlyByCamera().setEnabled(false);
         this.app.getInputManager().setCursorVisible(true);
+        this.app.getGuiNode().attachChild(mainContainer);
     }
 }
