@@ -19,7 +19,7 @@ public class ModelHandler extends BaseAppState {
     protected String[] modelList = {"Tree", "Planet", "Castle", "Star", "Mill", "Rocket", "Tower", "Star", "Lighthouse", "PBox"};
     protected List<Vector3f> modelLocs;
     protected float platfomSize = 1.3f;
-    protected Vector3f[] platformLocations = {new Vector3f(-49, 0, 0)};
+    protected float[][] platformLocations = {{}, {}};
     protected Vector3f[] startLocations = {new Vector3f(30, 0, 0), new Vector3f(0, 0, 30), new Vector3f(-30, 0, 0), new Vector3f(-30, 0, -30)};
     protected int[][] startSets = {{1, 0, 2, 0}, {1, 0, 0, 2}, {2, 0, 2, 1}, {0, 2, 1, 2}, {1, 0, 2, 0}, {0, 2, 1, 1}, {1, 0, 2, 0}, {0, 0, 2, 1}, {1, 1, 2, 0}, {1, 0, 1, 2}};
     protected Vector3f platformLocation = new Vector3f(-49, 0, 0);
