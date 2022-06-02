@@ -4,22 +4,30 @@ import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
 import com.jme3.asset.AssetManager;
 import com.jme3.light.PointLight;
+import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.control.LightControl;
+import com.jme3.scene.shape.Box;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
+/**
+ * The type Model handler.
+ */
 public class ModelHandler extends BaseAppState {
     private final List<int[]> combinations = new ArrayList<>();
     private final List<Node> models = new ArrayList<>();
     public Boolean initialized = false;
     protected String[] modelList = {"Tree", "Planet", "Castle", "Star", "Mill", "Rocket", "Tower", "Star", "Lighthouse", "PBox"};
     protected List<Vector3f> modelLocs;
-    protected float platfomSize = 1.3f;
-    protected float[][] platformLocations = {{}, {}};
+    protected float platfomSize = 4.5f;
+    protected float[][] platformLocations = {{-13.61f, -7.33f}, {-3.79f, 19.64f}, {7.57f, 11.39f}, {-0.15f, 8.44f}, {-12.78f, 6.83f}, {-3.72f, -8.72f}, {-3.52f, -5.2f}, {-9.19f, -0.2f}, {5.09f, 3.85f}, {-1.64f, -4.03f}};
     protected Vector3f[] startLocations = {new Vector3f(30, 0, 0), new Vector3f(0, 0, 30), new Vector3f(-30, 0, 0), new Vector3f(-30, 0, -30)};
     protected int[][] startSets = {{1, 0, 2, 0}, {1, 0, 0, 2}, {2, 0, 2, 1}, {0, 2, 1, 2}, {1, 0, 2, 0}, {0, 2, 1, 1}, {1, 0, 2, 0}, {0, 0, 2, 1}, {1, 1, 2, 0}, {1, 0, 1, 2}};
     protected Vector3f platformLocation = new Vector3f(-49, 0, 0);
@@ -30,6 +38,9 @@ public class ModelHandler extends BaseAppState {
     private Node rootNode;
     private AssetManager assetManager;
     private Node modelNode;
+    private Boolean probe;
+
+    private Geometry flag;
 
     @Override
     protected void initialize(Application app) {
@@ -43,6 +54,14 @@ public class ModelHandler extends BaseAppState {
         this.modelNode = new Node();
         rootNode.attachChild(modelNode);
         initialized = true;
+        
+        Box flagb = new Box(1, 1, 1);
+        flag = new Geometry("Box", flagb);
+        Material mat = new Material(assetManager,
+                "Common/MatDefs/Misc/Unshaded.j3md");
+        mat.setColor("Color", ColorRGBA.Blue);
+        flag.setMaterial(mat);
+        flag.setLocalTranslation(platformLocation);
     }
 
     @Override
@@ -120,13 +139,44 @@ public class ModelHandler extends BaseAppState {
             positionNumber++;
             trialNumber = 1;
         }
+        if (positionNumber == 2 || positionNumber == 10) {
+            if (trialNumber == 2) {
+                probe = true;
+            }
+        } else if (positionNumber == 4 || positionNumber == 8) {
+            if (trialNumber == 4) {
+                probe = true;
+            }
+        } else {
+            probe = false;
+        }
 //        System.out.println(positionNumber + ":" + trialNumber);
         loadPositionModels(positionNumber);
+        Timer timer = new Timer();
+        if (!probe) {
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    showFlag();
+                    System.out.println("Done");
+                }
+            }, 120000);
+        } else {
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    nextTrial();
+                }
+            }, 60000);
+        }
+        platformLocation.set(toPlatFormLocation(platformLocations[positionNumber], new Vector3f()));
         this.getStateManager().getState(GameState.class).startLight();
         this.getStateManager().getState(GameState.class).getPlayer().warp(startLocations[startSets[positionNumber][trialNumber - 1]]);
+
     }
 
     public void foundPosition() {
+        rootNode.detachChild(flag);
         this.getStateManager().getState(GameState.class).getPlayer().warp(new Vector3f(0, 3, 0));
         this.getStateManager().getState(GameState.class).enabled = false;
         this.getStateManager().getState(GameState.class).stopLight();
@@ -150,8 +200,21 @@ public class ModelHandler extends BaseAppState {
     @Override
     public void update(float tpf) {
         try {
-            checkPlayerHasWon();
+            if (!probe) {
+                checkPlayerHasWon();
+            }
         } catch (NullPointerException ignored) {
         }
+    }
+
+    public Vector3f toPlatFormLocation(float[] xy, Vector3f store) {
+        store.setX(xy[0] - 12.5f);
+        store.setZ(xy[1] - 12.5f);
+        return store;
+    }
+
+    public void showFlag() {
+        rootNode.attachChild(flag);
+
     }
 }

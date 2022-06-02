@@ -1,5 +1,8 @@
+import importlib
+
 import numpy as np
 from numpy import random
+
 
 def start_loc():
 	arr1 = np.arange(3)
@@ -9,9 +12,18 @@ def start_loc():
 		new_i = list(np.append(i, random.randint(0, 3)))
 		random.shuffle(new_i)
 		arr3.append(list(new_i))
-	print(str(arr3).replace("[", "{").replace("]", "}"))
-	return arr3
+	return str(arr3).replace("[", "{").replace("]", "}")
+
 
 def platform_locations():
-	radius = 5
-	
+	radius = 9
+	rng = random.default_rng(69813)
+	set1 = rng.normal(0, radius, 20)
+	tmp = []
+	set2 = []
+	for i in set1:
+		tmp.append(round(i, 2))
+		if len(tmp) == 2:
+			set2.append(tmp)
+			tmp = []
+	return str(set2).replace("[", "{").replace("]", "}")
