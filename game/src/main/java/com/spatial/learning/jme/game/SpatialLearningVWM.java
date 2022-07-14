@@ -7,8 +7,6 @@ import com.jme3.bullet.BulletAppState;
 import java.io.IOException;
 
 public class SpatialLearningVWM extends SimpleApplication {
-    private final float locations = 50.00f;
-    private final float ground = -5f;
 
     public SpatialLearningVWM() {
     }
@@ -24,17 +22,14 @@ public class SpatialLearningVWM extends SimpleApplication {
         stateManager.attach(new GameState());
         stateManager.attach(new GuiHandler());
         try {
-        stateManager.attach(new LogHandler());}
-        catch (IOException ignored) {}
+            stateManager.attach(new LogHandler());
+        } catch (IOException ignored) {
+        }
         System.out.println("Init done.");
     }
 
-    public float getTotalLocations() {
-        return this.locations;
-    }
-
     public float getGround() {
-        return this.ground;
+        return -5f;
     }
 
     public void startGame() {

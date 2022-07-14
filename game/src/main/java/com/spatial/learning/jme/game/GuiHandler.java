@@ -2,19 +2,13 @@ package com.spatial.learning.jme.game;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
-import com.simsilica.lemur.Button;
-import com.simsilica.lemur.Container;
-import com.simsilica.lemur.GuiGlobals;
-import com.simsilica.lemur.HAlignment;
-import com.simsilica.lemur.Label;
+import com.simsilica.lemur.*;
 import com.simsilica.lemur.style.BaseStyles;
 
 public class GuiHandler extends BaseAppState {
 
     SpatialLearningVWM app;
     Container mainContainer;
-    Container nextRoundScreen;
-    Container startScreen;
 
     @Override
     protected void initialize(Application app) {
@@ -24,7 +18,7 @@ public class GuiHandler extends BaseAppState {
         GuiGlobals.getInstance().getStyles().setDefaultStyle("glass");
         mainContainer = new Container();
         this.app.getGuiNode().attachChild(mainContainer);
-        mainContainer.setLocalTranslation(200, 400, -10f);
+        mainContainer.setLocalTranslation(600, 600, 0);
         startGui();
     }
 

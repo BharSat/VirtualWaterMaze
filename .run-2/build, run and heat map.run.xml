@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="build, run and heat map" type="CompoundRunConfigurationType">
+    <toRun name="VWMandroid [createJar]" type="GradleRunConfiguration" />
+    <toRun name="desktop-1.0.0.jar" type="JarApplication" />
+    <toRun name="vrdesktop-1.0.0.jar" type="JarApplication" />
+    <toRun name="heat_map" type="PythonConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>

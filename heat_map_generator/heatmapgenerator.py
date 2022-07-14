@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import tkinter as tk
 import tkinter.ttk as ttk
-from tkinter.filedialog import askopenfile
+from tkinter.filedialog import askopenfile, asksaveasfilename
 
 import cv2
 import numpy as np
@@ -31,15 +31,6 @@ class HeatMapGenerator:
         self.radiusE.grid(column=1, row=0)
         self.radiusE.bind("<Enter>", self.enter_radius, add="")
         self.radiusE.bind("<Leave>", self.leave_radius, add="")
-        self.funcTV = tk.StringVar(value="")
-        self.funcL = ttk.Label(self.window)
-        self.funcL.configure(font="TkHeadingFont", text="Function(<function> int)")
-        self.funcL.grid(column=0, row=1)
-        self.funcE = ttk.Entry(self.window, textvariable=self.funcTV)
-        self.funcE.configure(font="TkDefaultFont")
-        self.funcE.grid(column=1, row=1)
-        self.funcE.bind("<Enter>", self.enter_function, add="")
-        self.funcE.bind("<Leave>", self.leave_function, add="")
         self.previewL = ttk.Label(self.window)
         self.previewL.configure(text="Preview Before Saving:")
         self.previewL.grid(column=0, row=3)
@@ -47,20 +38,18 @@ class HeatMapGenerator:
         self.previewC.grid(column=1, row=3)
         self.helpM = tk.Message(self.window)
         self.helpTV = tk.StringVar(
-            value="Radius: The radius of the water maze.\nFunction: the function to be run on every x/y Value before "
-                  "running.\nEg: + 50 "
+            value="Radius: The radius of the water maze."
         )
         self.helpM.configure(
-            background="#8942ff",
+            background="#636281",
             cursor="arrow",
-            foreground="#42ff59",
-            text="Radius: The radius of the water maze.\nFunction: the function to be run on every x/y Value before "
-                 "running.\nEg: + 50",
+            foreground="#aaffaa",
+            text="Radius: The radius of the water maze.",
         )
         self.helpM.configure(textvariable=self.helpTV)
         self.helpM.grid(
             column=0,
-            columnspan=2,
+            columnspan=3,
             ipadx=0,
             ipady=0,
             padx=0,
@@ -84,35 +73,46 @@ class HeatMapGenerator:
         self.main_window.mainloop()
 
     def generate_map(self, widget_id=None):
-        r = int(self.radiusTV.get())
-        func = self.funcE.get().lower().split(" ")
-        func.remove("")
-        func.remove(" ")
-        if len(func) != 2:
-            raise ValueError("Invalid Function")
-        zeroes = np.zeros((r, r, 3))
-        cv2.circle(zeroes, r // 2, r, (255, 255, 255))
-        file = askopenfile()
         try:
-            file.read()
+            r = int(self.radiusTV.get())
+            print(r)
+            zeroes = np.zeros((2 * r, 2 * r, 3))
+            cv2.circle(zeroes, (r, r), r - 2, (255, 255, 255))
+            file = askopenfile()
+            data = file.readlines()
+            l = 0
+            for set in data:
+                if set.lower() == "initializing":
+                    print("yes")
+                    continue
+                set_split = set.split(self.dTV.get().replace("/t", "\t"))
+                if len(set_split) != 2:
+                    raise ValueError(f"Illegal set '{set}'")
+                try:
+                    x, y = set_split
+                except ValueError as e:
+                    raise Exception(str(e))
+
+                print(int(x) - 1, int(y) - 1)
+                zeroes[int(x) - 1, int(y) - 1] += 1
+            cv2.imshow("Final", zeroes)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
+            file_save = asksaveasfilename(confirmoverwrite=True, defaultextension=".png")
+            cv2.imwrite(file_save, zeroes)
+
+
         except Exception as e:
-            print("Failed: " + str(e))
+            print("Failed due to " + str(type(e)) + ": " + str(e))
+            self.helpTV.set("Failed due to " + str(type(e)) + ": " + str(e))
+            self.window.after(10000, lambda: self.helpTV.set("Radius: The radius of the water maze."))
+            return
 
     def enter_radius(self, event=None):
         self.helpTV.set("The radius of the water maze.")
 
     def leave_radius(self, event=None):
-        self.helpTV.set(
-            "Radius: The radius of the water maze.\nFunction: the function to be run on every x/y Value before "
-            "running.\nEg: + 50")
-
-    def enter_function(self, event=None):
-        self.helpTV.set("<function> int")
-
-    def leave_function(self, event=None):
-        self.helpTV.set(
-            "Radius: The radius of the water maze.\nFunction: the function to be run on every x/y Value before "
-            "running.\nEg: + 50")
+        self.helpTV.set("Radius: The radius of the water maze.")
 
 
 if __name__ == "__main__":

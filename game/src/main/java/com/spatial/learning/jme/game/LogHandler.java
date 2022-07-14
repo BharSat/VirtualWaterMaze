@@ -10,7 +10,8 @@ import java.io.IOException;
 
 public class LogHandler extends BaseAppState {
     public GameState gameState;
-    public FileWriter fw = new FileWriter("D:/bhargav/a/Log.txt", false);
+    public String path = "D:/bhargav/vwm/";
+    public String name = "untitled.txt";
 
     public LogHandler() throws IOException {
     }
@@ -18,11 +19,6 @@ public class LogHandler extends BaseAppState {
     @Override
     protected void initialize(Application app) {
         this.gameState = app.getStateManager().getState(GameState.class);
-        try {
-            fw.write("Initializing\n");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
@@ -37,11 +33,6 @@ public class LogHandler extends BaseAppState {
 
     @Override
     protected void onDisable() {
-        try {
-            fw.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
@@ -50,14 +41,29 @@ public class LogHandler extends BaseAppState {
             if (getState(GameState.class).enabled) {
                 BetterCharacterControl player = gameState.getPlayer();
                 Vector3f location = player.getRigidBody().getPhysicsLocation();
-                System.out.println(log(Math.round(location.getX()) + "\t" + Math.round(location.getZ()) + "\n"));
+                log(Math.round(location.getX() + 70) + "\t" + Math.round(location.getZ() + 70) + "\n");
             }
-        } catch (NullPointerException ignored) {}
+        } catch (NullPointerException ignored) {
+        }
     }
 
     public boolean log(String toLog) {
         try {
+            FileWriter fw = new FileWriter(name, true);
             fw.write(toLog);
+            fw.close();
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public boolean newRound(int trialNo, int positionNo) {
+        name = path + "pos" + positionNo + "trial" + trialNo + ".txt";
+        System.out.println(name);
+        try {
+            FileWriter fw = new FileWriter(name, false);
+            fw.close();
             return true;
         } catch (IOException e) {
             return false;

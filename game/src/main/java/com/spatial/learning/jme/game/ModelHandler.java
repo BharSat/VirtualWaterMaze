@@ -54,7 +54,7 @@ public class ModelHandler extends BaseAppState {
         this.modelNode = new Node();
         rootNode.attachChild(modelNode);
         initialized = true;
-        
+
         Box flagb = new Box(1, 1, 1);
         flag = new Geometry("Box", flagb);
         Material mat = new Material(assetManager,
@@ -152,6 +152,11 @@ public class ModelHandler extends BaseAppState {
         }
 //        System.out.println(positionNumber + ":" + trialNumber);
         loadPositionModels(positionNumber);
+        if (!this.getStateManager().getState(LogHandler.class).newRound(trialNumber, positionNumber)) {
+            System.out.println("Failed at " + trialNumber + " " + positionNumber);
+        } else {
+            System.out.println("Success");
+        }
         Timer timer = new Timer();
         if (!probe) {
             timer.schedule(new TimerTask() {
