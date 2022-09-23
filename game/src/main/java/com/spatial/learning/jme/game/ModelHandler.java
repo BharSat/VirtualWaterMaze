@@ -137,7 +137,6 @@ public class ModelHandler extends BaseAppState {
             combination = new int[]{0, 1, i, i + 1};
             this.combinations.add(combination);
         }
-        System.out.println(this.combinations);
     }
 
     protected void loadPositionModels(int position) {
@@ -146,11 +145,21 @@ public class ModelHandler extends BaseAppState {
         loadModels(position, position + 4);
         modelNode.detachAllChildren();
         for (int index : combination) {
-            System.out.println("Hello, " + index + "  " + modelStartIndex);
-            Node model = models.get(index - modelStartIndex);
+            Node model = getModelAt(index);
             modelNode.attachChild(model);
         }
         rootNode.attachChild(modelNode);
+    }
+
+    protected Node getModelAt(int index) {
+        if (index == 0) {
+            return models.get(0);
+        } else if (index == 1) {
+            return models.get(1);
+        } else {
+            return models.get(index - modelStartIndex);
+        }
+
     }
 
     public String getAssetPath(String name) {
@@ -179,19 +188,9 @@ public class ModelHandler extends BaseAppState {
         loadPositionModels(positionNumber);
         if (!this.getStateManager().getState(LogHandler.class).newRound(trialNumber, positionNumber)) {
             System.out.println("Failed at " + trialNumber + " " + positionNumber);
-        } else {
-            System.out.println("Success");
         }
-        Timer timer = new Timer();
-        if (!probe) {
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    showFlag();
-                    System.out.println("Done");
-                }
-            }, 120000);
-        } else {
+        if (probe) {
+            Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {

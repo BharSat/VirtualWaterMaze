@@ -25,7 +25,6 @@ public class SpatialLearningVWM extends SimpleApplication {
             stateManager.attach(new LogHandler());
         } catch (IOException ignored) {
         }
-        System.out.println("Init done.");
     }
 
     public float getGround() {

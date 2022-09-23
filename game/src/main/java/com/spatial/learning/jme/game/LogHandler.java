@@ -5,6 +5,7 @@ import com.jme3.app.state.BaseAppState;
 import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.math.Vector3f;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -62,7 +63,6 @@ public class LogHandler extends BaseAppState {
 
     public boolean newRound(int trialNo, int positionNo) {
         name = path + playerName + "/pos" + positionNo + "trial" + trialNo + ".txt";
-        System.out.println(name);
         try {
             FileWriter fw = new FileWriter(name, false);
             fw.close();
@@ -74,6 +74,8 @@ public class LogHandler extends BaseAppState {
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
+        File file = new File(path + playerName);
+        file.mkdir();
         initialized = true;
     }
 }

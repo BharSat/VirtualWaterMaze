@@ -58,7 +58,6 @@ public class GameState extends BaseAppState implements ActionListener {
         this.stateManager = getStateManager();
         this.physics = this.stateManager.getState(BulletAppState.class);
         this.inputManager = this.app.getInputManager();
-        System.out.println("Init Done2.");
         initialized = true;
     }
 
