@@ -9,6 +9,7 @@ public class GuiHandler extends BaseAppState {
 
     SpatialLearningVWM app;
     Container mainContainer;
+    TextField playerNameField;
 
     @Override
     protected void initialize(Application app) {
@@ -47,14 +48,16 @@ public class GuiHandler extends BaseAppState {
         this.mainContainer.detachAllChildren();
         this.app.getFlyByCamera().setEnabled(true);
         this.app.getInputManager().setCursorVisible(false);
+        this.getStateManager().getState(LogHandler.class).setPlayerName(playerNameField.getText());
         this.app.startGame();
     }
 
     public void startGui() {
-        mainContainer.addChild(new Label("Welcome to the lawn!"));
-        Button clickMe = mainContainer.addChild(new Button("Lets Start."));
-        clickMe.addClickCommands(source -> start());
-        clickMe.setTextHAlignment(HAlignment.Center);
+        mainContainer.addChild(new Label("Enter Your Name:"));
+        playerNameField = mainContainer.addChild(new TextField("__"));
+        Button startButton = mainContainer.addChild(new Button("Lets Start."));
+        startButton.addClickCommands(source -> start());
+        startButton.setTextHAlignment(HAlignment.Center);
     }
 
     public void initGuiBetweenRounds(ModelHandler modelHandler) {

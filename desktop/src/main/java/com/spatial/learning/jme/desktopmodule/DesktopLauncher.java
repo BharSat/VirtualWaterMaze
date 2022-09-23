@@ -19,8 +19,6 @@ public class DesktopLauncher {
         appSettings.setWindowYPosition(500);
         appSettings.setFullscreen(true);
 
-        appSettings.setFullscreen(true);
-
         game.setSettings(appSettings);
         game.setShowSettings(false);
         game.setDisplayStatView(false);

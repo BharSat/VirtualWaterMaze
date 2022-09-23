@@ -24,7 +24,7 @@ public class ModelHandler extends BaseAppState {
     private final List<int[]> combinations = new ArrayList<>();
     private final List<Node> models = new ArrayList<>();
     public Boolean initialized = false;
-    protected String[] modelList = {"Tree", "Planet", "Castle", "Star", "Mill", "Rocket", "Tower", "Star", "Lighthouse", "PBox"};
+    protected String[] modelList = {"Tree", "Jet", "Castle", "Star", "Mill", "Rocket", "Tower", "Star", "Lighthouse", "PBox", "Flag", "Copter", "Castle", "Planet", "Mill", "PBox", "Lighthouse", "Rocket", "Tower", "Glider", "Flag", "Glider"};
     protected List<Vector3f> modelLocs;
     protected float platfomSize = 4.5f;
     protected float[][] platformLocations = {{-13.61f, -7.33f}, {-3.79f, 19.64f}, {7.57f, 11.39f}, {-0.15f, 8.44f}, {-12.78f, 6.83f}, {-3.72f, -8.72f}, {-3.52f, -5.2f}, {-9.19f, -0.2f}, {5.09f, 3.85f}, {-1.64f, -4.03f}};
@@ -41,6 +41,8 @@ public class ModelHandler extends BaseAppState {
     private Boolean probe;
 
     private Geometry flag;
+    private int modelStartIndex;
+    private int modelEndIndex;
 
     @Override
     protected void initialize(Application app) {
@@ -71,17 +73,38 @@ public class ModelHandler extends BaseAppState {
 
     @Override
     protected void onEnable() {
-        for (int i = 0; i < this.modelList.length; i++) {
-            String toLoad = this.modelList[i];
-            Node model = (Node) assetManager.loadModel(this.getAssetPath(toLoad));
-            model.scale(0.7f);
-            model.setLocalTranslation(modelLocs.get(i));
-            models.add(model);
+    }
 
-            PointLight modelLight = new PointLight();
-            modelLight.setColor(ColorRGBA.fromRGBA255(5, 5, 5, 5));
-            getStateManager().getState(GameState.class).getLightNode().addLight(modelLight);
-            model.addControl(new LightControl(modelLight));
+    protected void loadModels(int start, int end) {
+        List<Node> oldModels = new ArrayList<Node>(models);
+        boolean empty = start == 0;
+        if (!empty) {
+            models.clear();
+            models.add(oldModels.get(0));
+            models.add(oldModels.get(1));
+        }
+        for (int i = start; i < end; i++) {
+            if (i > modelStartIndex && i < modelEndIndex) {
+                models.add(oldModels.get(i - modelStartIndex));
+            } else {
+                String toLoad = this.modelList[i];
+                Node model = (Node) assetManager.loadModel(this.getAssetPath(toLoad));
+                model.scale(0.7f);
+                model.setLocalTranslation(modelLocs.get(i));
+                models.add(model);
+
+                PointLight modelLight = new PointLight();
+                modelLight.setColor(ColorRGBA.fromRGBA255(5, 5, 5, 5));
+                getStateManager().getState(GameState.class).getLightNode().addLight(modelLight);
+                model.addControl(new LightControl(modelLight));
+            }
+        }
+        if (!empty) {
+            modelStartIndex = start + 2;
+            modelEndIndex = end + 2;
+        } else {
+            modelStartIndex = start;
+            modelEndIndex = end;
         }
     }
 
@@ -91,10 +114,10 @@ public class ModelHandler extends BaseAppState {
     }
 
     protected void generateLocations() {
-        Vector3f groundStatic = new Vector3f(60f, 1f, 60f);
-        Vector3f skyStatic = new Vector3f(-60f, 30f, 60f);
-        Vector3f groundChange = new Vector3f(60f, 1f, -60f);
-        Vector3f skyChange = new Vector3f(-60f, 30f, -60f);
+        Vector3f groundStatic = new Vector3f(70f, 1f, 0f);
+        Vector3f skyStatic = new Vector3f(-70f, 30f, 0f);
+        Vector3f groundChange = new Vector3f(0f, 1f, -70f);
+        Vector3f skyChange = new Vector3f(0f, 30f, 70f);
         List<Vector3f> locList = new ArrayList<>();
         locList.add(groundStatic);
         locList.add(skyStatic);
@@ -120,9 +143,11 @@ public class ModelHandler extends BaseAppState {
     protected void loadPositionModels(int position) {
         rootNode.detachChild(modelNode);
         int[] combination = this.combinations.get(position);
+        loadModels(position, position + 4);
         modelNode.detachAllChildren();
         for (int index : combination) {
-            Node model = models.get(index);
+            System.out.println("Hello, " + index + "  " + modelStartIndex);
+            Node model = models.get(index - modelStartIndex);
             modelNode.attachChild(model);
         }
         rootNode.attachChild(modelNode);

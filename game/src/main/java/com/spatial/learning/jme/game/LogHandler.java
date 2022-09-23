@@ -11,7 +11,9 @@ import java.io.IOException;
 public class LogHandler extends BaseAppState {
     public GameState gameState;
     public String path = "D:/bhargav/vwm/";
-    public String name = "untitled.txt";
+    public String name = null;
+    public String playerName;
+    public boolean initialized = false;
 
     public LogHandler() throws IOException {
     }
@@ -38,7 +40,7 @@ public class LogHandler extends BaseAppState {
     @Override
     public void update(float tpf) {
         try {
-            if (getState(GameState.class).enabled) {
+            if (getState(GameState.class).enabled && name != null && initialized) {
                 BetterCharacterControl player = gameState.getPlayer();
                 Vector3f location = player.getRigidBody().getPhysicsLocation();
                 log(Math.round(location.getX() + 70) + "\t" + Math.round(location.getZ() + 70) + "\n");
@@ -59,7 +61,7 @@ public class LogHandler extends BaseAppState {
     }
 
     public boolean newRound(int trialNo, int positionNo) {
-        name = path + "pos" + positionNo + "trial" + trialNo + ".txt";
+        name = path + playerName + "/pos" + positionNo + "trial" + trialNo + ".txt";
         System.out.println(name);
         try {
             FileWriter fw = new FileWriter(name, false);
@@ -68,5 +70,10 @@ public class LogHandler extends BaseAppState {
         } catch (IOException e) {
             return false;
         }
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+        initialized = true;
     }
 }

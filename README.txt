@@ -78,3 +78,7 @@ https://github.com/Scrappers-glitch/Superior-Extended-Engine/tree/master/demoApp
 ## txt vs md
 
 This readme is provided as a .txt as that is a common format openable on any machine. However, it would more normally be a .md, this will allow it to be nicely formatted by most git repositories (assuming you commit it to git). Just change the extension from .txt to .md, the syntax is already correct for an md file
+
+Models source:
+https://free3d.com/3d-model/learjet-25-atlasjet-42833.html
+https://free3d.com/3d-model/helicopter-810418.html
