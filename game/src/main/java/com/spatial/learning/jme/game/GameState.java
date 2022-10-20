@@ -80,8 +80,8 @@ public class GameState extends BaseAppState implements ActionListener {
     @Override
     public void update(float tpf) {
         if (sceneInitialized) {
-            camDir.set(cam.getDirection()).multLocal(5f);
-            camLeft.set(cam.getLeft()).multLocal(1f);
+            camDir.set(cam.getDirection()).multLocal(10f);
+            camLeft.set(cam.getLeft()).multLocal(10f);
             walkDirection.set(0, 0, 0);
             if (left) {
                 walkDirection.addLocal(camLeft);
@@ -90,7 +90,7 @@ public class GameState extends BaseAppState implements ActionListener {
                 walkDirection.addLocal(camLeft.negate());
             }
             if (up) {
-                walkDirection.addLocal(camDir.mult(2f));
+                walkDirection.addLocal(camDir);
             }
             if (down) {
                 walkDirection.addLocal(camDir.negate());

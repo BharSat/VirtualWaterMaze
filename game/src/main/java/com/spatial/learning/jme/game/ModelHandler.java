@@ -75,28 +75,43 @@ public class ModelHandler extends BaseAppState {
     protected void onEnable() {
     }
 
+    protected Node loadSingleModel(int i, Node toAttach) {
+        Node model = loadSingleModel(i);
+        toAttach.attachChild(model);
+
+        PointLight modelLight = new PointLight();
+        modelLight.setColor(ColorRGBA.fromRGBA255(5, 5, 5, 5));
+        getStateManager().getState(GameState.class).getLightNode().addLight(modelLight);
+        model.addControl(new LightControl(modelLight));
+        toAttach.addLight(modelLight);
+        return model;
+    }
+
+    protected Node loadSingleModel(int i) {
+        String toLoad = this.modelList[i];
+        Node model = (Node) assetManager.loadModel(this.getAssetPath(toLoad));
+        model.setLocalTranslation(modelLocs.get(i));
+        return model;
+    }
+
     protected void loadModels(int start, int end) {
+        // Not in use due to certain issues
         List<Node> oldModels = new ArrayList<Node>(models);
-        boolean empty = start == 0;
-        if (!empty) {
-            models.clear();
-            models.add(oldModels.get(0));
-            models.add(oldModels.get(1));
+        boolean empty = start == 1;
+        try {
+            if (!empty) {
+                models.clear();
+                models.add(oldModels.get(0));
+                models.add(oldModels.get(1));
+            }
+        } catch (IndexOutOfBoundsException e) {
         }
         for (int i = start; i < end; i++) {
+            System.out.println(models.size());
             if (i > modelStartIndex && i < modelEndIndex) {
                 models.add(oldModels.get(i - modelStartIndex));
             } else {
-                String toLoad = this.modelList[i];
-                Node model = (Node) assetManager.loadModel(this.getAssetPath(toLoad));
-                model.scale(0.7f);
-                model.setLocalTranslation(modelLocs.get(i));
-                models.add(model);
-
-                PointLight modelLight = new PointLight();
-                modelLight.setColor(ColorRGBA.fromRGBA255(5, 5, 5, 5));
-                getStateManager().getState(GameState.class).getLightNode().addLight(modelLight);
-                model.addControl(new LightControl(modelLight));
+                models.add(loadSingleModel(i));
             }
         }
         if (!empty) {
@@ -142,16 +157,16 @@ public class ModelHandler extends BaseAppState {
     protected void loadPositionModels(int position) {
         rootNode.detachChild(modelNode);
         int[] combination = this.combinations.get(position);
-        loadModels(position, position + 4);
         modelNode.detachAllChildren();
         for (int index : combination) {
-            Node model = getModelAt(index);
-            modelNode.attachChild(model);
+            Node model = loadSingleModel(index, modelNode);
         }
         rootNode.attachChild(modelNode);
     }
 
     protected Node getModelAt(int index) {
+        // not in use due to certain issues
+        System.out.println(modelList[index]);
         if (index == 0) {
             return models.get(0);
         } else if (index == 1) {
