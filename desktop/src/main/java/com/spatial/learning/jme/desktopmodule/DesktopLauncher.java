@@ -15,7 +15,7 @@ public class DesktopLauncher {
         appSettings.setResolution(1192, 1080);
         appSettings.setWidth(1192);
         appSettings.setHeight(1080);
-        appSettings.setTitle("Virtual Water Maze v1.0.0 - Game");
+        appSettings.setTitle("Virtual Water Maze 2.0.a~ - Game");
         appSettings.setWindowYPosition(500);
         appSettings.setFullscreen(true);
 
