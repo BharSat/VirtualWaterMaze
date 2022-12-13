@@ -29,8 +29,9 @@ public class GameState extends BaseAppState implements ActionListener {
     private final Vector3f camLeft = new Vector3f();
     private final Vector3f walkDirection = new Vector3f();
     private final Node lightNode = new Node();
-    public Boolean initialized = false;
-    public Boolean enabled = false;
+    public boolean initialized = false;
+    public boolean enabled = false;
+    public boolean fileInitialized;
     boolean up = false, down = false, right = false, left = false;
     private Boolean sceneInitialized = false;
     private Camera cam;
@@ -79,9 +80,9 @@ public class GameState extends BaseAppState implements ActionListener {
 
     @Override
     public void update(float tpf) {
-        if (sceneInitialized) {
-            camDir.set(cam.getDirection()).multLocal(10f);
-            camLeft.set(cam.getLeft()).multLocal(10f);
+        if (sceneInitialized && this.stateManager.getState(ModelHandler.class).fileInited) {
+            camDir.set(cam.getDirection()).multLocal(this.stateManager.getState(ModelHandler.class).playerSpeed);
+            camLeft.set(cam.getLeft()).multLocal(this.stateManager.getState(ModelHandler.class).playerSpeed);
             walkDirection.set(0, 0, 0);
             if (left) {
                 walkDirection.addLocal(camLeft);

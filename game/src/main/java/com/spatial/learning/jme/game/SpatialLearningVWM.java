@@ -5,8 +5,12 @@ import com.jme3.app.state.AppState;
 import com.jme3.bullet.BulletAppState;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class SpatialLearningVWM extends SimpleApplication {
+    public ProjectManager projectManager;
+    public Reader reader;
+    public Map<String, Map<String, String>> data;
 
     public SpatialLearningVWM() {
     }

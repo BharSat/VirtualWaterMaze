@@ -10,6 +10,7 @@ public class GuiHandler extends BaseAppState {
     SpatialLearningVWM app;
     Container mainContainer;
     TextField playerNameField;
+    TextField filePathField;
 
     @Override
     protected void initialize(Application app) {
@@ -49,10 +50,13 @@ public class GuiHandler extends BaseAppState {
         this.app.getFlyByCamera().setEnabled(true);
         this.app.getInputManager().setCursorVisible(false);
         this.getStateManager().getState(LogHandler.class).setPlayerName(playerNameField.getText());
+        this.getStateManager().getState(ModelHandler.class).readSettingsFile("D://bhargav//new1.txt"/*filePathField.getText()*/);
         this.app.startGame();
     }
 
     public void startGui() {
+        mainContainer.addChild(new Label("Enter File Path:"));
+        filePathField = mainContainer.addChild(new TextField("__"));
         mainContainer.addChild(new Label("Enter Your Name:"));
         playerNameField = mainContainer.addChild(new TextField("__"));
         Button startButton = mainContainer.addChild(new Button("Lets Start."));

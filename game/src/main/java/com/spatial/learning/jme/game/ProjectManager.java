@@ -22,7 +22,6 @@ public class ProjectManager {
             try {
                 if (!toRet.file.createNewFile()) {
                     toRet.init = false;
-                    System.out.println(pathName);
                     return toRet;
                 }
 
@@ -30,7 +29,6 @@ public class ProjectManager {
                 toRet.data.put("data", new HashMap<>());
                 toRet.data.get("data").put("name", projectName);
                 toRet.data.get("data").put("path", pathName);
-                System.out.println(toRet.data);
 
                 toRet.init = true;
 

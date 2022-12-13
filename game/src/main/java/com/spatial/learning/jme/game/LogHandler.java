@@ -11,12 +11,18 @@ import java.io.IOException;
 
 public class LogHandler extends BaseAppState {
     public GameState gameState;
-    public String path = "D:/bhargav/vwm/";
+    public String path = "vwm/";
     public String name = null;
     public String playerName;
     public boolean initialized = false;
 
     public LogHandler() throws IOException {
+    }
+
+    public void root(String rootDir) {
+        path = rootDir;
+        File file = new File(path + "/logs");
+        file.mkdir();
     }
 
     @Override
@@ -62,7 +68,7 @@ public class LogHandler extends BaseAppState {
     }
 
     public boolean newRound(int trialNo, int positionNo) {
-        name = path + playerName + "/pos" + positionNo + "trial" + trialNo + ".txt";
+        name = path + "/logs/" + playerName + "/pos" + positionNo + "trial" + trialNo + ".txt";
         try {
             FileWriter fw = new FileWriter(name, false);
             fw.close();
@@ -74,7 +80,7 @@ public class LogHandler extends BaseAppState {
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
-        File file = new File(path + playerName);
+        File file = new File(path + "/logs/" + playerName);
         file.mkdir();
         initialized = true;
     }

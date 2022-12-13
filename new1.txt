@@ -1,0 +1,15 @@
+VWM/Virtual Water Maze Data File - 1.0.0
+#Test1 ;
+#0 ;
+#Home "D:\bhargav\projects\SpatialLearningVWM\new1.txt";
+#Constants no_of_sessions 2 no_of_trials 2 cue_format /models/<model_name>/<model_name>.gltf arena default1 arena_scale 35.0 player_speed 10.0 ;
+#Sessions
+#1
+	#trials
+	#1 probe no start 0.0 0.0 end 5.0 5.0 rect 5.0 5.0 cue 0 0.0 1.0 0.0 "PBox" ;	#2 probe no start 0.0 0.0 end 5.0 5.0 rect 5.0 5.0 cue 0 0.0 1.0 0.0 "PBox" ;	;;
+#2
+	#trials
+	#1 probe no start 0.0 0.0 end 5.0 5.0 rect 5.0 5.0 cue 0 0.0 1.0 0.0 "Castle" ;	#2 probe no start 0.0 0.0 end 5.0 5.0 rect 5.0 5.0 cue 0 0.0 1.0 0.0 "Castle" ;	;;
+;
+
+#End;
