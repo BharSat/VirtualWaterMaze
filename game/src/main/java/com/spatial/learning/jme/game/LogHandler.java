@@ -13,6 +13,7 @@ public class LogHandler extends BaseAppState {
     public GameState gameState;
     public String path = "vwm/";
     public String name = null;
+    public String dir = null;
     public String playerName;
     public boolean initialized = false;
 
@@ -50,7 +51,7 @@ public class LogHandler extends BaseAppState {
             if (getState(GameState.class).enabled && name != null && initialized) {
                 BetterCharacterControl player = gameState.getPlayer();
                 Vector3f location = player.getRigidBody().getPhysicsLocation();
-                log(Math.round(location.getX() + 70) + "\t" + Math.round(location.getZ() + 70) + "\n");
+                log(Math.round(location.getX() + 256) + "\t" + Math.round(location.getZ() + 256) + "\n");
             }
         } catch (NullPointerException ignored) {
         }
@@ -68,13 +69,18 @@ public class LogHandler extends BaseAppState {
     }
 
     public boolean newRound(int trialNo, int positionNo) {
+        dir = path + "/logs/" + playerName;
         name = path + "/logs/" + playerName + "/pos" + positionNo + "trial" + trialNo + ".txt";
         try {
-            FileWriter fw = new FileWriter(name, false);
+            File dirF = new File(dir);
+            dirF.mkdir();
+            File file = new File(name);
+            file.createNewFile();
+            FileWriter fw = new FileWriter(file, false);
             fw.close();
             return true;
         } catch (IOException e) {
-            return false;
+            throw new RuntimeException(e);
         }
     }
 

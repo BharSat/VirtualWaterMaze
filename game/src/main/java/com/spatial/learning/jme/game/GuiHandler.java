@@ -2,8 +2,8 @@ package com.spatial.learning.jme.game;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
+import com.jme3.math.Vector3f;
 import com.simsilica.lemur.*;
-import com.simsilica.lemur.style.BaseStyles;
 
 public class GuiHandler extends BaseAppState {
 
@@ -11,16 +11,25 @@ public class GuiHandler extends BaseAppState {
     Container mainContainer;
     TextField playerNameField;
     TextField filePathField;
+    boolean init = false;
 
     @Override
     protected void initialize(Application app) {
+        if (app==null) {
+            throw new RuntimeException("App passed to Gui Handler is null");
+        } else {
+            System.out.println("App at Gui Handler is not null; Continuing");
+        }
         this.app = (SpatialLearningVWM) app;
         GuiGlobals.initialize(this.app);
-        BaseStyles.loadGlassStyle();
-        GuiGlobals.getInstance().getStyles().setDefaultStyle("glass");
+//        BaseStyles.loadGlassStyle();
+//        GuiGlobals.getInstance().getStyles().setDefaultStyle("glass");
         mainContainer = new Container();
+        Vector3f preferredHeight = mainContainer.getPreferredSize().mult(0.5f);
+        mainContainer.setLocalTranslation(this.app.getCamera().getWidth() * .5f - preferredHeight.x, this.app.getCamera().getHeight() * .5f - preferredHeight.z, 0);
+
         this.app.getGuiNode().attachChild(mainContainer);
-        mainContainer.setLocalTranslation(600, 600, 0);
+        init = true;
         startGui();
     }
 
@@ -45,12 +54,20 @@ public class GuiHandler extends BaseAppState {
     }
 
     public void start() {
+        start(playerNameField.getText(), filePathField.getText());
+    }
+    public void start(String playerName, String path) {
+        if (app==null) {
+            throw new RuntimeException("this.app is null at GuiHandler.start");
+        } else {
+            System.out.println("this.app is not null at GuiHandler.start; Continuing");
+        }
         this.app.getGuiNode().detachAllChildren();
         this.mainContainer.detachAllChildren();
         this.app.getFlyByCamera().setEnabled(true);
         this.app.getInputManager().setCursorVisible(false);
-        this.getStateManager().getState(LogHandler.class).setPlayerName(playerNameField.getText());
-        this.getStateManager().getState(ModelHandler.class).readSettingsFile("D://bhargav//new1.txt"/*filePathField.getText()*/);
+        this.getStateManager().getState(LogHandler.class).setPlayerName(playerName);
+        this.getStateManager().getState(ModelHandler.class).readSettingsFile(path);
         this.app.startGame();
     }
 

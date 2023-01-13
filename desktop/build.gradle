@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'com.spatial.learning.jme'
-version '1.0.0'
+version '2.0.0'
 mainClassName = 'com.spatial.learning.jme.desktopmodule.DesktopLauncher'
 String dependenciesString = ""
 
@@ -22,10 +22,10 @@ dependencies {
     implementation "org.jmonkeyengine:jme3-desktop:" + jmonkeyengineVersion
 }
 task copyJars(type: Copy) {
-    from (sourceSets.main.runtimeClasspath){
+    from(sourceSets.main.runtimeClasspath) {
         include '**/*.jar'
     }
-    from(sourceSets.main.compileClasspath){
+    from(sourceSets.main.compileClasspath) {
         include '**/*.jar'
     }
     into('build/libs/dependencies')
@@ -35,11 +35,11 @@ task copyJars(type: Copy) {
 /**
  * Better approach described below, but the 2 of them are vial ones
  */
-task createJar(type : Jar, dependsOn : copyJars){
+task createJar(type: Jar, dependsOn: copyJars) {
     //get the copied jars
     final String project = rootDir.getPath()
     final File dependencies = new File(project + "/desktop/build/libs/dependencies/")
-    if(dependencies.exists()) {
+    if (dependencies.exists()) {
         if (dependencies.listFiles().length > 0) {
             final File[] files = dependencies.listFiles()
             for (int i = 0; i < files.length; i++) {
@@ -50,11 +50,11 @@ task createJar(type : Jar, dependsOn : copyJars){
             }
         }
     }
-    manifest{
+    manifest {
         attributes('Main-Class': mainClassName)
         //pass the jars to the manifest
-        attributes('Class-Path' : dependenciesString)
-        attributes('Created-By' : 'Jme3-Gradle')
+        attributes('Class-Path': dependenciesString)
+        attributes('Created-By': 'Jme3-Gradle')
     }
     with jar
 }
@@ -64,7 +64,7 @@ task createJar(type : Jar, dependsOn : copyJars){
 task releaseJar(type: Jar, dependsOn: copyJars) {
     manifest {
         attributes("Main-Class": mainClassName,
-                "Class-Path": sourceSets.main.runtimeClasspath.filter {it.isFile() }.collect { "dependencies/${it.name}" }.join(' '))
+                "Class-Path": sourceSets.main.runtimeClasspath.filter { it.isFile() }.collect { "dependencies/${it.name}" }.join(' '))
     }
     //tag the jar task to inject this task into it
     with jar

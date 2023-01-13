@@ -22,6 +22,7 @@ public class ProjectManager {
             try {
                 if (!toRet.file.createNewFile()) {
                     toRet.init = false;
+//                    System.out.println(pathName);
                     return toRet;
                 }
 
@@ -29,6 +30,7 @@ public class ProjectManager {
                 toRet.data.put("data", new HashMap<>());
                 toRet.data.get("data").put("name", projectName);
                 toRet.data.get("data").put("path", pathName);
+                System.out.println(toRet.data);
 
                 toRet.init = true;
 
@@ -122,29 +124,28 @@ public class ProjectManager {
 
     public String dataToString() {
         String toRet = "VWM/Virtual Water Maze Data File - 1.0.0\n";
-        toRet += "#" + this.data.get("data").get("name") + ";\n";
-        toRet += "#0;\n";
-        toRet += "#Home \"" + this.data.get("data").get("path") + "\";\n";
-        toRet += "#Constants\n#no_of_sessions " + this.data.get("data").get("sessions") + ";\n";
-        toRet += "#no_of_trials " + this.data.get("data").get("trials") + ";\n";
-        toRet += "#cue_format " + this.data.get("data").get("modelFormat") + ";\n";
-        toRet += "#arena " + this.data.get("data").get("arena") + ";\n";
-        toRet += "#arena_scale " + this.data.get("data").get("scale") + ";\n";
-        toRet += "#player_speed " + this.data.get("data").get("speed") + ";\n";
-        toRet += ";\n";
+        toRet += "#" + this.data.get("data").get("name") + "\n";
+        toRet += "#0\n";
+        toRet += "#Home \"" + this.data.get("data").get("path") + "\"\n";
+        toRet += "#Constants no_of_sessions " + this.data.get("data").get("sessions") + " ";
+        toRet += "no_of_trials " + this.data.get("data").get("trials") + " ";
+        toRet += "cue_format " + this.data.get("data").get("modelFormat") + " ";
+        toRet += "arena " + this.data.get("data").get("arena") + " ";
+        toRet += "arena_scale " + this.data.get("data").get("scale") + " ";
+        toRet += "player_speed " + this.data.get("data").get("speed") + " ";
+        toRet += "\n";
 
         toRet += "#Sessions\n";
         for (int i = 0, n = Integer.parseInt(this.data.get("data").get("sessions")); i < n; i++) {
             toRet += "#" + (i + 1) + "\n";
-            toRet += "\t#trials\n";
             for (int j = 0, m = Integer.parseInt(this.data.get("data").get("trials")); j < m; j++) {
                 toRet += "\t#" + (j + 1) + " " + data.get(String.valueOf(i)).get(String.valueOf(j));
                 for (int k = 0, o = this.cueMap.get(i).get(j).size(); k < o; k++) {
-                    toRet += "cue " + k + " " + this.cueMap.get(i).get(j).get(k) + " ";
+                    toRet += " cue " + k + " " + this.cueMap.get(i).get(j).get(k) + " ";
                 }
+                toRet += "\n";
             }
-            toRet += "\t;";
-            toRet += ";\n";
+            toRet += "\n";
         }
         toRet += ";\n";
 

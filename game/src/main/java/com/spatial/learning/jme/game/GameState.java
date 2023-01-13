@@ -115,7 +115,7 @@ public class GameState extends BaseAppState implements ActionListener {
 
         Node scene = (Node) assetManager.loadModel("Models/scene.glb");
         scene.setLocalTranslation(0f, this.getVWMApplication().getGround(), 0f);
-        scene.scale(1f, 2f, 1f);
+        scene.scale(5.12f, 2f, 5.12f);
         scene.addControl(playerLight);
 
         CollisionShape sceneShape = CollisionShapeFactory.createMeshShape(scene);

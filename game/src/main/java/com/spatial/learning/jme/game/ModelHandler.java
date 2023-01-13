@@ -4,6 +4,7 @@ import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.plugins.FileLocator;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 
@@ -34,6 +35,16 @@ public class ModelHandler extends BaseAppState {
     private AssetManager assetManager;
     private Node modelNode;
     private Boolean probe;
+    private Boolean enabled = false;
+    private Timer timer = new Timer();
+    private TimerTask task = new TimerTask() {
+        @Override
+        public void run() {
+            timeUp();
+        }
+    };
+
+
 
     @Override
     protected void initialize(Application app) {
@@ -54,7 +65,7 @@ public class ModelHandler extends BaseAppState {
         rootDir = parentDir.toFile().getAbsolutePath();//path_to_game_file.substring(0, path_to_game_file.lastIndexOf('/'));
         this.getState(LogHandler.class).root(rootDir);
         this.assetManager.registerLocator(rootDir, FileLocator.class);
-        System.out.println(rootDir);
+//        System.out.println(rootDir);
         this.app.projectManager = ProjectManager.newProject("", path_to_game_file);
         FileReader reader;
         try {
@@ -89,7 +100,7 @@ public class ModelHandler extends BaseAppState {
         // System.out.println(this.app.data);
         maxSessions = Integer.parseInt(app.data.get("data").get("sessions"));
         maxTrials = Integer.parseInt(app.data.get("data").get("trials"));
-        trialNumber = maxTrials - 1;
+        trialNumber = maxTrials;
         modelPathFormat = app.data.get("data").get("cue_format");
         scale = Float.parseFloat(app.data.get("data").get("scale"));
         playerSpeed = Float.parseFloat(app.data.get("data").get("speed"));
@@ -111,11 +122,15 @@ public class ModelHandler extends BaseAppState {
 
     }
 
+    private boolean boolYesNo(String yesNo) {
+        return yesNo.equals("yes");
+    }
+
     protected void loadPosition(int position, int trial) {
         rootNode.detachChild(modelNode);
         modelNode.detachAllChildren();
         Map<String, String> data = this.app.data.get((position + 1) + " " + (trial + 1));
-        probe = Boolean.parseBoolean(data.get("probe"));
+        probe = boolYesNo(data.get("probe"));
         String[] startData = data.get("start").split(" ");
         startX = Float.parseFloat(startData[0]);
         startZ = Float.parseFloat(startData[1]);
@@ -126,7 +141,7 @@ public class ModelHandler extends BaseAppState {
         endZ = Float.parseFloat(endData[1]);
         endShape = endData[4];
         endXLength = Float.parseFloat(endData[2]);
-        endXLength = Float.parseFloat(endData[3]);
+        endZLength = Float.parseFloat(endData[3]);
 
         for (int i = 0, n = Integer.parseInt(data.get("cues")); i < n; i++) {
             String[] cueData = data.get("cue" + (i + 1)).split(" ");
@@ -144,6 +159,10 @@ public class ModelHandler extends BaseAppState {
             model.setLocalTranslation(cueLoc.get(0), cueLoc.get(1), cueLoc.get(2));
             modelNode.attachChild(model);
         }
+        double y = Math.random() * 2 * Math.PI;
+        Quaternion rotation = new Quaternion();
+        rotation.fromAngleAxis((float) y, Vector3f.UNIT_Y);
+        this.getApplication().getCamera().setRotation(rotation);
 
         rootNode.attachChild(modelNode);
     }
@@ -154,24 +173,33 @@ public class ModelHandler extends BaseAppState {
 
     public void nextTrial() {
         this.getStateManager().getState(GameState.class).enabled = true;
-        this.trialNumber++;
+        enabled = true;
+        task.cancel();
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                timeUp();
+            }
+        };
         if (trialNumber == maxTrials) {
             positionNumber++;
-            trialNumber = 1;
+            trialNumber = -1;
         }
-//        System.out.println(positionNumber + ":" + trialNumber);
+        this.trialNumber++;
         loadPosition(positionNumber, trialNumber);
         if (!this.getStateManager().getState(LogHandler.class).newRound(trialNumber, positionNumber)) {
-            System.out.println("Failed at " + trialNumber + " " + positionNumber);
+            System.out.println("Failed to open log file at " + trialNumber + " " + positionNumber);
         }
+
         if (probe) {
-            Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    nextTrial();
+                    foundPosition();
                 }
             }, 60000);
+        } else {
+            timer.schedule(task, 60000);
         }
         this.getStateManager().getState(GameState.class).startLight();
         this.getStateManager().getState(GameState.class).getPlayer().warp(new Vector3f(startX, 1.0f, startZ));
@@ -181,6 +209,7 @@ public class ModelHandler extends BaseAppState {
     public void foundPosition() {
         this.getStateManager().getState(GameState.class).getPlayer().warp(new Vector3f(0, 3, 0));
         this.getStateManager().getState(GameState.class).enabled = false;
+        this.enabled = false;
         this.getStateManager().getState(GameState.class).stopLight();
         this.getStateManager().getState(GuiHandler.class).initGuiBetweenRounds(this);
     }
@@ -190,15 +219,17 @@ public class ModelHandler extends BaseAppState {
     }
 
     public void checkPlayerHasWon() {
-        playerLocation.set(this.app.getStateManager().getState(GameState.class).getPlayer().getRigidBody().getPhysicsLocation());
-        platformTopLeft.set(endX - endXLength / 2, 0, endZ - endZLength / 2);
-        platformBottomRight.set(endX + endXLength / 2, 0, endZ + endZLength / 2);
-        if (endShape.equals("rect") && (playerLocation.x > platformTopLeft.x) && (playerLocation.x < platformBottomRight.x) && (playerLocation.z > platformTopLeft.z) && (playerLocation.z < platformBottomRight.z)) {
-            foundPosition();
-        } else if (endShape.equals("circle") && isInsideEllipse(endX, endZ, playerLocation.x, playerLocation.z, endXLength, endZLength)) {
-            foundPosition();
+        if (enabled) {
+            playerLocation.set(this.app.getStateManager().getState(GameState.class).getPlayer().getRigidBody().getPhysicsLocation());
+            platformTopLeft.set(endX - endXLength / 2, 0, endZ - endZLength / 2);
+            platformBottomRight.set(endX + endXLength / 2, 0, endZ + endZLength / 2);
+            if (endShape.equals("rect") && (playerLocation.x > platformTopLeft.x) && (playerLocation.x < platformBottomRight.x) && (playerLocation.z > platformTopLeft.z) && (playerLocation.z < platformBottomRight.z)) {
+                foundPosition();
+            } else if (endShape.equals("circle") && isInsideEllipse(endX, endZ, playerLocation.x, playerLocation.z, endXLength, endZLength)) {
+                foundPosition();
+            }
+//            System.out.println("" + trialNumber + playerLocation.x + platformTopLeft.x + playerLocation.x + platformBottomRight.x + playerLocation.z + platformTopLeft.z + playerLocation.z + platformBottomRight.z);
         }
-//        System.out.println((playerLocation.x > platformTopLeft.x) && (playerLocation.x < platformBottomRight.x) && (playerLocation.z > platformTopLeft.z) && (playerLocation.z < platformBottomRight.z));
     }
 
     public boolean isInsideEllipse(float h, float k, float x, float y, float a, float b) {
@@ -209,10 +240,18 @@ public class ModelHandler extends BaseAppState {
     @Override
     public void update(float tpf) {
         try {
+            System.out.println(probe.toString() + trialNumber);
             if (!probe) {
                 checkPlayerHasWon();
             }
         } catch (NullPointerException ignored) {
         }
     }
+
+    private void timeUp() {
+        Node Flag = (Node)assetManager.loadModel("Models/Cues/Flag/Flag.glb");
+        Flag.setLocalTranslation(new Vector3f(endX, 0, endZ));
+        modelNode.attachChild(Flag);
+    }
+
 }

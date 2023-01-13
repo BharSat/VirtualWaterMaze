@@ -1,5 +1,7 @@
 plugins {
     id 'com.android.application'
+    id "io.github.0ffz.github-packages" version "1.2.1"
+    // Plugin for anonymous inclusion of artifacts hosted in github package registry
 }
 
 android {
@@ -25,22 +27,38 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
-    configurations.all {
-        exclude group:"org.jmonkeyengine",module:"jme3-desktop"
+    buildFeatures {
+        viewBinding true
     }
 }
 
 ext.jmonkeyengineVersion = '3.5.2-stable'
 
+configurations.all {
+    exclude group: 'org.jmonkeyengine', module: 'jme3-desktop'
+}
+
+
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.6.0'
+
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:'
+    implementation 'androidx.navigation:navigation-fragment:2.5.3'
+    implementation 'androidx.navigation:navigation-ui:2.5.3'
+    implementation "androidx.fragment:fragment:1.5.5"
+    implementation 'org.jmonkeyengine:jme3-android:' + jmonkeyengineVersion
+    implementation 'org.jmonkeyengine:jme3-android-native:' + jmonkeyengineVersion
+    implementation 'org.jmonkeyengine:jme3-core:' + jmonkeyengineVersion
+    implementation 'org.codehaus.groovy:groovy-all:2.4.15'
+
+    implementation project(path: ':game')
+    implementation 'androidx.fragment:fragment:1.5.5'
+    implementation files('lib/jme-cardboard.jar')
+
+    testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    implementation project(path: ':game')
-    implementation "org.jmonkeyengine:jme3-core:" + jmonkeyengineVersion
-    implementation "org.jmonkeyengine:jme3-android-native:" + jmonkeyengineVersion
-    implementation 'com.google.guava:guava:27.0.1-android'
+    implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
+
 }
