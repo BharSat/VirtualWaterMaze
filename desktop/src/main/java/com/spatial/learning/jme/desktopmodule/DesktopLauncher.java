@@ -22,6 +22,7 @@ public class DesktopLauncher {
         game.setSettings(appSettings);
         game.setShowSettings(false);
         game.setDisplayStatView(false);
+        game.setReader(new DesktopReader());
         game.start();
     }
 }

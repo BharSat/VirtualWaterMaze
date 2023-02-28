@@ -8,10 +8,7 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -36,7 +33,7 @@ public class ModelHandler extends BaseAppState {
     private Node modelNode;
     private Boolean probe;
     private Boolean enabled = false;
-    private Timer timer = new Timer();
+    private final Timer timer = new Timer();
     private TimerTask task = new TimerTask() {
         @Override
         public void run() {
@@ -59,43 +56,23 @@ public class ModelHandler extends BaseAppState {
     }
 
     protected void readSettingsFile(String path_to_game_file) {
-        File rootName = new File(path_to_game_file);
-        Path rootPath = rootName.toPath();
-        Path parentDir = rootPath.getParent();
-        rootDir = parentDir.toFile().getAbsolutePath();//path_to_game_file.substring(0, path_to_game_file.lastIndexOf('/'));
+        try {
+            File rootName = new File(path_to_game_file);
+            Path rootPath = rootName.toPath();
+            Path parentDir = rootPath.getParent();
+            rootDir = parentDir.toFile().getAbsolutePath();
+        } catch (NullPointerException e) {
+            rootDir="";
+            System.out.println();
+        }
         this.getState(LogHandler.class).root(rootDir);
         this.assetManager.registerLocator(rootDir, FileLocator.class);
-//        System.out.println(rootDir);
-        this.app.projectManager = ProjectManager.newProject("", path_to_game_file);
-        FileReader reader;
-        try {
-            reader = ProjectManager.openFileReader(path_to_game_file);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        BufferedReader bReader = new BufferedReader(reader);
-        StringBuilder stringBuilder = new StringBuilder();
-        String line;
-        String ls = System.getProperty("line.separator");
-        while (true) {
-            try {
-                if ((line = bReader.readLine()) == null) break;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            stringBuilder.append(line);
-            stringBuilder.append(ls);
-        }
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-        try {
-            bReader.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
-        String content = stringBuilder.toString();
-        this.app.reader = new Reader(this.app.projectManager);
-        this.app.data = this.app.reader.stringToData(content);
+        this.app.fileReader.openFile(path_to_game_file);
+        String content = this.app.fileReader.readFile();
+        this.app.projectManager = ProjectManager.newProject("", path_to_game_file);
+        this.app.dataReader = new DataReader(this.app.projectManager);
+        this.app.data = this.app.dataReader.stringToData(content);
         // System.out.println("Data: ");
         // System.out.println(this.app.data);
         maxSessions = Integer.parseInt(app.data.get("data").get("sessions"));

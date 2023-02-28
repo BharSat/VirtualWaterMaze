@@ -4,14 +4,16 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppState;
 import com.jme3.bullet.BulletAppState;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
 public class SpatialLearningVWM extends SimpleApplication {
     public ProjectManager projectManager;
-    public Reader reader;
+    public DataReader dataReader;
     public Map<String, Map<String, String>> data;
     public boolean started = false;
+    public FileReader fileReader;
     public StartTask startTask = new StartTask() {
         @Override
         void run() {}
@@ -41,6 +43,10 @@ public class SpatialLearningVWM extends SimpleApplication {
 
     public float getGround() {
         return -5f;
+    }
+
+    public void setReader(FileReader reader) {
+        this.fileReader=reader;
     }
 
     public void startGame() {

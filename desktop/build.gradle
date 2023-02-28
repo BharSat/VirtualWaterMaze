@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'com.spatial.learning.jme'
-version '2.0.0'
+version '2.0.1'
 mainClassName = 'com.spatial.learning.jme.desktopmodule.DesktopLauncher'
 String dependenciesString = ""
 
@@ -32,9 +32,6 @@ task copyJars(type: Copy) {
     includeEmptyDirs = false
     setDuplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 }
-/**
- * Better approach described below, but the 2 of them are vial ones
- */
 task createJar(type: Jar, dependsOn: copyJars) {
     //get the copied jars
     final String project = rootDir.getPath()
@@ -58,9 +55,6 @@ task createJar(type: Jar, dependsOn: copyJars) {
     }
     with jar
 }
-/**
- * A Suggestion of better code by : Mikhail Bobrutskov (aka wizzardo)
- */
 task releaseJar(type: Jar, dependsOn: copyJars) {
     manifest {
         attributes("Main-Class": mainClassName,

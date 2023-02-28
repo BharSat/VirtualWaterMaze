@@ -1,11 +1,23 @@
 package com.spatial.learning.jme.android;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
 import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
+import android.net.Uri;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -38,6 +50,8 @@ import com.jme3.app.*;
 import com.spatial.learning.jme.game.SpatialLearningVWM;
 
 public class AndroidLauncher extends AppCompatActivity implements TouchListener, DialogInterface.OnClickListener, SystemListener {
+
+    public static final int REQUEST_ENABLE_BT = 1;
 
     protected final static Logger logger = Logger.getLogger(AndroidHarness.class.getName());
     /**
@@ -174,6 +188,36 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
     private boolean firstDrawFrame = true;
     private boolean inConfigChange = false;
 
+    public BluetoothAdapter bluetoothAdapter;
+    public BluetoothManager bluetoothManager;
+
+    public boolean permisionGranted = false;
+    private ActivityResultLauncher<String> requestStoragePermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                System.out.println("Storage Permissions is "+isGranted);
+                AndroidLauncher.this.permisionGranted=isGranted;
+            });
+    private ActivityResultLauncher<String> requestBTPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                System.out.println("BT Permissions is "+isGranted);
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            });
+    Uri readerUri;
+    AndroidReader reader = new AndroidReader();
+    public ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+            new ActivityResultCallback<Uri>() {
+        @Override
+        public void onActivityResult(Uri uri) {
+            if (uri==null) {
+                throw new RuntimeException("URL is null: pleasse select a file");
+            }
+            reader.preRead(uri);
+            readerUri = uri;
+        }
+    });
+    public ActivityResultLauncher<String> getmGetContent() {return mGetContent;}
+
     private class DataObject {
         protected SpatialLearningVWM app = null;
     }
@@ -189,6 +233,7 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        System.out.println("Oncreate");
         super.onCreate(savedInstanceState);
         if (screenFullScreen) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -199,11 +244,36 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
                 requestWindowFeature(Window.FEATURE_NO_TITLE);
             }
         }
+
         setContentView(getLayoutInflater().inflate(R.layout.activity_main, null, false));
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .add(R.id.fragment_start, StartFragment.class, null)
                 .commit();
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestStoragePermissionLauncher.launch(
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+            );
+        }
+        else {
+            permisionGranted = true;
+        }
+
+        bluetoothManager = getSystemService(BluetoothManager.class);
+        bluetoothAdapter = bluetoothManager.getAdapter();
+        if (bluetoothAdapter == null) {
+            throw new RuntimeException("Device does not support bluetooth");
+        }
+        if (!bluetoothAdapter.isEnabled()) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                requestBTPermissionLauncher.launch(
+                        Manifest.permission.BLUETOOTH_CONNECT
+                );
+            }
+        }
+
     }
 
     public void startGame() {
@@ -255,9 +325,12 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
                 }
 
                 app.setSettings(settings);
-                app.getStateManager().attach(new VrState());
+                AndroidReader reader = new AndroidReader();
+                reader.setActivity(this);
+                app.setReader(reader);
                 app.start();
                 app.startGame(playerName, filePath);
+                app.getStateManager().attach(new VrState());
             } catch (Exception ex) {
                 handleError("Class " + appClass + " init failed", ex);
                 setContentView(new TextView(this));
@@ -595,5 +668,15 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
             }
         }
         isGLThreadPaused = true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_ENABLE_BT) {
+            if (resultCode==RESULT_CANCELED) {
+                this.permisionGranted = false;
+            }
+        }
     }
 }

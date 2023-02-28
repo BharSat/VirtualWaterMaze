@@ -29,6 +29,9 @@ public class StartFragment extends Fragment {
     }
     public static StartFragment newInstance(AndroidLauncher launcher) {
         StartFragment fragment = new StartFragment();
+        if (launcher==null){
+            launcher = (AndroidLauncher) fragment.getActivity();
+        }
         fragment.launcher = launcher;
         return fragment;
     }
@@ -36,6 +39,9 @@ public class StartFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (launcher==null) {
+            launcher = (AndroidLauncher) getActivity();
+        }
     }
 
     @Override
@@ -44,13 +50,24 @@ public class StartFragment extends Fragment {
         // Inflate the layout for this fragment
         super.onCreateView(inflater, container, savedInstanceState);
         System.out.println("\n\n\n\n\n\n\nOn Create View");
-        View view = inflater.inflate(R.layout.fragment_start, container, false);
-        Button button = view.findViewById(R.id.start_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startJmeGame(v);
-            }
-        });
+        View view;
+        if (launcher.permisionGranted) {
+            view = inflater.inflate(R.layout.fragment_start, container, false);
+            Button button = view.findViewById(R.id.start_button);
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    startJmeGame(v);
+                }
+            });
+        } else {
+            view = inflater.inflate(R.layout.permission_not_granted, container, false);
+            Button button = view.findViewById(R.id.exitButton);
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    launcher.finish();
+                }
+            });
+        }
         return view;
     }
 
