@@ -14,6 +14,7 @@ public class SpatialLearningVWM extends SimpleApplication {
     public Map<String, Map<String, String>> data;
     public boolean started = false;
     public FileReader fileReader;
+    public boolean isDirectBluetooth = false, isTransmitter = true;
     public StartTask startTask = new StartTask() {
         @Override
         void run() {}
@@ -39,6 +40,11 @@ public class SpatialLearningVWM extends SimpleApplication {
         stateManager.update(0);
         started = true;
         startTask.run();
+    }
+
+    public void setDirectBluetooth(boolean directBluetooth, boolean isTransmitter) {
+        isDirectBluetooth = directBluetooth;
+        this.isTransmitter = isTransmitter;
     }
 
     public float getGround() {

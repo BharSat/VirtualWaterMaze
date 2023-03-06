@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothSocket;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -24,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
@@ -35,6 +37,15 @@ public class AndroidReader implements FileReader {
     private boolean hasPreRead = false;
     private Uri uri;
     private boolean useBluetooth = false;
+
+    @Override
+    public OutputStream getOutputStream(String name) {
+        try {
+            return activity.openFileOutput(name, Context.MODE_PRIVATE);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public String preRead(Uri uri) {
         this.setUri(uri);
@@ -49,6 +60,11 @@ public class AndroidReader implements FileReader {
 
     public void setUseBluetooth(boolean useBluetooth) {
         this.useBluetooth = useBluetooth;
+    }
+
+    @Override
+    public boolean useThisReader() {
+        return true;
     }
 
     @Override

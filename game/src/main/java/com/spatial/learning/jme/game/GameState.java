@@ -32,7 +32,7 @@ public class GameState extends BaseAppState implements ActionListener {
     public boolean initialized = false;
     public boolean enabled = false;
     public boolean fileInitialized;
-    boolean up = false, down = false, right = false, left = false;
+    public boolean up = false, down = false, right = false, left = false;
     private Boolean sceneInitialized = false;
     private Camera cam;
     private SpatialLearningVWM app;
@@ -45,6 +45,7 @@ public class GameState extends BaseAppState implements ActionListener {
     private InputManager inputManager;
     private DirectionalLight sun;
     private SpotLight sceneLight;
+    private Vector3f walkCoef = new Vector3f();
 
     public GameState() {
     }
@@ -81,7 +82,7 @@ public class GameState extends BaseAppState implements ActionListener {
     @Override
     public void update(float tpf) {
         if (sceneInitialized && this.stateManager.getState(ModelHandler.class).fileInited) {
-            camDir.set(cam.getDirection()).multLocal(this.stateManager.getState(ModelHandler.class).playerSpeed);
+            camDir.set(cam.getDirection()).multLocal(this.stateManager.getState(ModelHandler.class).playerSpeed).multLocal(walkCoef);
             camLeft.set(cam.getLeft()).multLocal(this.stateManager.getState(ModelHandler.class).playerSpeed);
             walkDirection.set(0, 0, 0);
             if (left) {
@@ -113,7 +114,7 @@ public class GameState extends BaseAppState implements ActionListener {
         LightControl playerLight = initLight();
         flyCam.setMoveSpeed(40f);
 
-        Node scene = (Node) assetManager.loadModel("Models/scene.glb");
+        Node scene = (Node) assetManager.loadModel("models/scene.glb");
         scene.setLocalTranslation(0f, this.getVWMApplication().getGround(), 0f);
         scene.scale(5.12f, 2f, 5.12f);
         scene.addControl(playerLight);
@@ -184,6 +185,10 @@ public class GameState extends BaseAppState implements ActionListener {
         } else {
             throw new RuntimeException("Game Has not Initialized yet");
         }
+    }
+
+    public void setVelocityFactor(Vector3f vector3f) {
+        walkCoef = vector3f;
     }
 
     public BetterCharacterControl getPlayer() {

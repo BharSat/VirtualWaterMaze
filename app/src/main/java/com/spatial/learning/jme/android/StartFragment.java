@@ -23,6 +23,8 @@ import java.util.Objects;
 public class StartFragment extends Fragment {
     public AndroidLauncher launcher;
     public View mainView;
+    private LayoutInflater inflater;
+    ViewGroup container;
 
     public StartFragment() {
         // Required empty public constructor
@@ -56,7 +58,7 @@ public class StartFragment extends Fragment {
             Button button = view.findViewById(R.id.start_button);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    startJmeGame(v);
+                    startJmeGame();
                 }
             });
         } else {
@@ -76,7 +78,7 @@ public class StartFragment extends Fragment {
         super.setArguments(args);
     }
 
-    public void startJmeGame(View view) {
+    public void startJmeGame() {
         ConstraintLayout layout = getView().findViewById(R.id.frameLayout);
         EditText filePathEdit = layout.findViewById(R.id.filePathTextEdit);
         EditText playerNameEdit = layout.findViewById(R.id.nameTextEdit);
@@ -84,5 +86,18 @@ public class StartFragment extends Fragment {
             throw new RuntimeException("FilePathEdit: "+filePathEdit+" PlayerNameEdit: "+playerNameEdit+" Either is null at StartFragment.StartJmeGame");
         }
         ((AndroidLauncher) requireActivity()).startGame(playerNameEdit.getText().toString(), filePathEdit.getText().toString());
+    }
+
+    public void calibrateView(View v) {
+        ConstraintLayout layout = getView().findViewById(R.id.frameLayout);
+        EditText filePathEdit = layout.findViewById(R.id.filePathTextEdit);
+        EditText playerNameEdit = layout.findViewById(R.id.nameTextEdit);
+        Bundle args = new Bundle();
+        args.putString(CalibrateFragment.FilePath, filePathEdit.getText().toString());
+        args.putString(CalibrateFragment.PlayerName, playerNameEdit.getText().toString());
+        System.out.println("So far, So good");
+        launcher.transaction
+                .replace(R.id.calibrateLayout, CalibrateFragment.class, args)
+                .commit();
     }
 }

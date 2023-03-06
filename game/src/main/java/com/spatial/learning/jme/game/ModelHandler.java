@@ -3,6 +3,7 @@ package com.spatial.learning.jme.game;
 import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
 import com.jme3.asset.AssetManager;
+import com.jme3.asset.AssetNotFoundException;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -40,14 +41,17 @@ public class ModelHandler extends BaseAppState {
             timeUp();
         }
     };
-
-
+    private BluetoothManager bluetoothManager;
+    private boolean isDirectBluetooth = false;
+    private boolean isTransmitter = true;
 
     @Override
     protected void initialize(Application app) {
         if (this.app == null) {
             this.app = (SpatialLearningVWM) app;
         }
+        this.isDirectBluetooth = this.app.isDirectBluetooth;
+        this.isTransmitter = this.app.isTransmitter;
         this.assetManager = this.app.getAssetManager();
         this.rootNode = this.app.getRootNode();
         this.modelNode = new Node();
@@ -70,8 +74,7 @@ public class ModelHandler extends BaseAppState {
 
         this.app.fileReader.openFile(path_to_game_file);
         String content = this.app.fileReader.readFile();
-        this.app.projectManager = ProjectManager.newProject("", path_to_game_file);
-        this.app.dataReader = new DataReader(this.app.projectManager);
+        this.app.dataReader = new DataReader();
         this.app.data = this.app.dataReader.stringToData(content);
         // System.out.println("Data: ");
         // System.out.println(this.app.data);
@@ -131,8 +134,15 @@ public class ModelHandler extends BaseAppState {
                     modelPathFormat.replace("<model_name>", name));
             Path cueRootPath = cueRootFile.toPath().getParent();
             String cueRootPathStr = cueRootPath.toString();
-            this.assetManager.registerLocator(cueRootPathStr, FileLocator.class);
-            Node model = (Node) assetManager.loadModel(cueRootFile.getName());
+            Node model;
+            try {
+                model = (Node) assetManager.loadModel(cueRootFile.getPath());
+            } catch (IllegalArgumentException ignored) {
+                this.assetManager.registerLocator(cueRootPathStr, FileLocator.class);
+                model = (Node) assetManager.loadModel(cueRootFile.getName());
+            } catch (AssetNotFoundException e) {
+                model = (Node) assetManager.loadModel(modelPathFormat.replace("<model_name>", name));
+            }
             model.setLocalTranslation(cueLoc.get(0), cueLoc.get(1), cueLoc.get(2));
             modelNode.attachChild(model);
         }
@@ -217,7 +227,6 @@ public class ModelHandler extends BaseAppState {
     @Override
     public void update(float tpf) {
         try {
-            System.out.println(probe.toString() + trialNumber);
             if (!probe) {
                 checkPlayerHasWon();
             }
@@ -229,6 +238,10 @@ public class ModelHandler extends BaseAppState {
         Node Flag = (Node)assetManager.loadModel("Models/Cues/Flag/Flag.glb");
         Flag.setLocalTranslation(new Vector3f(endX, 0, endZ));
         modelNode.attachChild(Flag);
+    }
+
+    public void setBluetoothManager(BluetoothManager bluetoothManager) {
+        this.bluetoothManager=bluetoothManager;
     }
 
 }

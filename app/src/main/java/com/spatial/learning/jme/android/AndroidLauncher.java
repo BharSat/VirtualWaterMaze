@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -188,6 +189,8 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
     private boolean firstDrawFrame = true;
     private boolean inConfigChange = false;
 
+    public FragmentTransaction transaction;
+
     public BluetoothAdapter bluetoothAdapter;
     public BluetoothManager bluetoothManager;
 
@@ -246,10 +249,10 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
         }
 
         setContentView(getLayoutInflater().inflate(R.layout.activity_main, null, false));
-        getSupportFragmentManager().beginTransaction()
+        transaction = getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .add(R.id.fragment_start, StartFragment.class, null)
-                .commit();
+                .add(R.id.fragment_start, StartFragment.class, null);
+        transaction.commit();
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -325,12 +328,10 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
                 }
 
                 app.setSettings(settings);
-                AndroidReader reader = new AndroidReader();
-                reader.setActivity(this);
-                app.setReader(reader);
+                app.setReader(new PreReader(this));
                 app.start();
                 app.startGame(playerName, filePath);
-                app.getStateManager().attach(new VrState());
+                app.getStateManager().attach(new VrState(this));
             } catch (Exception ex) {
                 handleError("Class " + appClass + " init failed", ex);
                 setContentView(new TextView(this));
@@ -571,7 +572,7 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
             }
 
             app.getInputManager().addMapping(ESCAPE_EVENT, new TouchTrigger(TouchInput.KEYCODE_BACK));
-            app.getInputManager().addListener(this, new String[]{ESCAPE_EVENT});
+            app.getInputManager().addListener(this, ESCAPE_EVENT);
         }
     }
 

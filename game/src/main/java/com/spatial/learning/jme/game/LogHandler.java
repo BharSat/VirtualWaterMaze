@@ -8,14 +8,18 @@ import com.jme3.math.Vector3f;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 public class LogHandler extends BaseAppState {
+    public SpatialLearningVWM app;
     public GameState gameState;
-    public String path = "vwm/";
+    public String path;
     public String name = null;
     public String dir = null;
     public String playerName;
     public boolean initialized = false;
+    OutputStream outStream;
 
     public LogHandler() throws IOException {
     }
@@ -28,12 +32,17 @@ public class LogHandler extends BaseAppState {
 
     @Override
     protected void initialize(Application app) {
+        this.app = (SpatialLearningVWM) app;
         this.gameState = app.getStateManager().getState(GameState.class);
     }
 
     @Override
     protected void cleanup(Application app) {
-
+        try {
+            outStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NullPointerException ignored) {}
     }
 
     @Override
@@ -51,7 +60,7 @@ public class LogHandler extends BaseAppState {
             if (getState(GameState.class).enabled && name != null && initialized) {
                 BetterCharacterControl player = gameState.getPlayer();
                 Vector3f location = player.getRigidBody().getPhysicsLocation();
-                log(Math.round(location.getX() + 256) + "\t" + Math.round(location.getZ() + 256) + "\n");
+                log(Math.round(location.getX()*100) + "\t" + Math.round(location.getZ()*100) + "\n");
             }
         } catch (NullPointerException ignored) {
         }
@@ -59,10 +68,15 @@ public class LogHandler extends BaseAppState {
 
     public boolean log(String toLog) {
         try {
-            FileWriter fw = new FileWriter(name, true);
-            fw.write(toLog);
-            fw.close();
-            return true;
+            if (app.fileReader.useThisReader()) {
+                outStream.write(toLog.getBytes(StandardCharsets.UTF_8));
+                return true;
+            } else {
+                FileWriter fw = new FileWriter(name, true);
+                fw.write(toLog);
+                fw.close();
+                return true;
+            }
         } catch (IOException e) {
             return false;
         }
@@ -72,6 +86,10 @@ public class LogHandler extends BaseAppState {
         dir = path + "/logs/" + playerName;
         name = path + "/logs/" + playerName + "/pos" + positionNo + "trial" + trialNo + ".txt";
         try {
+            if (this.app.fileReader.useThisReader()) {
+                outStream = app.fileReader.getOutputStream(playerName + "pos" + positionNo + "trial" + trialNo + ".txt");
+                return true;
+            }
             File dirF = new File(dir);
             dirF.mkdir();
             File file = new File(name);

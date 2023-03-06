@@ -6,9 +6,25 @@ import com.spatial.learning.jme.game.ProjectManager;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 
 public class DesktopReader implements FileReader {
     String path;
+    @Override
+    public OutputStream getOutputStream(String name) {
+        return new OutputStream() {
+            @Override
+            public void write(int i) throws IOException {
+
+            }
+        };
+    }
+
+    @Override
+    public boolean useThisReader() {
+        return false;
+    }
+
     @Override
     public String readFile() {
         java.io.FileReader reader;

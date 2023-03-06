@@ -5,6 +5,8 @@ import com.jme3.app.state.BaseAppState;
 import com.jme3.math.Vector3f;
 import com.simsilica.lemur.*;
 
+import java.io.IOException;
+
 public class GuiHandler extends BaseAppState {
 
     SpatialLearningVWM app;
@@ -12,6 +14,8 @@ public class GuiHandler extends BaseAppState {
     TextField playerNameField;
     TextField filePathField;
     boolean init = false;
+    private final BluetoothManager bluetoothManager = new BluetoothManager(this);
+    String useBluetoothButtonText = "Use Bluetooth Directly...";
 
     @Override
     protected void initialize(Application app) {
@@ -59,8 +63,6 @@ public class GuiHandler extends BaseAppState {
     public void start(String playerName, String path) {
         if (app==null) {
             throw new RuntimeException("this.app is null at GuiHandler.start");
-        } else {
-            System.out.println("this.app is not null at GuiHandler.start; Continuing");
         }
         this.app.getGuiNode().detachAllChildren();
         this.mainContainer.detachAllChildren();
@@ -79,6 +81,9 @@ public class GuiHandler extends BaseAppState {
         Button startButton = mainContainer.addChild(new Button("Lets Start."));
         startButton.addClickCommands(source -> start());
         startButton.setTextHAlignment(HAlignment.Center);
+        Button bluetoothButton = mainContainer.addChild(new Button(useBluetoothButtonText));
+        bluetoothButton.addClickCommands(source -> useBluetoothDirect());
+        bluetoothButton.setTextHAlignment(HAlignment.Center);
     }
 
     public void initGuiBetweenRounds(ModelHandler modelHandler) {
@@ -96,5 +101,37 @@ public class GuiHandler extends BaseAppState {
         this.app.getFlyByCamera().setEnabled(false);
         this.app.getInputManager().setCursorVisible(true);
         this.app.getGuiNode().attachChild(mainContainer);
+    }
+
+    public void connectionSuccess() {
+        this.app.getStateManager().getState(ModelHandler.class).setBluetoothManager(bluetoothManager);
+        mainContainer.detachAllChildren();
+        try {
+            mainContainer.addChild(
+                    new Label("Connected to " + bluetoothManager.getRemoteDeviceName() + "\n"
+                            + "with Bluetooth Address " + bluetoothManager.getRemoteDeviceBluetoothAddress()
+                    )
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            useBluetoothDirect();
+        }
+    }
+
+    public void useBluetoothDirect() {
+        mainContainer.detachAllChildren();
+        bluetoothManager.startServer();
+        try {
+            mainContainer.attachChild(
+                    new Label("Server Started! Waiting for device to connect:\n"
+                            + "Connection details: \n"
+                            + "Device Name:" + bluetoothManager.getDeviceName() + "\n"
+                            + "Bluetooth Address:" + bluetoothManager.getDeviceBluetoothAddress()
+                    )
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

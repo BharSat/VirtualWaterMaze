@@ -7,10 +7,8 @@ import java.util.Map;
 
 public class DataReader {
     public final char a = (char) 10;
-    ProjectManager parent;
 
-    public DataReader(ProjectManager parent) {
-        this.parent = parent;
+    public DataReader() {
     }
 
     public Map<String, Map<String, String>> stringToData(String dataString) {
