@@ -15,8 +15,15 @@ import javax.microedition.io.StreamConnectionNotifier;
 
 public class BluetoothManager {
     private final GuiHandler guiHandler;
+
     BluetoothServerConnector serverConnector;
+    BluetoothDataWriter dataWriter;
+    BluetoothDataReceiver dataReceiver;
+    DataProcessor dataProcessor;
+
     public final StringBuilder readData = new StringBuilder();
+    public final StringBuilder writeData = new StringBuilder();
+    public final float[] dataFloats = new float[7];
     BluetoothManager(GuiHandler guiHandler) {
         this.guiHandler = guiHandler;
         serverConnector = new BluetoothServerConnector();
@@ -29,8 +36,7 @@ public class BluetoothManager {
     }
 
     public void write(String data) {
-        BluetoothDataWriter dataWriter = new BluetoothDataWriter(data);
-        dataWriter.start();
+        writeData.append(data);
     }
 
     public void close() {
@@ -65,6 +71,13 @@ public class BluetoothManager {
         return stringBuilder.toString();
     }
 
+    private void connectionSuccess() {
+        guiHandler.connectionSuccess();
+        dataWriter = new BluetoothDataWriter();
+        dataReceiver = new BluetoothDataReceiver();
+        dataProcessor = new DataProcessor();
+    }
+
     private class BluetoothServerConnector extends Thread {
         private final String uuidStr = remove(java.util.UUID.randomUUID().toString());
         private final UUID uuid = new UUID(uuidStr, false);
@@ -81,9 +94,9 @@ public class BluetoothManager {
             try {
                 scn = (StreamConnectionNotifier) Connector.open(connURL);
                 sc = scn.acceptAndOpen();
-                guiHandler.connectionSuccess();
+                BluetoothManager.this.connectionSuccess();
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
         public StreamConnection getSc() {
@@ -101,8 +114,8 @@ public class BluetoothManager {
     }
 
     private class BluetoothDataWriter extends Thread {
-        String data;
-        BluetoothDataWriter(String data) {
+        public boolean end = false;
+        BluetoothDataWriter() {
             try {
                 if (serverConnector.getSc() == null) {
                     throw new NullPointerException("First Connect before instantiating bluetooth data writer.");
@@ -110,18 +123,24 @@ public class BluetoothManager {
             } catch (NullPointerException e) {
                 throw new NullPointerException("First Connect before instantiating bluetooth data writer.");
             }
-            this.data = data;
         }
         public void run() {
             StreamConnection sc =serverConnector.getSc();
-            OutputStream outputStream = null;
-            try {
-                outputStream = sc.openOutputStream();
-                outputStream.write(data.getBytes(StandardCharsets.UTF_8));
-                outputStream.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            OutputStream outputStream;
+            String writeDataStr = "";
+            do {
+                try {
+                    outputStream = sc.openOutputStream();
+                    writeDataStr = writeData.toString();
+                    synchronized (writeData) {
+                        if (!writeDataStr.equals(""))
+                            outputStream.write(writeData.toString().getBytes(StandardCharsets.UTF_8));
+                    }
+                    outputStream.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } while (!end);
         }
     }
 
@@ -152,27 +171,58 @@ public class BluetoothManager {
         }
     }
     private class DataProcessor extends Thread{
+        private final int datLen = 50;
+        public boolean end = false;
         @Override
         public void run() {
             String data;
-            String dataToRead = null;
+            String dataToRead;
             while (true) {
                 synchronized (readData) {
                     data = readData.toString();
                 }
-                if (data.length()==30) {
+                if (data.length()==datLen) {
                     dataToRead = data;
-                } else if (data.length()>30) {
-                    dataToRead = data.substring(0, 30);
+                } else if (data.length()>datLen) {
+                    dataToRead = data.substring(0, datLen);
                     synchronized (readData) {
-                        readData.delete(0, 30);
+                        readData.delete(0, datLen);
                     }
                 } else {
                     dataToRead = null;
                 }
                 if (dataToRead!=null) {
-
+                    if (dataToRead.equals("-".repeat(datLen))) {
+                        break;
+                    } else if (dataToRead.charAt(0) != '!') {
+                        char c;
+                        for (int i=0;i<dataToRead.length();i++) {
+                            c = dataToRead.charAt(i);
+                            if (c=='!') {
+                                readData.delete(0, i);
+                                break;
+                            }
+                        }
+                    } else {
+                        synchronized (dataFloats){
+                            dataFloats[0] = tf(dataToRead, 1);
+                            dataFloats[1] = tf(dataToRead, 8);
+                            dataFloats[2] = tf(dataToRead, 15);
+                            dataFloats[3] = tf(dataToRead, 22);
+                            dataFloats[4] = tf(dataToRead, 29);
+                            dataFloats[5] = tf(dataToRead, 36);
+                            dataFloats[6] = tf(dataToRead, 43);
+                        }
+                    }
                 }
+            }
+        }
+
+        private float tf(String str, int s) {
+            try {
+                return Float.parseFloat(str.substring(s, s + 7));
+            } catch (NumberFormatException e) {
+                throw new RuntimeException(e);
             }
         }
     }

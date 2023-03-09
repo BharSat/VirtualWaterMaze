@@ -12,16 +12,30 @@ import com.spatial.learning.jme.game.BluetoothReceiver;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.UUID;
 
 public class AndroidBTReceiver implements BluetoothReceiver {
     AndroidLauncher activity;
+    ConnectThread connectThread;
+
     AndroidBTReceiver(AndroidLauncher activity) {
         this.activity = activity;
     }
+
     @Override
     public void connect(String deviceName, String HardwareAddress, boolean useDeviceName, boolean useHardwareAddress) {
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        Set<BluetoothDevice> pairedDevices = activity.bluetoothAdapter.getBondedDevices();
 
+        if (pairedDevices.size() > 0) {
+            for (BluetoothDevice device : pairedDevices) {
+                String deviceNameA = device.getName();
+                String deviceHardwareAddressA = device.getAddress();
+            }
+        }
     }
 
     @Override
@@ -52,7 +66,8 @@ public class AndroidBTReceiver implements BluetoothReceiver {
     private class ConnectThread extends Thread {
         private BluetoothSocket mmSocket;
         private BluetoothDevice mmDevice;
-        String data = null;
+        public String data = null;
+        final BufferClass bufferClass= new BufferClass();
 
         public ConnectThread(BluetoothDevice device) {
             // Use a temporary object that is later assigned to mmSocket
@@ -105,21 +120,24 @@ public class AndroidBTReceiver implements BluetoothReceiver {
             }
             byte[] buffer = new byte[1024];
             int noOfBytes;
-            BufferThread bufferThread = new BufferThread();
             boolean shouldBreak = false;
             while (true) {
                 try {
-                    noOfBytes = inputStream.read(buffer);
-                    shouldBreak = bufferThread.addData(buffer, noOfBytes);
-                    if (shouldBreak) {
-                        break;
+                    synchronized (bufferClass) {
+                        noOfBytes = inputStream.read(buffer);
+                        shouldBreak = bufferClass.addData(buffer, noOfBytes);
+                        if (shouldBreak) {
+                            break;
+                        }
                     }
                 } catch (IOException e) {
                     System.out.println("Socket was disconnected");
                     break;
                 }
             }
-            this.data = bufferThread.getData();
+            synchronized (data) {
+                this.data = bufferClass.getData();
+            }
             try {
                 inputStream.close();
                 mmSocket.close();
@@ -137,10 +155,10 @@ public class AndroidBTReceiver implements BluetoothReceiver {
             }
         }
     }
-    private static class BufferThread extends Thread {
+    private class BufferClass {
         StringBuilder data;
         int len;
-        public void run() {
+        public BufferClass() {
             data = new StringBuilder();
             len = 0;
         }
@@ -149,7 +167,7 @@ public class AndroidBTReceiver implements BluetoothReceiver {
             this.len += len;
             return false;
         }
-        public String getData() {
+        public synchronized String getData() {
             return data.toString();
         }
         public int getLen() {

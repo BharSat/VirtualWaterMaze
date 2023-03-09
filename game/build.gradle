@@ -21,5 +21,5 @@ dependencies {
     implementation 'com.github.stephengold:Minie:4.9.0'
     implementation 'com.simsilica:lemur:1.16.0'
     implementation 'org.codehaus.groovy:groovy-all:2.4.15'
-    implementation 'net.sf.bluecove:bluecove:2.1.0'
+    implementation 'io.ultreia:bluecove:2.1.1'
 }
