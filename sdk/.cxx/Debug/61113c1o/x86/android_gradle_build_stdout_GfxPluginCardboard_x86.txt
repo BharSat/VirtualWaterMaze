@@ -1,0 +1,31 @@
+ninja: Entering directory `D:\bhargav\projects\SpatialLearningVWM\sdk\.cxx\Debug\61113c1o\x86'
+[1/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/lens_distortion.cc.o
+[2/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/qrcode/cardboard_v1/cardboard_v1.cc.o
+[3/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/cardboard.cc.o
+[4/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/polynomial_radial_distortion.cc.o
+[5/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/distortion_mesh.cc.o
+[6/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/head_tracker.cc.o
+[7/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/jni_utils/android/jni_utils.cc.o
+[8/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/sensors/lowpass_filter.cc.o
+[9/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/sensors/mean_filter.cc.o
+[10/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/sensors/median_filter.cc.o
+[11/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/sensors/android/device_gyroscope_sensor.cc.o
+[12/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/sensors/neck_model.cc.o
+[13/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/sensors/gyroscope_bias_estimator.cc.o
+[14/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/util/is_initialized.cc.o
+[15/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/sensors/android/device_accelerometer_sensor.cc.o
+[16/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/sensors/sensor_fusion_ekf.cc.o
+[17/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/util/matrixutils.cc.o
+[18/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/screen_params/android/screen_params.cc.o
+[19/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/util/matrix_4x4.cc.o
+[20/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/sensors/android/sensor_event_producer.cc.o
+[21/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/util/matrix_3x3.cc.o
+[22/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/util/vectorutils.cc.o
+[23/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/qrcode/android/qr_code.cc.o
+[24/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/rendering/opengl_es2_distortion_renderer.cc.o
+[25/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/util/rotation.cc.o
+[26/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/rendering/opengl_es3_distortion_renderer.cc.o
+[27/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/device_params/android/device_params.cc.o
+[28/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/rendering/android/vulkan/android_vulkan_loader.cc.o
+[29/30] Building CXX object CMakeFiles/GfxPluginCardboard.dir/rendering/android/vulkan_distortion_renderer.cc.o
+[30/30] Linking CXX shared library ..\..\..\..\build\intermediates\cxx\Debug\61113c1o\obj\x86\libGfxPluginCardboard.so

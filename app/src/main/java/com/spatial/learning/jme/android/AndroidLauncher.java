@@ -1,14 +1,5 @@
 package com.spatial.learning.jme.android;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -23,11 +14,27 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.*;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.jme3.app.AndroidHarness;
+import com.jme3.app.Application;
+import com.jme3.app.SimpleApplication;
 import com.jme3.audio.AudioRenderer;
 import com.jme3.input.JoyInput;
 import com.jme3.input.TouchInput;
@@ -40,6 +47,9 @@ import com.jme3.system.SystemListener;
 import com.jme3.system.android.JmeAndroidSystem;
 import com.jme3.system.android.OGLESContext;
 import com.jme3.util.AndroidLogHandler;
+import com.spatial.learning.cardboard.CardboardVrState;
+import com.spatial.learning.jme.game.SpatialLearningVWM;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.logging.Handler;
@@ -47,10 +57,7 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-import com.jme3.app.*;
-import com.spatial.learning.jme.game.SpatialLearningVWM;
-
-public class AndroidLauncher extends AppCompatActivity implements TouchListener, DialogInterface.OnClickListener, SystemListener {
+public class AndroidLauncher extends CardboardVrState implements TouchListener, DialogInterface.OnClickListener, SystemListener {
 
     public static final int REQUEST_ENABLE_BT = 1;
 
@@ -116,7 +123,6 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
      * versions 2.3+.
      * <p>
      * Only use ANDROID_ static strings found in AppSettings
-     *
      */
     protected String audioRendererType = AppSettings.ANDROID_OPENAL_SOFT;
 
@@ -195,31 +201,38 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
     public BluetoothManager bluetoothManager;
 
     public boolean permisionGranted = false;
-    private ActivityResultLauncher<String> requestStoragePermissionLauncher =
+    private final ActivityResultLauncher<String> requestStoragePermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                System.out.println("Storage Permissions is "+isGranted);
-                AndroidLauncher.this.permisionGranted=isGranted;
+                System.out.println("Storage Permissions is " + isGranted);
+                AndroidLauncher.this.permisionGranted = isGranted;
             });
-    private ActivityResultLauncher<String> requestBTPermissionLauncher =
+    private final ActivityResultLauncher<String> requestBTPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                System.out.println("BT Permissions is "+isGranted);
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                System.out.println("BT Permissions is " + isGranted);
+                if (isGranted) {
+                    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                } else {
+                    throw new RuntimeException("Permission for bluetooth not granted.");
+                }
             });
     Uri readerUri;
     AndroidReader reader = new AndroidReader();
     public ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
             new ActivityResultCallback<Uri>() {
-        @Override
-        public void onActivityResult(Uri uri) {
-            if (uri==null) {
-                throw new RuntimeException("URL is null: pleasse select a file");
-            }
-            reader.preRead(uri);
-            readerUri = uri;
-        }
-    });
-    public ActivityResultLauncher<String> getmGetContent() {return mGetContent;}
+                @Override
+                public void onActivityResult(Uri uri) {
+                    if (uri == null) {
+                        throw new RuntimeException("URL is null: please select a file");
+                    }
+                    reader.preRead(uri);
+                    readerUri = uri;
+                }
+            });
+
+    public ActivityResultLauncher<String> getmGetContent() {
+        return mGetContent;
+    }
 
     private class DataObject {
         protected SpatialLearningVWM app = null;
@@ -239,12 +252,12 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
         System.out.println("Oncreate");
         super.onCreate(savedInstanceState);
         if (screenFullScreen) {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         } else {
             if (!screenShowTitle) {
-                requestWindowFeature(Window.FEATURE_NO_TITLE);
+                supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
             }
         }
 
@@ -259,8 +272,7 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
             requestStoragePermissionLauncher.launch(
                     Manifest.permission.READ_EXTERNAL_STORAGE
             );
-        }
-        else {
+        } else {
             permisionGranted = true;
         }
 
@@ -269,12 +281,10 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
         if (bluetoothAdapter == null) {
             throw new RuntimeException("Device does not support bluetooth");
         }
-        if (!bluetoothAdapter.isEnabled()) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                requestBTPermissionLauncher.launch(
-                        Manifest.permission.BLUETOOTH_CONNECT
-                );
-            }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            requestBTPermissionLauncher.launch(
+                    Manifest.permission.BLUETOOTH_CONNECT
+            );
         }
 
     }
@@ -323,15 +333,14 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
             // Create application instance
             try {
                 if (app == null) {
-                    Class clazz = Class.forName(appClass);
-                    app = (SpatialLearningVWM) clazz.newInstance();
+                    app = new SpatialLearningVWM();
                 }
 
                 app.setSettings(settings);
                 app.setReader(new PreReader(this));
                 app.start();
                 app.startGame(playerName, filePath);
-                app.getStateManager().attach(new VrState(this));
+                app.getStateManager().attach(this);
             } catch (Exception ex) {
                 handleError("Class " + appClass + " init failed", ex);
                 setContentView(new TextView(this));
@@ -445,7 +454,7 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
      * Called by the android alert dialog, terminate the activity and OpenGL
      * rendering
      *
-     * @param dialog ignored
+     * @param dialog      ignored
      * @param whichButton the button index
      */
     @Override
@@ -675,7 +684,7 @@ public class AndroidLauncher extends AppCompatActivity implements TouchListener,
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_ENABLE_BT) {
-            if (resultCode==RESULT_CANCELED) {
+            if (resultCode == RESULT_CANCELED) {
                 this.permisionGranted = false;
             }
         }

@@ -1,0 +1,1 @@
+ninja: Entering directory `D:\bhargav\projects\SpatialLearningVWM\cardboard\.cxx\Debug\2h2k6gb4\x86_64'

@@ -1,0 +1,79 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.google.cardboard.sdk" >
+4
+5    <uses-sdk
+6        android:minSdkVersion="24"
+6-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml
+7        android:targetSdkVersion="31" />
+7-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml
+8
+9    <!--
+10      #gles3 - glEsVersion is 0x00030000 for OpenGL ES 3.0 support. Change it to 0x00020000 if
+11      only OpenGL ES 2.0 support is needed.
+12    -->
+13    <uses-feature
+13-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:7:5-78
+14        android:glEsVersion="0x00030000"
+14-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:7:19-51
+15        android:required="true" />
+15-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:7:52-75
+16
+17    <uses-permission android:name="android.permission.CAMERA" />
+17-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:8:5-65
+17-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:8:22-62
+18    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+18-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:9:5-81
+18-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:9:22-78
+19    <uses-permission android:name="android.permission.INTERNET" />
+19-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:10:5-67
+19-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:10:22-64
+20    <uses-permission android:name="android.permission.NFC" />
+20-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:11:5-61
+20-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:11:22-59
+21
+22    <application>
+22-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:14:5-35:19
+23        <activity
+23-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:15:9-19:39
+24            android:name="com.google.cardboard.sdk.QrCodeCaptureActivity"
+24-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:16:13-74
+25            android:exported="false"
+25-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:19:13-37
+26            android:label="@string/title_activity_qr_code_capture"
+26-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:17:13-67
+27            android:theme="@style/Theme.AppCompat.NoActionBar" />
+27-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:18:13-63
+28
+29        <!--
+30          Activity whose sole purpose is to update Cardboard device params when a Cardboard V1
+31          NFC tag is detected.
+32        -->
+33        <activity
+33-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:23:9-34:20
+34            android:name="com.google.cardboard.sdk.HeadsetDetectionActivity"
+34-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:24:13-77
+35            android:exported="true"
+35-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:26:13-36
+36            android:label="@string/headset_detection_activity_title" >
+36-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:25:13-69
+37
+38            <!-- Handles the Cardboard V1 NFC tag released at Google I/O 2014. -->
+39            <intent-filter>
+39-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:29:13-33:29
+40                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+40-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:30:17-77
+40-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:30:25-74
+41
+42                <category android:name="android.intent.category.DEFAULT" />
+42-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:31:17-76
+42-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:31:27-73
+43
+44                <data android:scheme="cardboard" />
+44-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:32:17-52
+44-->D:\bhargav\projects\SpatialLearningVWM\sdk\qrcode\android\AndroidManifest.xml:32:23-49
+45            </intent-filter>
+46        </activity>
+47    </application>
+48
+49</manifest>

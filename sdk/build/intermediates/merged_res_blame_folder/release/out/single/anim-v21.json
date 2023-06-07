@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/anim-v21/mtrl_bottom_sheet_slide_in.xml",
+        "source": "com.google.cardboard.sdk-material-1.6.1-15:/anim-v21/mtrl_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/anim-v21/mtrl_bottom_sheet_slide_out.xml",
+        "source": "com.google.cardboard.sdk-material-1.6.1-15:/anim-v21/mtrl_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/anim-v21/fragment_fast_out_extra_slow_in.xml",
+        "source": "com.google.cardboard.sdk-fragment-1.3.6-8:/anim-v21/fragment_fast_out_extra_slow_in.xml"
+    },
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/anim-v21/design_bottom_sheet_slide_in.xml",
+        "source": "com.google.cardboard.sdk-material-1.6.1-15:/anim-v21/design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/anim-v21/design_bottom_sheet_slide_out.xml",
+        "source": "com.google.cardboard.sdk-material-1.6.1-15:/anim-v21/design_bottom_sheet_slide_out.xml"
+    }
+]

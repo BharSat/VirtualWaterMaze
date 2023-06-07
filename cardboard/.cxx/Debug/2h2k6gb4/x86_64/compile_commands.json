@@ -1,0 +1,7 @@
+[
+{
+  "directory": "D:/bhargav/projects/SpatialLearningVWM/cardboard/.cxx/Debug/2h2k6gb4/x86_64",
+  "command": "D:\\Programs\\AndroidSDK\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=x86_64-none-linux-android29 --gcc-toolchain=D:/Programs/AndroidSDK/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=D:/Programs/AndroidSDK/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dcardboard_EXPORTS -ID:/bhargav/projects/SpatialLearningVWM/sdk/include -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -O0 -fno-limit-debug-info  -fPIC -o CMakeFiles\\cardboard.dir\\CardboardRenderer.cpp.o -c D:\\bhargav\\projects\\SpatialLearningVWM\\cardboard\\src\\main\\cpp\\CardboardRenderer.cpp",
+  "file": "D:\\bhargav\\projects\\SpatialLearningVWM\\cardboard\\src\\main\\cpp\\CardboardRenderer.cpp"
+}
+]

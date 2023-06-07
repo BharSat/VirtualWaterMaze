@@ -13,154 +13,18 @@ public class DataReader {
 
     public Map<String, Map<String, String>> stringToData(String dataString) {
         Map<String, Map<String, String>> toRet = new HashMap<>();
-        /*String mode = "startH",
-                subMode = "";
-        int temp1 = 0,
-                temp2 = 0;
-        String tempStr1 = "",
-                tempStr2 = "";
-        List<String> tempList = new ArrayList<>();
-        com.admin.vwm.game.classes.Loop bodyLoop = new com.admin.vwm.game.classes.Loop("Body", new ArrayList<>()),
-                curLoop = bodyLoop,
-                parentLoop = null;
-        boolean slash = false, comment = false;
-        for (char c : dataString.toCharArray()) {
-            System.out.println(mode + subMode + c + "int: " + (int) c);
-            if (c == '/') {
-                comment = slash;
-                slash = !slash;
-                if (comment) {
-                    tempStr2 = mode;
-                    mode = "false";
-                }
-            } else if (comment && c == '\n') {
-                comment = false;
-                mode = tempStr2;
-                tempStr2 = "";
-            } else if (slash) {
-                slash = false;
-            }
-            switch (mode) {
-                case "startH":
-                    temp1++;
-                    tempStr1 += c;
-                    if (temp1 == 35) {
-                        if (tempStr1.equals("VWM/Virtual Water Maze Data File - ")) {
-                            mode = "startV";
-                            temp1 = 0;
-                            tempStr1 = "";
-                        } else {
-                            return new com.admin.vwm.game.classes.Loop("Invalid Header: " + tempStr1, new ArrayList<>());
-                        }
-                    }
-                    break;
-                case "startV":
-                    temp1++;
-                    tempStr1 += c;
-                    if (temp1 == 5) {
-                        System.out.println(tempStr1);
-                        mode = "body";
-                        subMode = "newA";
-                        temp1 = 0;
-                        tempStr1 = "";
-                    }
-                    break;
-                case "body":
-                    switch (subMode) {
-                        case "newA":
-                            switch (c) {
-                                case '#':
-                                    subMode = "loopStart";
-                                    break;
-                                case ' ':
-                                    subMode = "newItem";
-                                    break;
-                                case '\r':
-                                case a:
-                                case '\t':
-                                    System.out.println("new line");
-                                    break;
-                                default:
-                                    return new com.admin.vwm.game.classes.Loop("Error: Unexpected Character '" + c + "'", new ArrayList<>());
-                            }
-                            break;
-                        case "newItem":
-                            switch (c) {
-                                case '#':
-                                    subMode = "loopStart";
-                                    break;
-                                case ' ':
-                                case '\r':
-                                case a:
-                                case '\t':
-                                    break;
-                                case ';':
-                                    curLoop = parentLoop;
-                                    try {
-                                        parentLoop = parentLoop.parent();
-                                    } catch (NullPointerException e) {
-                                        parentLoop = null;
-                                    }
-                                    System.out.println("test");
-                                    break;
-                                default:
-                                    subMode = "item";
-                                    break;
-                            }
-                            break;
-                        case "item":
-                            if (c == ' ') {
-                                subMode = "newItem";
-                                tempList.add(tempStr1);
-                                tempStr1 = "";
-                                break;
-                            } else if (c == ';') {
-                                subMode = "newItem";
-                                tempList.add(tempStr1);
-                                tempStr1 = "";
-                                curLoop.addArgs(tempList);
-                                tempList.clear();
-                                parentLoop.addChild(curLoop);
-                                curLoop = parentLoop;
-                                parentLoop = curLoop.parent();
-                            }
-                            tempStr1 += c;
-                            break;
-                        case "loopStart":
-                            System.out.println("loop" + tempStr1);
-                            if (c == ' ') {
-                                System.out.println(tempStr1);
-                                parentLoop = curLoop;
-                                curLoop = new com.admin.vwm.game.classes.Loop(tempStr1, new ArrayList<>());
-                                parentLoop.addChild(curLoop);
-                                subMode = "newItem";
-                                tempStr1 = "";
-                                if (curLoop.name.equals("End")) {
-                                    mode = "";
-                                    break;
-                                }
-                            }
-                            tempStr1 += c;
-                    }
-                    break;
-                case "":
-                case "false":
-                    break;
-                default:
-                    return new com.admin.vwm.game.classes.Loop("Logic Error: Incorrect mode " + mode, new ArrayList<>());
-            }
-        }*/
         List<String> sessionTxt = new ArrayList<>();
         String[] linesAsArray = dataString.split("\n");
-        String versionDetail = "", nameofPrj = "", fileNo = "", rootPath = "", cueFormat = "", arenaName = "";
+        String header = "", nameofPrj = "", fileNo = "", rootPath = "", cueFormat = "", arenaName = "";
         int sessionNo = 0, trialNo = 0;
-        float arenaScale = 1.0f, playerSpeed = 1.0f;
+        float version = 3.0f, arenaScale = 1.0f, playerSpeed = 1.0f, retardation_factor = 1.0f, fogDistance = 50.0f, fogDensity = 2.0f;
         int lineNo = 0;
         for (String line : linesAsArray) {
             lineNo++;
             switch (lineNo) {
                 case 1:
-                    versionDetail = line;
+                    header = line;
+                    version = Float.parseFloat(header.substring(35, 38));
                     break;
                 case 2:
                     nameofPrj = line;
@@ -169,8 +33,12 @@ public class DataReader {
                     fileNo = line;
                     break;
                 case 4:
-                    rootPath = line.split("\"")[1];
-                    break;
+                    if (version == 1.0) {
+                        rootPath = line.split("\"")[1];
+                        break;
+                    } else {
+                        lineNo++;
+                    }
                 case 5:
                     String[] dataValues = line.split(" ");
                     sessionNo = Integer.parseInt(dataValues[2]);
@@ -179,6 +47,11 @@ public class DataReader {
                     arenaName = dataValues[8];
                     arenaScale = Float.parseFloat(dataValues[10]);
                     playerSpeed = Float.parseFloat(dataValues[12]);
+                    if (version >= 3.0) {
+                        retardation_factor = Float.parseFloat(dataValues[14]);
+                        fogDistance = Float.parseFloat(dataValues[16]);
+                        fogDensity = Float.parseFloat(dataValues[18]);
+                    }
                     break;
                 default:
                     sessionTxt.add(line);
@@ -187,6 +60,7 @@ public class DataReader {
             }
         }
         toRet.put("data", new HashMap<>());
+        toRet.get("data").put("version", "" + version);
         toRet.get("data").put("name", nameofPrj + fileNo);
         toRet.get("data").put("root", rootPath);
         toRet.get("data").put("sessions", "" + sessionNo);
@@ -195,6 +69,9 @@ public class DataReader {
         toRet.get("data").put("cue_format", cueFormat);
         toRet.get("data").put("scale", "" + arenaScale);
         toRet.get("data").put("speed", "" + playerSpeed);
+        toRet.get("data").put("retard_factor", "" + retardation_factor);
+        toRet.get("data").put("fog_distance", "" + fogDistance);
+        toRet.get("data").put("fog_density", "" + fogDensity);
 
         String curLine, sessionID, trialID, probe;
         float startX, startZ, endX, endZ, endXlen, endZlen;

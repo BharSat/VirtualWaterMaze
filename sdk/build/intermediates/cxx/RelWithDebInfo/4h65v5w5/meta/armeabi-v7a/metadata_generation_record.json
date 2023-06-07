@@ -1,0 +1,44 @@
+[
+  {
+    "level_": 0,
+    "message_": "Start JSON generation. Platform version: 24 min SDK version: armeabi-v7a",
+    "file_": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt",
+    "tag_": "release|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 1639903337
+  },
+  {
+    "level_": 0,
+    "message_": "JSON \u0027D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\.cxx\\RelWithDebInfo\\4h65v5w5\\armeabi-v7a\\android_gradle_build.json\u0027 was up-to-date",
+    "file_": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt",
+    "tag_": "release|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -660028891
+  },
+  {
+    "level_": 0,
+    "message_": "JSON generation completed without problems",
+    "file_": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt",
+    "tag_": "release|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1041863479
+  }
+]

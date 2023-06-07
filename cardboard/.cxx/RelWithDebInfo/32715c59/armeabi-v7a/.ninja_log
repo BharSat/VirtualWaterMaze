@@ -1,0 +1,6 @@
+# ninja log v5
+1	694	705668359	CMakeFiles/cardboard.dir/CardboardRenderer.cpp.o	1820bb9233ca3b9d
+696	1101	705668359	D:/bhargav/projects/SpatialLearningVWM/cardboard/build/intermediates/cxx/RelWithDebInfo/32715c59/obj/armeabi-v7a/libcardboard.so	81b12a4d2ede0856
+5	289	705669381	D:/bhargav/projects/SpatialLearningVWM/cardboard/build/intermediates/cxx/RelWithDebInfo/32715c59/obj/armeabi-v7a/libcardboard.so	81b12a4d2ede0856
+2	138	705698980	D:/bhargav/projects/SpatialLearningVWM/cardboard/build/intermediates/cxx/RelWithDebInfo/32715c59/obj/armeabi-v7a/libcardboard.so	81b12a4d2ede0856
+3	117	705699012	D:/bhargav/projects/SpatialLearningVWM/cardboard/build/intermediates/cxx/RelWithDebInfo/32715c59/obj/armeabi-v7a/libcardboard.so	81b12a4d2ede0856

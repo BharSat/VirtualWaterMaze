@@ -3,49 +3,31 @@ package com.spatial.learning.jme.game;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.app.state.BaseAppState;
-import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
-import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.BetterCharacterControl;
-import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.bullet.util.CollisionShapeFactory;
-import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
-import com.jme3.light.DirectionalLight;
-import com.jme3.light.Light;
-import com.jme3.light.PointLight;
-import com.jme3.light.SpotLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.jme3.scene.Node;
-import com.jme3.scene.control.LightControl;
 
 public class GameState extends BaseAppState implements ActionListener {
     private final Vector3f camDir = new Vector3f();
     private final Vector3f camLeft = new Vector3f();
     private final Vector3f walkDirection = new Vector3f();
-    private final Node lightNode = new Node();
+    private ModelHandler mh;
     public boolean initialized = false;
     public boolean enabled = false;
-    public boolean fileInitialized;
     public boolean up = false, down = false, right = false, left = false;
     private Boolean sceneInitialized = false;
     private Camera cam;
     private SpatialLearningVWM app;
-    private Node rootNode;
-    private AssetManager assetManager;
-    private FlyByCamera flyCam;
     private AppStateManager stateManager;
     private BulletAppState physics;
     private BetterCharacterControl player;
     private InputManager inputManager;
-    private DirectionalLight sun;
-    private SpotLight sceneLight;
-    private Vector3f walkCoef = new Vector3f();
 
     public GameState() {
     }
@@ -53,10 +35,7 @@ public class GameState extends BaseAppState implements ActionListener {
     @Override
     protected void initialize(Application app) {
         this.app = (SpatialLearningVWM) app;
-        this.rootNode = this.app.getRootNode();
-        this.assetManager = this.app.getAssetManager();
         this.cam = this.app.getCamera();
-        this.flyCam = this.app.getFlyByCamera();
         this.stateManager = getStateManager();
         this.physics = this.stateManager.getState(BulletAppState.class);
         this.inputManager = this.app.getInputManager();
@@ -75,16 +54,19 @@ public class GameState extends BaseAppState implements ActionListener {
 
     @Override
     protected void onDisable() {
-        if (initialized) {
-        }
     }
 
     @Override
     public void update(float tpf) {
-        if (sceneInitialized && this.stateManager.getState(ModelHandler.class).fileInited) {
-            camDir.set(cam.getDirection()).multLocal(this.stateManager.getState(ModelHandler.class).playerSpeed).multLocal(walkCoef);
-            camLeft.set(cam.getLeft()).multLocal(this.stateManager.getState(ModelHandler.class).playerSpeed);
+        mh = getState(ModelHandler.class);
+        if (sceneInitialized && mh.fileInited) {
+
+            camDir.set(cam.getDirection()).multLocal(mh.playerSpeed);
+            camLeft.set(cam.getLeft()).multLocal(mh.playerSpeed);
             walkDirection.set(0, 0, 0);
+            if (!(up | down)) {
+                walkDirection.addLocal(camDir.mult(mh.retardFactor));
+            }
             if (left) {
                 walkDirection.addLocal(camLeft);
             }
@@ -103,26 +85,9 @@ public class GameState extends BaseAppState implements ActionListener {
         }
     }
 
-    public SpatialLearningVWM getVWMApplication() {
-        return this.app;
-    }
-
     private void initScene() {
 
         app.getViewPort().setBackgroundColor(ColorRGBA.fromRGBA255(51, 204, 255, 255));
-
-        LightControl playerLight = initLight();
-        flyCam.setMoveSpeed(40f);
-
-        Node scene = (Node) assetManager.loadModel("models/scene.glb");
-        scene.setLocalTranslation(0f, this.getVWMApplication().getGround(), 0f);
-        scene.scale(5.12f, 2f, 5.12f);
-        scene.addControl(playerLight);
-
-        CollisionShape sceneShape = CollisionShapeFactory.createMeshShape(scene);
-        RigidBodyControl landscape = new RigidBodyControl(sceneShape, 0f);
-        physics.getPhysicsSpace().add(landscape);
-        rootNode.attachChild(scene);
 
         player = new BetterCharacterControl(1.5f, 6f, 0.05f);
         physics.getPhysicsSpace().add(player);
@@ -138,19 +103,6 @@ public class GameState extends BaseAppState implements ActionListener {
         inputManager.addListener(this, "Up");
         inputManager.addListener(this, "Down");
         inputManager.addListener(this, "Jump");
-    }
-
-    private LightControl initLight() {
-
-        DirectionalLight sun = new DirectionalLight();
-        sun.setDirection(new Vector3f(-0.5f, -0.5f, -0.5f).normalizeLocal());
-        sun.setColor(ColorRGBA.White);
-        lightNode.addLight(sun);
-
-        PointLight sceneLight = new PointLight();
-        sceneLight.setColor(ColorRGBA.White.mult(0.3f));
-        lightNode.addLight(sceneLight);
-        return new LightControl(sceneLight);
     }
 
     @Override
@@ -187,30 +139,8 @@ public class GameState extends BaseAppState implements ActionListener {
         }
     }
 
-    public void setVelocityFactor(Vector3f vector3f) {
-        walkCoef = vector3f;
-    }
-
     public BetterCharacterControl getPlayer() {
         return player;
     }
 
-    public void stopLight() {
-        for (Light light : lightNode.getLocalLightList()) {
-            rootNode.removeLight(light);
-        }
-        this.app.getViewPort().setBackgroundColor(ColorRGBA.Black);
-    }
-
-    public void startLight() {
-        for (Light light : lightNode.getLocalLightList()) {
-            rootNode.addLight(light);
-        }
-
-        this.app.getViewPort().setBackgroundColor(ColorRGBA.fromRGBA255(51, 204, 255, 255));
-    }
-
-    public Node getLightNode() {
-        return lightNode;
-    }
 }

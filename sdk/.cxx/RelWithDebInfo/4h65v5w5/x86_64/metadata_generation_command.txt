@@ -1,0 +1,24 @@
+                    Executable : D:\Programs\AndroidSDK\cmake\3.18.1\bin\cmake.exe
+arguments : 
+-HD:\bhargav\projects\SpatialLearningVWM\sdk
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_SYSTEM_VERSION=24
+-DANDROID_PLATFORM=android-24
+-DANDROID_ABI=x86_64
+-DCMAKE_ANDROID_ARCH_ABI=x86_64
+-DANDROID_NDK=D:\Programs\AndroidSDK\ndk\21.4.7075529
+-DCMAKE_ANDROID_NDK=D:\Programs\AndroidSDK\ndk\21.4.7075529
+-DCMAKE_TOOLCHAIN_FILE=D:\Programs\AndroidSDK\ndk\21.4.7075529\build\cmake\android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=D:\Programs\AndroidSDK\cmake\3.18.1\bin\ninja.exe
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=D:\bhargav\projects\SpatialLearningVWM\sdk\build\intermediates\cxx\RelWithDebInfo\4h65v5w5\obj\x86_64
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=D:\bhargav\projects\SpatialLearningVWM\sdk\build\intermediates\cxx\RelWithDebInfo\4h65v5w5\obj\x86_64
+-DCMAKE_BUILD_TYPE=RelWithDebInfo
+-BD:\bhargav\projects\SpatialLearningVWM\sdk\.cxx\RelWithDebInfo\4h65v5w5\x86_64
+-GNinja
+-DANDROID_STL=c++_static
+jvmArgs : 
+
+
+                    Build command args: []
+                    Version: 2

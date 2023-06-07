@@ -11,4 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="com.spatial.learning.jme.android.StartFragment"/>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_calibrate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.spatial.learning.jme.android.CalibrateFragment"/>
 </RelativeLayout>

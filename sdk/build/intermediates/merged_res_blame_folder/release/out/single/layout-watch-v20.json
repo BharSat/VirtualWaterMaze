@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/layout-watch-v20/abc_alert_dialog_button_bar_material.xml",
+        "source": "com.google.cardboard.sdk-appcompat-1.4.2-5:/layout-watch-v20/abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/layout-watch-v20/abc_alert_dialog_title_material.xml",
+        "source": "com.google.cardboard.sdk-appcompat-1.4.2-5:/layout-watch-v20/abc_alert_dialog_title_material.xml"
+    }
+]

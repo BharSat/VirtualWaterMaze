@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'com.spatial.learning.jme'
-version '2.0.1'
+version '2.0.2'
 mainClassName = 'com.spatial.learning.jme.desktopmodule.DesktopLauncher'
 String dependenciesString = ""
 

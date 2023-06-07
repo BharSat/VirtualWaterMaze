@@ -1,0 +1,278 @@
+# compiler: R8
+# compiler_version: 3.2.74
+# common_typos_disable
+# {"id":"com.android.tools.r8.mapping","version":"2.0"}
+# pg_map_id: 6867209
+# pg_map_hash: SHA-256 6867209d15471a38f148ffcffe1a290e5da433dfab5f91d70b528c1c11a73a8c
+com.google.cardboard.sdk.HeadsetDetectionActivity -> com.google.cardboard.sdk.HeadsetDetectionActivity:
+    android.net.Uri URI_ORIGINAL_CARDBOARD_NFC -> a
+    1:1:void processStartupIntent(android.content.Intent):0:0 -> onCreate
+    1:1:void onCreate(android.os.Bundle):0 -> onCreate
+    2:2:void onCreate(android.os.Bundle):0:0 -> onCreate
+com.google.cardboard.sdk.QrCodeCaptureActivity -> com.google.cardboard.sdk.QrCodeCaptureActivity:
+    com.google.cardboard.sdk.qrcode.camera.CameraSource cameraSource -> a
+    com.google.cardboard.sdk.qrcode.camera.CameraSourcePreview cameraSourcePreview -> b
+    boolean qrCodeSaved -> c
+    boolean isCameraEnabled() -> a
+    void onQrCodeSaved(boolean) -> a
+    void launchPermissionsSettings() -> b
+    1:1:void com.google.cardboard.sdk.qrcode.camera.CameraSourcePreview.release():0:0 -> onPause
+    1:1:void onPause():0 -> onPause
+      # {"id":"com.android.tools.r8.rewriteFrame","conditions":["throws(Ljava/lang/NullPointerException;)"],"actions":["removeInnerFrames(1)"]}
+    1:1:boolean isWriteExternalStoragePermissionsEnabled():0:0 -> onRequestPermissionsResult
+    1:1:void onRequestPermissionsResult(int,java.lang.String[],int[]):0 -> onRequestPermissionsResult
+    2:2:void onRequestPermissionsResult(int,java.lang.String[],int[]):0:0 -> onRequestPermissionsResult
+    1:1:boolean isWriteExternalStoragePermissionsEnabled():0:0 -> onResume
+    1:1:void onResume():0 -> onResume
+    2:2:void createCameraSource():0:0 -> onResume
+    2:2:void onResume():0 -> onResume
+    3:3:void onResume():0:0 -> onResume
+    4:4:void startCameraSource():0:0 -> onResume
+    4:4:void onResume():0 -> onResume
+    5:5:void com.google.cardboard.sdk.qrcode.camera.CameraSourcePreview.start(com.google.cardboard.sdk.qrcode.camera.CameraSource):0:0 -> onResume
+    5:5:void startCameraSource():0 -> onResume
+    5:5:void onResume():0 -> onResume
+    6:6:void startCameraSource():0:0 -> onResume
+    6:6:void onResume():0 -> onResume
+    7:7:void requestPermissions():0:0 -> onResume
+    7:7:void onResume():0 -> onResume
+com.google.cardboard.sdk.deviceparams.CardboardV1DeviceParams -> a.a:
+    com.google.cardboard.proto.CardboardDevice$DeviceParams$VerticalAlignmentType CARDBOARD_V1_VERTICAL_ALIGNMENT_TYPE -> b
+    float[] CARDBOARD_V1_DISTORTION_COEFFS -> c
+    com.google.cardboard.proto.CardboardDevice$DeviceParams$ButtonType CARDBOARD_V1_PRIMARY_BUTTON_TYPE -> a
+    float[] CARDBOARD_V1_FOV_ANGLES -> d
+    com.google.cardboard.proto.CardboardDevice$DeviceParams build() -> a
+com.google.cardboard.sdk.qrcode.AsyncTask -> b.a:
+    android.os.Handler handler -> b
+    java.util.concurrent.ExecutorService executor -> a
+    void execute(java.lang.Object) -> a
+    1:1:void com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$ProcessAndSaveQrCodeTask.onPostExecute(java.lang.Object):0:0 -> b
+    1:1:void lambda$execute$0(java.lang.Object):0 -> b
+    2:2:void com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$ProcessAndSaveQrCodeTask.onPostExecute(com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus):0:0 -> b
+    2:2:void com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$ProcessAndSaveQrCodeTask.onPostExecute(java.lang.Object):0 -> b
+    2:2:void lambda$execute$0(java.lang.Object):0 -> b
+    3:3:com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$Listener com.google.cardboard.sdk.qrcode.QrCodeContentProcessor.access$200(com.google.cardboard.sdk.qrcode.QrCodeContentProcessor):0:0 -> b
+    3:3:void com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$ProcessAndSaveQrCodeTask.onPostExecute(com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus):0 -> b
+    3:3:void com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$ProcessAndSaveQrCodeTask.onPostExecute(java.lang.Object):0 -> b
+    3:3:void lambda$execute$0(java.lang.Object):0 -> b
+    4:4:void com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$ProcessAndSaveQrCodeTask.onPostExecute(com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus):0:0 -> b
+    4:4:void com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$ProcessAndSaveQrCodeTask.onPostExecute(java.lang.Object):0 -> b
+    4:4:void lambda$execute$0(java.lang.Object):0 -> b
+    1:1:java.lang.Object com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$ProcessAndSaveQrCodeTask.doInBackground(java.lang.Object):0:0 -> c
+    1:1:void lambda$execute$1(java.lang.Object):0 -> c
+    2:2:com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$ProcessAndSaveQrCodeTask.doInBackground(com.google.android.gms.vision.barcode.Barcode):0:0 -> c
+    2:2:java.lang.Object com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$ProcessAndSaveQrCodeTask.doInBackground(java.lang.Object):0 -> c
+    2:2:void lambda$execute$1(java.lang.Object):0 -> c
+    3:3:com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus com.google.cardboard.sdk.qrcode.QrCodeContentProcessor.getParamsFromQrCode(com.google.android.gms.vision.barcode.Barcode,com.google.cardboard.sdk.qrcode.UrlFactory):0:0 -> c
+    3:3:com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus com.google.cardboard.sdk.qrcode.QrCodeContentProcessor.access$000(com.google.android.gms.vision.barcode.Barcode,com.google.cardboard.sdk.qrcode.UrlFactory):0 -> c
+    3:3:com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$ProcessAndSaveQrCodeTask.doInBackground(com.google.android.gms.vision.barcode.Barcode):0 -> c
+    3:3:java.lang.Object com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$ProcessAndSaveQrCodeTask.doInBackground(java.lang.Object):0 -> c
+    3:3:void lambda$execute$1(java.lang.Object):0 -> c
+    4:4:void lambda$execute$1(java.lang.Object):0:0 -> c
+com.google.cardboard.sdk.qrcode.CardboardParamsUtils -> com.google.cardboard.sdk.qrcode.CardboardParamsUtils:
+    android.net.Uri URI_ORIGINAL_CARDBOARD_QR_CODE -> a
+    1:1:boolean isOriginalCardboardDeviceUri(android.net.Uri):0:0 -> a
+    1:1:boolean isCardboardUri(android.net.Uri):0 -> a
+    1:1:android.net.Uri followCardboardParamRedirect(android.net.Uri,int,com.google.cardboard.sdk.qrcode.UrlFactory):0 -> a
+    2:2:boolean isCardboardUri(android.net.Uri):0:0 -> a
+    2:2:android.net.Uri followCardboardParamRedirect(android.net.Uri,int,com.google.cardboard.sdk.qrcode.UrlFactory):0 -> a
+    3:3:android.net.Uri followCardboardParamRedirect(android.net.Uri,int,com.google.cardboard.sdk.qrcode.UrlFactory):0:0 -> a
+    4:4:java.net.HttpURLConnection com.google.cardboard.sdk.qrcode.UrlFactory.openHttpsConnection(android.net.Uri):0:0 -> a
+    4:4:android.net.Uri resolveHttpsRedirect(android.net.Uri,com.google.cardboard.sdk.qrcode.UrlFactory):0 -> a
+    4:4:android.net.Uri followCardboardParamRedirect(android.net.Uri,int,com.google.cardboard.sdk.qrcode.UrlFactory):0 -> a
+    5:5:android.net.Uri resolveHttpsRedirect(android.net.Uri,com.google.cardboard.sdk.qrcode.UrlFactory):0:0 -> a
+    5:5:android.net.Uri followCardboardParamRedirect(android.net.Uri,int,com.google.cardboard.sdk.qrcode.UrlFactory):0 -> a
+    java.io.File getDeviceParamsFile(com.google.cardboard.sdk.qrcode.CardboardParamsUtils$StorageSource,android.content.Context) -> a
+    6:6:boolean isOriginalCardboardDeviceUri(android.net.Uri):0:0 -> a
+    6:6:byte[] createFromUri(android.net.Uri):0 -> a
+    6:6:com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus getParamsFromUriString(java.lang.String,com.google.cardboard.sdk.qrcode.UrlFactory):0 -> a
+    7:7:byte[] createFromUri(android.net.Uri):0:0 -> a
+    7:7:com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus getParamsFromUriString(java.lang.String,com.google.cardboard.sdk.qrcode.UrlFactory):0 -> a
+    8:8:byte[] readDeviceParamsFromUri(android.net.Uri):0:0 -> a
+    8:8:byte[] createFromUri(android.net.Uri):0 -> a
+    8:8:com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus getParamsFromUriString(java.lang.String,com.google.cardboard.sdk.qrcode.UrlFactory):0 -> a
+    9:9:byte[] createFromUri(android.net.Uri):0:0 -> a
+    9:9:com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus getParamsFromUriString(java.lang.String,com.google.cardboard.sdk.qrcode.UrlFactory):0 -> a
+    10:10:com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus getParamsFromUriString(java.lang.String,com.google.cardboard.sdk.qrcode.UrlFactory):0:0 -> a
+    11:11:com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus.success(byte[]):0:0 -> a
+    11:11:com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus getParamsFromUriString(java.lang.String,com.google.cardboard.sdk.qrcode.UrlFactory):0 -> a
+    12:12:com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus getParamsFromUriString(java.lang.String,com.google.cardboard.sdk.qrcode.UrlFactory):0:0 -> a
+    boolean isCardboardDeviceUri(android.net.Uri) -> a
+    byte[] readDeviceParamsFromInputStream(java.io.InputStream) -> a
+    void saveCardboardV1DeviceParams(android.content.Context) -> a
+    13:13:boolean isAtLeastQ():0:0 -> a
+    13:13:boolean writeDeviceParams(byte[],android.content.Context):0 -> a
+    14:14:boolean writeDeviceParams(byte[],android.content.Context):0:0 -> a
+    boolean writeDeviceParamsToOutputStream(byte[],java.io.OutputStream) -> a
+    15:15:java.io.OutputStream com.google.cardboard.sdk.qrcode.OutputStreamProvider$BufferedProvider.get(java.io.File):0:0 -> a
+    15:15:java.io.OutputStream com.google.cardboard.sdk.qrcode.OutputStreamProvider.get(java.io.File):0 -> a
+    15:15:boolean writeDeviceParamsToStorage(byte[],com.google.cardboard.sdk.qrcode.CardboardParamsUtils$StorageSource,android.content.Context):0 -> a
+    16:16:boolean writeDeviceParamsToStorage(byte[],com.google.cardboard.sdk.qrcode.CardboardParamsUtils$StorageSource,android.content.Context):0:0 -> a
+    1:1:java.io.InputStream com.google.cardboard.sdk.qrcode.InputStreamProvider$BufferedProvider.get(java.io.File):0:0 -> b
+    1:1:java.io.InputStream com.google.cardboard.sdk.qrcode.InputStreamProvider.get(java.io.File):0 -> b
+    1:1:byte[] readDeviceParamsFromStorage(com.google.cardboard.sdk.qrcode.CardboardParamsUtils$StorageSource,android.content.Context):0 -> b
+    2:2:byte[] readDeviceParamsFromStorage(com.google.cardboard.sdk.qrcode.CardboardParamsUtils$StorageSource,android.content.Context):0:0 -> b
+    1:1:boolean isAtLeastQ():0:0 -> readDeviceParams
+    1:1:byte[] readDeviceParams(android.content.Context):0 -> readDeviceParams
+    2:2:byte[] readDeviceParams(android.content.Context):0:0 -> readDeviceParams
+com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus -> com.google.cardboard.sdk.qrcode.CardboardParamsUtils$a:
+    byte[] params -> b
+    int statusCode -> a
+    com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus error(int) -> a
+com.google.cardboard.sdk.qrcode.QrCodeContentProcessor -> com.google.cardboard.sdk.qrcode.a:
+    com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$Listener listener -> a
+    int $r8$clinit -> b
+com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$Listener -> com.google.cardboard.sdk.qrcode.a$a:
+com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$ProcessAndSaveQrCodeTask -> com.google.cardboard.sdk.qrcode.a$b:
+    com.google.cardboard.sdk.qrcode.QrCodeContentProcessor this$0 -> d
+    android.content.Context context -> c
+com.google.cardboard.sdk.qrcode.QrCodeTracker -> b.b:
+    com.google.cardboard.sdk.qrcode.QrCodeTracker$Listener listener -> a
+    1:1:void com.google.cardboard.sdk.qrcode.QrCodeTracker.onNewItem(int,com.google.android.gms.vision.barcode.Barcode):0:0 -> onNewItem
+    1:1:void onNewItem(int,java.lang.Object):0 -> onNewItem
+    2:2:void com.google.cardboard.sdk.QrCodeCaptureActivity.onQrCodeDetected(com.google.android.gms.vision.barcode.Barcode):0:0 -> onNewItem
+    2:2:void com.google.cardboard.sdk.qrcode.QrCodeTracker.onNewItem(int,com.google.android.gms.vision.barcode.Barcode):0 -> onNewItem
+    2:2:void onNewItem(int,java.lang.Object):0 -> onNewItem
+    3:3:void com.google.cardboard.sdk.qrcode.QrCodeContentProcessor.processAndSaveQrCode(com.google.android.gms.vision.barcode.Barcode,android.content.Context):0:0 -> onNewItem
+    3:3:void com.google.cardboard.sdk.QrCodeCaptureActivity.onQrCodeDetected(com.google.android.gms.vision.barcode.Barcode):0 -> onNewItem
+    3:3:void com.google.cardboard.sdk.qrcode.QrCodeTracker.onNewItem(int,com.google.android.gms.vision.barcode.Barcode):0 -> onNewItem
+    3:3:void onNewItem(int,java.lang.Object):0 -> onNewItem
+com.google.cardboard.sdk.qrcode.QrCodeTracker$Listener -> b.b$a:
+com.google.cardboard.sdk.qrcode.QrCodeTrackerFactory -> b.c:
+    com.google.cardboard.sdk.qrcode.QrCodeTracker$Listener listener -> a
+    1:1:com.google.android.gms.vision.Tracker com.google.cardboard.sdk.qrcode.QrCodeTrackerFactory.create(com.google.android.gms.vision.barcode.Barcode):0:0 -> create
+    1:1:com.google.android.gms.vision.Tracker create(java.lang.Object):0 -> create
+com.google.cardboard.sdk.qrcode.UrlFactory -> b.d:
+com.google.cardboard.sdk.qrcode.camera.CameraSource -> c.a:
+    android.content.Context context -> a
+    com.google.cardboard.sdk.qrcode.camera.CameraSource$FrameProcessingRunnable frameProcessor -> g
+    java.lang.Thread processingThread -> f
+    int $r8$clinit -> i
+    java.lang.Object cameraLock -> b
+    android.hardware.Camera camera -> c
+    int rotation -> d
+    com.google.android.gms.common.images.Size previewSize -> e
+    java.util.Map bytesToByteBuffer -> h
+    1:1:int com.google.cardboard.sdk.qrcode.camera.CameraSource.getIdForRequestedCamera(int):0:0 -> a
+    1:1:android.hardware.Camera createCamera():0 -> a
+    2:2:android.hardware.Camera createCamera():0:0 -> a
+    3:3:java.util.List com.google.cardboard.sdk.qrcode.camera.CameraSource.generateValidPreviewSizeList(android.hardware.Camera):0:0 -> a
+    3:3:com.google.cardboard.sdk.qrcode.camera.CameraSource$SizePair com.google.cardboard.sdk.qrcode.camera.CameraSource.selectSizePair(android.hardware.Camera,int,int):0 -> a
+    3:3:android.hardware.Camera createCamera():0 -> a
+    4:4:com.google.cardboard.sdk.qrcode.camera.CameraSource$SizePair com.google.cardboard.sdk.qrcode.camera.CameraSource.selectSizePair(android.hardware.Camera,int,int):0:0 -> a
+    4:4:android.hardware.Camera createCamera():0 -> a
+    5:5:com.google.android.gms.common.images.Size com.google.cardboard.sdk.qrcode.camera.CameraSource$SizePair.previewSize():0:0 -> a
+    5:5:com.google.cardboard.sdk.qrcode.camera.CameraSource$SizePair com.google.cardboard.sdk.qrcode.camera.CameraSource.selectSizePair(android.hardware.Camera,int,int):0 -> a
+    5:5:android.hardware.Camera createCamera():0 -> a
+    6:6:com.google.cardboard.sdk.qrcode.camera.CameraSource$SizePair com.google.cardboard.sdk.qrcode.camera.CameraSource.selectSizePair(android.hardware.Camera,int,int):0:0 -> a
+    6:6:android.hardware.Camera createCamera():0 -> a
+    7:7:com.google.android.gms.common.images.Size com.google.cardboard.sdk.qrcode.camera.CameraSource$SizePair.pictureSize():0:0 -> a
+    7:7:android.hardware.Camera createCamera():0 -> a
+    8:8:com.google.android.gms.common.images.Size com.google.cardboard.sdk.qrcode.camera.CameraSource$SizePair.previewSize():0:0 -> a
+    8:8:android.hardware.Camera createCamera():0 -> a
+    9:9:android.hardware.Camera createCamera():0:0 -> a
+    10:10:int[] com.google.cardboard.sdk.qrcode.camera.CameraSource.selectPreviewFpsRange(android.hardware.Camera,float):0:0 -> a
+    10:10:android.hardware.Camera createCamera():0 -> a
+    11:11:android.hardware.Camera createCamera():0:0 -> a
+    12:12:void com.google.cardboard.sdk.qrcode.camera.CameraSource.setRotation(android.hardware.Camera,android.hardware.Camera$Parameters,int):0:0 -> a
+    12:12:android.hardware.Camera createCamera():0 -> a
+    13:13:android.hardware.Camera createCamera():0:0 -> a
+    14:14:void com.google.cardboard.sdk.qrcode.camera.CameraSource$CameraPreviewCallback.<init>(com.google.cardboard.sdk.qrcode.camera.CameraSource,com.google.cardboard.sdk.qrcode.camera.CameraSource$1):0:0 -> a
+    14:14:android.hardware.Camera createCamera():0 -> a
+    15:15:android.hardware.Camera createCamera():0:0 -> a
+    byte[] createPreviewBuffer(com.google.android.gms.common.images.Size) -> a
+    1:1:void com.google.cardboard.sdk.qrcode.camera.CameraSource$FrameProcessingRunnable.release():0:0 -> b
+    1:1:void release():0 -> b
+      # {"id":"com.android.tools.r8.rewriteFrame","conditions":["throws(Ljava/lang/NullPointerException;)"],"actions":["removeInnerFrames(1)"]}
+    2:2:void release():0:0 -> b
+    1:1:void com.google.cardboard.sdk.qrcode.camera.CameraSource$FrameProcessingRunnable.setActive(boolean):0:0 -> c
+    1:1:void stop():0 -> c
+      # {"id":"com.android.tools.r8.rewriteFrame","conditions":["throws(Ljava/lang/NullPointerException;)"],"actions":["removeInnerFrames(1)"]}
+    2:2:void stop():0:0 -> c
+    3:3:void com.google.cardboard.sdk.qrcode.camera.CameraSource$FrameProcessingRunnable.setActive(boolean):0:0 -> c
+    3:3:void stop():0 -> c
+      # {"id":"com.android.tools.r8.rewriteFrame","conditions":["throws(Ljava/lang/NullPointerException;)"],"actions":["removeInnerFrames(1)"]}
+    4:4:void stop():0:0 -> c
+com.google.cardboard.sdk.qrcode.camera.CameraSource$CameraPreviewCallback -> c.a$a:
+    com.google.cardboard.sdk.qrcode.camera.CameraSource this$0 -> a
+    1:1:com.google.cardboard.sdk.qrcode.camera.CameraSource$FrameProcessingRunnable com.google.cardboard.sdk.qrcode.camera.CameraSource.access$100(com.google.cardboard.sdk.qrcode.camera.CameraSource):0:0 -> onPreviewFrame
+    1:1:void onPreviewFrame(byte[],android.hardware.Camera):0 -> onPreviewFrame
+    2:2:void onPreviewFrame(byte[],android.hardware.Camera):0:0 -> onPreviewFrame
+com.google.cardboard.sdk.qrcode.camera.CameraSource$FrameProcessingRunnable -> c.a$b:
+    long pendingTimeMillis -> e
+    java.nio.ByteBuffer pendingFrameData -> g
+    long startTimeMillis -> b
+    int pendingFrameId -> f
+    com.google.cardboard.sdk.qrcode.camera.CameraSource this$0 -> h
+    java.lang.Object lock -> c
+    com.google.android.gms.vision.Detector detector -> a
+    boolean active -> d
+    1:1:java.util.Map com.google.cardboard.sdk.qrcode.camera.CameraSource.access$200(com.google.cardboard.sdk.qrcode.camera.CameraSource):0:0 -> a
+    1:1:void setNextFrame(byte[],android.hardware.Camera):0 -> a
+    2:2:void setNextFrame(byte[],android.hardware.Camera):0:0 -> a
+    3:3:java.util.Map com.google.cardboard.sdk.qrcode.camera.CameraSource.access$200(com.google.cardboard.sdk.qrcode.camera.CameraSource):0:0 -> a
+    3:3:void setNextFrame(byte[],android.hardware.Camera):0 -> a
+    4:4:void setNextFrame(byte[],android.hardware.Camera):0:0 -> a
+    1:1:com.google.android.gms.common.images.Size com.google.cardboard.sdk.qrcode.camera.CameraSource.access$500(com.google.cardboard.sdk.qrcode.camera.CameraSource):0:0 -> run
+    1:1:void run():0 -> run
+    2:2:void run():0:0 -> run
+    3:3:com.google.android.gms.common.images.Size com.google.cardboard.sdk.qrcode.camera.CameraSource.access$500(com.google.cardboard.sdk.qrcode.camera.CameraSource):0:0 -> run
+    3:3:void run():0 -> run
+    4:4:void run():0:0 -> run
+    5:5:int com.google.cardboard.sdk.qrcode.camera.CameraSource.access$400(com.google.cardboard.sdk.qrcode.camera.CameraSource):0:0 -> run
+    5:5:void run():0 -> run
+    6:6:void run():0:0 -> run
+    7:7:android.hardware.Camera com.google.cardboard.sdk.qrcode.camera.CameraSource.access$600(com.google.cardboard.sdk.qrcode.camera.CameraSource):0:0 -> run
+    7:7:void run():0 -> run
+    8:8:void run():0:0 -> run
+    9:9:android.hardware.Camera com.google.cardboard.sdk.qrcode.camera.CameraSource.access$600(com.google.cardboard.sdk.qrcode.camera.CameraSource):0:0 -> run
+    9:9:void run():0 -> run
+    10:10:void run():0:0 -> run
+    11:11:android.hardware.Camera com.google.cardboard.sdk.qrcode.camera.CameraSource.access$600(com.google.cardboard.sdk.qrcode.camera.CameraSource):0:0 -> run
+    11:11:void run():0 -> run
+    12:12:void run():0:0 -> run
+com.google.cardboard.sdk.qrcode.camera.CameraSource$SizePair -> c.a$c:
+    com.google.android.gms.common.images.Size preview -> a
+    com.google.android.gms.common.images.Size picture -> b
+com.google.cardboard.sdk.qrcode.camera.CameraSourcePreview -> com.google.cardboard.sdk.qrcode.camera.CameraSourcePreview:
+    android.content.Context context -> a
+    com.google.cardboard.sdk.qrcode.camera.CameraSource cameraSource -> e
+    int $r8$clinit -> f
+    android.view.SurfaceView surfaceView -> b
+    boolean startRequested -> c
+    boolean surfaceAvailable -> d
+    boolean access$102(com.google.cardboard.sdk.qrcode.camera.CameraSourcePreview,boolean) -> a
+    boolean isPortraitMode() -> a
+    1:1:com.google.cardboard.sdk.qrcode.camera.CameraSource com.google.cardboard.sdk.qrcode.camera.CameraSource.start(android.view.SurfaceHolder):0:0 -> b
+    1:1:void startIfReady():0 -> b
+      # {"id":"com.android.tools.r8.rewriteFrame","conditions":["throws(Ljava/lang/NullPointerException;)"],"actions":["removeInnerFrames(1)"]}
+    2:2:void com.google.cardboard.sdk.qrcode.camera.CameraSource$FrameProcessingRunnable.setActive(boolean):0:0 -> b
+    2:2:com.google.cardboard.sdk.qrcode.camera.CameraSource com.google.cardboard.sdk.qrcode.camera.CameraSource.start(android.view.SurfaceHolder):0 -> b
+    2:2:void startIfReady():0 -> b
+      # {"id":"com.android.tools.r8.rewriteFrame","conditions":["throws(Ljava/lang/NullPointerException;)"],"actions":["removeInnerFrames(2)"]}
+    3:3:com.google.cardboard.sdk.qrcode.camera.CameraSource com.google.cardboard.sdk.qrcode.camera.CameraSource.start(android.view.SurfaceHolder):0:0 -> b
+    3:3:void startIfReady():0 -> b
+      # {"id":"com.android.tools.r8.rewriteFrame","conditions":["throws(Ljava/lang/NullPointerException;)"],"actions":["removeInnerFrames(1)"]}
+    4:4:void startIfReady():0:0 -> b
+    5:5:void com.google.cardboard.sdk.qrcode.camera.CameraSource$FrameProcessingRunnable.setActive(boolean):0:0 -> b
+    5:5:com.google.cardboard.sdk.qrcode.camera.CameraSource com.google.cardboard.sdk.qrcode.camera.CameraSource.start(android.view.SurfaceHolder):0 -> b
+    5:5:void startIfReady():0 -> b
+      # {"id":"com.android.tools.r8.rewriteFrame","conditions":["throws(Ljava/lang/NullPointerException;)"],"actions":["removeInnerFrames(2)"]}
+    6:6:com.google.cardboard.sdk.qrcode.camera.CameraSource com.google.cardboard.sdk.qrcode.camera.CameraSource.start(android.view.SurfaceHolder):0:0 -> b
+    6:6:void startIfReady():0 -> b
+      # {"id":"com.android.tools.r8.rewriteFrame","conditions":["throws(Ljava/lang/NullPointerException;)"],"actions":["removeInnerFrames(1)"]}
+    void stop() -> c
+    1:1:com.google.android.gms.common.images.Size com.google.cardboard.sdk.qrcode.camera.CameraSource.getPreviewSize():0:0 -> onLayout
+    1:1:void onLayout(boolean,int,int,int,int):0 -> onLayout
+      # {"id":"com.android.tools.r8.rewriteFrame","conditions":["throws(Ljava/lang/NullPointerException;)"],"actions":["removeInnerFrames(1)"]}
+    2:2:void onLayout(boolean,int,int,int,int):0:0 -> onLayout
+com.google.cardboard.sdk.qrcode.camera.CameraSourcePreview$1 -> com.google.cardboard.sdk.qrcode.camera.CameraSourcePreview$a:
+com.google.cardboard.sdk.qrcode.camera.CameraSourcePreview$SurfaceCallback -> com.google.cardboard.sdk.qrcode.camera.CameraSourcePreview$b:
+    com.google.cardboard.sdk.qrcode.camera.CameraSourcePreview this$0 -> a
+    1:1:void com.google.cardboard.sdk.qrcode.camera.CameraSourcePreview.access$200(com.google.cardboard.sdk.qrcode.camera.CameraSourcePreview):0:0 -> surfaceCreated
+    1:1:void surfaceCreated(android.view.SurfaceHolder):0 -> surfaceCreated
+    2:2:void surfaceCreated(android.view.SurfaceHolder):0:0 -> surfaceCreated
+com.google.cardboard.sdk.screenparams.ScreenParamsUtils -> com.google.cardboard.sdk.screenparams.ScreenParamsUtils:
+    1:1:boolean isAtLeastR():0:0 -> getScreenPixelDensity
+    1:1:com.google.cardboard.sdk.screenparams.ScreenParamsUtils$ScreenPixelDensity getScreenPixelDensity(android.content.Context):0 -> getScreenPixelDensity
+    2:2:com.google.cardboard.sdk.screenparams.ScreenParamsUtils$ScreenPixelDensity getScreenPixelDensity(android.content.Context):0:0 -> getScreenPixelDensity

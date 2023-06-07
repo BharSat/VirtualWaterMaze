@@ -1,0 +1,184 @@
+[
+  {
+    "level_": 0,
+    "message_": "Start JSON generation. Platform version: 24 min SDK version: x86",
+    "file_": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 2032971522
+  },
+  {
+    "level_": 0,
+    "message_": "rebuilding JSON D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\.cxx\\RelWithDebInfo\\4h65v5w5\\x86\\android_gradle_build.json due to:",
+    "file_": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -2101551289
+  },
+  {
+    "level_": 0,
+    "message_": "- expected json D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\.cxx\\RelWithDebInfo\\4h65v5w5\\x86\\android_gradle_build.json file is not present, will remove stale json folder",
+    "file_": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1583054429
+  },
+  {
+    "level_": 0,
+    "message_": "- missing previous command file D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\.cxx\\RelWithDebInfo\\4h65v5w5\\x86\\metadata_generation_command.txt, will remove stale json folder",
+    "file_": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1267232127
+  },
+  {
+    "level_": 0,
+    "message_": "- command changed from previous, will remove stale json folder",
+    "file_": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1473080035
+  },
+  {
+    "level_": 0,
+    "message_": "removing stale contents from \u0027D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\.cxx\\RelWithDebInfo\\4h65v5w5\\x86\u0027",
+    "file_": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1963194709
+  },
+  {
+    "level_": 0,
+    "message_": "created folder \u0027D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\.cxx\\RelWithDebInfo\\4h65v5w5\\x86\u0027",
+    "file_": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 152832951
+  },
+  {
+    "level_": 0,
+    "message_": "executing cmake Executable : D:\\Programs\\AndroidSDK\\cmake\\3.18.1\\bin\\cmake.exe\narguments : \n-HD:\\bhargav\\projects\\SpatialLearningVWM\\sdk\n-DCMAKE_SYSTEM_NAME\u003dAndroid\n-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\n-DCMAKE_SYSTEM_VERSION\u003d24\n-DANDROID_PLATFORM\u003dandroid-24\n-DANDROID_ABI\u003dx86\n-DCMAKE_ANDROID_ARCH_ABI\u003dx86\n-DANDROID_NDK\u003dD:\\Programs\\AndroidSDK\\ndk\\21.4.7075529\n-DCMAKE_ANDROID_NDK\u003dD:\\Programs\\AndroidSDK\\ndk\\21.4.7075529\n-DCMAKE_TOOLCHAIN_FILE\u003dD:\\Programs\\AndroidSDK\\ndk\\21.4.7075529\\build\\cmake\\android.toolchain.cmake\n-DCMAKE_MAKE_PROGRAM\u003dD:\\Programs\\AndroidSDK\\cmake\\3.18.1\\bin\\ninja.exe\n-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003dD:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\build\\intermediates\\cxx\\RelWithDebInfo\\4h65v5w5\\obj\\x86\n-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003dD:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\build\\intermediates\\cxx\\RelWithDebInfo\\4h65v5w5\\obj\\x86\n-DCMAKE_BUILD_TYPE\u003dRelWithDebInfo\n-BD:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\.cxx\\RelWithDebInfo\\4h65v5w5\\x86\n-GNinja\n-DANDROID_STL\u003dc++_static\njvmArgs : \n\n",
+    "file_": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 577829151
+  },
+  {
+    "level_": 0,
+    "message_": "Executable : D:\\Programs\\AndroidSDK\\cmake\\3.18.1\\bin\\cmake.exe\narguments : \n-HD:\\bhargav\\projects\\SpatialLearningVWM\\sdk\n-DCMAKE_SYSTEM_NAME\u003dAndroid\n-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\n-DCMAKE_SYSTEM_VERSION\u003d24\n-DANDROID_PLATFORM\u003dandroid-24\n-DANDROID_ABI\u003dx86\n-DCMAKE_ANDROID_ARCH_ABI\u003dx86\n-DANDROID_NDK\u003dD:\\Programs\\AndroidSDK\\ndk\\21.4.7075529\n-DCMAKE_ANDROID_NDK\u003dD:\\Programs\\AndroidSDK\\ndk\\21.4.7075529\n-DCMAKE_TOOLCHAIN_FILE\u003dD:\\Programs\\AndroidSDK\\ndk\\21.4.7075529\\build\\cmake\\android.toolchain.cmake\n-DCMAKE_MAKE_PROGRAM\u003dD:\\Programs\\AndroidSDK\\cmake\\3.18.1\\bin\\ninja.exe\n-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003dD:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\build\\intermediates\\cxx\\RelWithDebInfo\\4h65v5w5\\obj\\x86\n-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003dD:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\build\\intermediates\\cxx\\RelWithDebInfo\\4h65v5w5\\obj\\x86\n-DCMAKE_BUILD_TYPE\u003dRelWithDebInfo\n-BD:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\.cxx\\RelWithDebInfo\\4h65v5w5\\x86\n-GNinja\n-DANDROID_STL\u003dc++_static\njvmArgs : \n\n",
+    "file_": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 1522628382
+  },
+  {
+    "level_": 0,
+    "message_": "Exiting generation of D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\.cxx\\RelWithDebInfo\\4h65v5w5\\x86\\compile_commands.json.bin normally",
+    "file_": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 2072885133
+  },
+  {
+    "level_": 0,
+    "message_": "done executing cmake",
+    "file_": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1785426286
+  },
+  {
+    "level_": 0,
+    "message_": "write command file D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\.cxx\\RelWithDebInfo\\4h65v5w5\\x86\\metadata_generation_command.txt",
+    "file_": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1670227589
+  },
+  {
+    "level_": 0,
+    "message_": "JSON generation completed without problems",
+    "file_": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 152646798
+  }
+]

@@ -1,0 +1,2 @@
+ninja: Entering directory `D:\bhargav\projects\SpatialLearningVWM\cardboard\.cxx\RelWithDebInfo\32715c59\arm64-v8a'
+[1/1] Linking CXX shared library D:\bhargav\projects\SpatialLearningVWM\cardboard\build\intermediates\cxx\RelWithDebInfo\32715c59\obj\arm64-v8a\libcardboard.so

@@ -1,0 +1,127 @@
+com.google.cardboard.sdk.BuildConfig
+com.google.cardboard.sdk.HeadsetDetectionActivity:
+    private static final java.lang.String URI_HOST_LEGACY_CARDBOARD
+    private static final java.lang.String URI_SCHEME_LEGACY_CARDBOARD
+com.google.cardboard.sdk.QrCodeCaptureActivity:
+    private static final int MIN_SDK_VERSION
+    private static final int PERMISSIONS_REQUEST_CODE
+    private static final int RC_HANDLE_GMS
+com.google.cardboard.sdk.deviceparams.CardboardV1DeviceParams:
+    public static final float CARDBOARD_V1_INTER_LENS_DISTANCE
+    public static final java.lang.String CARDBOARD_V1_MODEL
+    public static final float CARDBOARD_V1_SCREEN_TO_LENS_DISTANCE
+    public static final float CARDBOARD_V1_TRAY_TO_LENS_CENTER_DISTANCE
+    public static final java.lang.String CARDBOARD_V1_VENDOR
+    private void <init>()
+com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus:
+    public static final int STATUS_CONNECTION_ERROR
+    public static final int STATUS_OK
+    public static final int STATUS_UNEXPECTED_FORMAT
+com.google.cardboard.sdk.qrcode.CardboardParamsUtils:
+    private static final java.lang.String CARDBOARD_CONFIG_FOLDER
+    private static final java.lang.String CARDBOARD_DEVICE_PARAMS_FILE
+    private static final int CARDBOARD_DEVICE_PARAMS_STREAM_SENTINEL
+    private static final java.lang.String HTTPS_SCHEME
+    private static final java.lang.String HTTPS_SCHEME_PREFIX
+    private static final int HTTPS_TIMEOUT_MS
+    private static final java.lang.String HTTP_SCHEME
+    private static final java.lang.String HTTP_SCHEME_PREFIX
+    private static final int MAX_REDIRECTS
+    private static final int URI_CODING_PARAMS
+    private static final java.lang.String URI_HOST_GOOGLE
+    private static final java.lang.String URI_HOST_GOOGLE_SHORT
+    private static final java.lang.String URI_KEY_PARAMS
+    private static final java.lang.String URI_PATH_CARDBOARD_CONFIG
+    private static final java.lang.String URI_PATH_CARDBOARD_HOME
+com.google.cardboard.sdk.qrcode.InputStreamProvider:
+    private void <init>()
+    public static com.google.cardboard.sdk.qrcode.InputStreamProvider$Provider getDefaultProvider()
+    public static void setProvider(com.google.cardboard.sdk.qrcode.InputStreamProvider$Provider)
+com.google.cardboard.sdk.qrcode.OutputStreamProvider:
+    private void <init>()
+    public static com.google.cardboard.sdk.qrcode.OutputStreamProvider$Provider getDefaultProvider()
+    public static void setProvider(com.google.cardboard.sdk.qrcode.OutputStreamProvider$Provider)
+com.google.cardboard.sdk.qrcode.UrlFactory:
+    private static final java.lang.String HTTPS_SCHEME
+com.google.cardboard.sdk.qrcode.camera.CameraSource:
+    private static final float ASPECT_RATIO_TOLERANCE
+    private static final float FPS
+    private static final int HEIGHT
+    private static final int WIDTH
+com.google.cardboard.proto.CardboardDevice:
+    public static void <clinit>()
+com.google.cardboard.sdk.HeadsetDetectionActivity:
+    public final void processStartupIntent(android.content.Intent)
+com.google.cardboard.sdk.QrCodeCaptureActivity:
+    public static final java.lang.String TAG
+    public static void <clinit>()
+    public final void createCameraSource()
+    public final boolean isWriteExternalStoragePermissionsEnabled()
+    public final void onQrCodeDetected(com.google.android.gms.vision.barcode.Barcode)
+    public final void requestPermissions()
+    public final void startCameraSource()
+com.google.cardboard.sdk.deviceparams.DeviceParamsUtils:
+    public static final java.lang.String TAG
+    public static void <clinit>()
+com.google.cardboard.sdk.qrcode.AsyncTask:
+    public abstract java.lang.Object doInBackground(java.lang.Object)
+    public abstract void onPostExecute(java.lang.Object)
+com.google.cardboard.sdk.qrcode.CardboardParamsUtils$StorageSource$EnumUnboxingLocalUtility
+com.google.cardboard.sdk.qrcode.CardboardParamsUtils$StorageSource$EnumUnboxingSharedUtility
+com.google.cardboard.sdk.qrcode.CardboardParamsUtils$StorageSource
+com.google.cardboard.sdk.qrcode.CardboardParamsUtils:
+    public static final java.lang.String TAG
+    public static boolean isAtLeastQ()
+    public static boolean isOriginalCardboardDeviceUri(android.net.Uri)
+com.google.cardboard.sdk.qrcode.InputStreamProvider$BufferedProvider
+com.google.cardboard.sdk.qrcode.InputStreamProvider$Provider
+com.google.cardboard.sdk.qrcode.InputStreamProvider
+com.google.cardboard.sdk.qrcode.OutputStreamProvider$BufferedProvider
+com.google.cardboard.sdk.qrcode.OutputStreamProvider$Provider
+com.google.cardboard.sdk.qrcode.OutputStreamProvider
+com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$Listener:
+    public abstract void onQrCodeSaved(boolean)
+com.google.cardboard.sdk.qrcode.QrCodeContentProcessor$ProcessAndSaveQrCodeTask:
+    public final com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus doInBackground(com.google.android.gms.vision.barcode.Barcode)
+    public final java.lang.Object doInBackground(java.lang.Object)
+    public final void onPostExecute(com.google.cardboard.sdk.qrcode.CardboardParamsUtils$UriToParamsStatus)
+    public final void onPostExecute(java.lang.Object)
+com.google.cardboard.sdk.qrcode.QrCodeContentProcessor:
+    public static final java.lang.String TAG
+    public static void <clinit>()
+    public static synthetic void access$100()
+    public final void processAndSaveQrCode(com.google.android.gms.vision.barcode.Barcode,android.content.Context)
+com.google.cardboard.sdk.qrcode.QrCodeTracker$Listener:
+    public abstract void onQrCodeDetected(com.google.android.gms.vision.barcode.Barcode)
+com.google.cardboard.sdk.qrcode.QrCodeTracker:
+    public final void onNewItem(int,com.google.android.gms.vision.barcode.Barcode)
+com.google.cardboard.sdk.qrcode.QrCodeTrackerFactory:
+    public final com.google.android.gms.vision.Tracker create(com.google.android.gms.vision.barcode.Barcode)
+com.google.cardboard.sdk.qrcode.UrlFactory:
+    public static final java.lang.String TAG
+    public static void <clinit>()
+    public final java.net.HttpURLConnection openHttpsConnection(android.net.Uri)
+com.google.cardboard.sdk.qrcode.camera.CameraSource$1
+com.google.cardboard.sdk.qrcode.camera.CameraSource$FrameProcessingRunnable:
+    public final void release()
+    public final void setActive(boolean)
+com.google.cardboard.sdk.qrcode.camera.CameraSource$SizePair:
+    public final com.google.android.gms.common.images.Size pictureSize()
+    public final com.google.android.gms.common.images.Size previewSize()
+com.google.cardboard.sdk.qrcode.camera.CameraSource:
+    public static final java.lang.String TAG
+    public static void <clinit>()
+    public static synthetic java.util.Map access$200(com.google.cardboard.sdk.qrcode.camera.CameraSource)
+    public static synthetic void access$300()
+    public static synthetic com.google.android.gms.common.images.Size access$500(com.google.cardboard.sdk.qrcode.camera.CameraSource)
+    public static synthetic android.hardware.Camera access$600(com.google.cardboard.sdk.qrcode.camera.CameraSource)
+    public static java.util.List generateValidPreviewSizeList(android.hardware.Camera)
+    public final com.google.android.gms.common.images.Size getPreviewSize()
+    public final void setRotation(android.hardware.Camera,android.hardware.Camera$Parameters,int)
+    public final com.google.cardboard.sdk.qrcode.camera.CameraSource start(android.view.SurfaceHolder)
+com.google.cardboard.sdk.qrcode.camera.CameraSourcePreview:
+    public static final java.lang.String TAG
+    public static void <clinit>()
+    public static synthetic void access$300()
+    public final void release()
+    public final void start(com.google.cardboard.sdk.qrcode.camera.CameraSource)

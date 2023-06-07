@@ -11,6 +11,7 @@ ext.jmonkeyengineVersion = '3.5.2-stable'
 
 dependencies {
     implementation 'org.jmonkeyengine:jme3-core:' + jmonkeyengineVersion
+    implementation 'org.jmonkeyengine:jme3-effects:' + jmonkeyengineVersion
     runtimeOnly 'org.jmonkeyengine:jme3-jogg:' + jmonkeyengineVersion
     runtimeOnly 'org.jmonkeyengine:jme3-plugins:' + jmonkeyengineVersion
 

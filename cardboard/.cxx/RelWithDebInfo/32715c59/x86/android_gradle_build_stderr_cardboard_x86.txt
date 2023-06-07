@@ -1,0 +1,1 @@
+ninja: error: 'D:/bhargav/projects/SpatialLearningVWM/cardboard/src/main/cpp/libraries/jni/x86/libGfxPluginCardboard.so', needed by 'D:/bhargav/projects/SpatialLearningVWM/cardboard/build/intermediates/cxx/RelWithDebInfo/32715c59/obj/x86/libcardboard.so', missing and no known rule to make it

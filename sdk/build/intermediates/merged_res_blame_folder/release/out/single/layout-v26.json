@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/layout-v26/mtrl_calendar_month.xml",
+        "source": "com.google.cardboard.sdk-material-1.6.1-15:/layout-v26/mtrl_calendar_month.xml"
+    },
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/layout-v26/abc_screen_toolbar.xml",
+        "source": "com.google.cardboard.sdk-appcompat-1.4.2-5:/layout-v26/abc_screen_toolbar.xml"
+    }
+]

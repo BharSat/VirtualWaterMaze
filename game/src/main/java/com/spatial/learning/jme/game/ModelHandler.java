@@ -1,19 +1,35 @@
 package com.spatial.learning.jme.game;
 
+import static java.lang.Math.pow;
+
 import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.AssetNotFoundException;
 import com.jme3.asset.plugins.FileLocator;
+import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.bullet.util.CollisionShapeFactory;
+import com.jme3.light.DirectionalLight;
+import com.jme3.light.Light;
+import com.jme3.light.PointLight;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.FogFilter;
 import com.jme3.scene.Node;
+import com.jme3.scene.control.LightControl;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.util.*;
-
-import static java.lang.Math.pow;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * The type Model handler.
@@ -22,19 +38,24 @@ public class ModelHandler extends BaseAppState {
     private final Map<String, List<Float>> cueMap = new HashMap<>();
     public Boolean initialized = false;
     public String modelPathFormat;
-    public float scale, playerSpeed;
+    public float scale, playerSpeed, retardFactor;
     public boolean fileInited = false;
     protected Vector3f playerLocation = new Vector3f(), platformTopLeft = new Vector3f(), platformBottomRight = new Vector3f();
     private int positionNumber = -1, trialNumber, maxTrials, maxSessions;
     private float startX, startZ, endX, endZ, endXLength, endZLength;
     private String endShape, rootDir;
     private SpatialLearningVWM app;
+    private DirectionalLight sun;
+    private PointLight sceneLight;
+    private final Node lightNode = new Node();
     private Node rootNode;
     private AssetManager assetManager;
     private Node modelNode;
     private Boolean probe;
     private Boolean enabled = false;
-    private final Timer timer = new Timer();
+    private Timer timer = new Timer();
+    private FilterPostProcessor fpp;
+    private FogFilter fog;
     private TimerTask task = new TimerTask() {
         @Override
         public void run() {
@@ -66,7 +87,7 @@ public class ModelHandler extends BaseAppState {
             Path parentDir = rootPath.getParent();
             rootDir = parentDir.toFile().getAbsolutePath();
         } catch (NullPointerException e) {
-            rootDir="";
+            rootDir = "";
             System.out.println();
         }
         this.getState(LogHandler.class).root(rootDir);
@@ -83,7 +104,48 @@ public class ModelHandler extends BaseAppState {
         trialNumber = maxTrials;
         modelPathFormat = app.data.get("data").get("cue_format");
         scale = Float.parseFloat(app.data.get("data").get("scale"));
+        float version = Float.parseFloat(app.data.get("data").get("version"));
+        if (version == 1.0f) {
+            scale = scale / 2;
+        }
         playerSpeed = Float.parseFloat(app.data.get("data").get("speed"));
+        retardFactor = Float.parseFloat(app.data.get("data").get("retard_factor"));
+
+        sun = new DirectionalLight();
+        sun.setDirection(new Vector3f(-0.5f, -0.5f, -0.5f).normalizeLocal());
+        sun.setColor(ColorRGBA.White);
+        lightNode.addLight(sun);
+
+        sceneLight = new PointLight();
+        sceneLight.setColor(ColorRGBA.White.mult(0.3f));
+        lightNode.addLight(sceneLight);
+        LightControl playerLight = new LightControl(sceneLight);
+
+
+        Node scene = (Node) assetManager.loadModel("models/scene.glb");
+        scene.setLocalTranslation(0f, this.app.getGround(), 0f);
+        scene.scale(scale / 50, scale / 200, scale / 50);
+        scene.addControl(playerLight);
+
+        CollisionShape sceneShape = CollisionShapeFactory.createMeshShape(scene);
+        RigidBodyControl landscape = new RigidBodyControl(sceneShape, 0f);
+        getState(BulletAppState.class).getPhysicsSpace().add(landscape);
+        rootNode.attachChild(scene);
+        // SkyFactory.createSky(assetManager, "Textures/BrightSky.dds", SkyFactory.EnvMapType.CubeMap);
+        if (version >= 3.0f) {
+            fpp = new FilterPostProcessor(assetManager);
+            //fpp.setNumSamples(4);
+            int numSamples = getApplication().getContext().getSettings().getSamples();
+            if (numSamples > 0) {
+                fpp.setNumSamples(numSamples);
+            }
+            fog = new FogFilter();
+            fog.setFogColor(new ColorRGBA(1.0f, 1.0f, 1.0f, 1.0f));
+            fog.setFogDistance(Float.parseFloat(app.data.get("data").get("fog_distance")));
+            fog.setFogDensity(Float.parseFloat(app.data.get("data").get("fog_density")));
+            fpp.addFilter(fog);
+            getApplication().getViewPort().addProcessor(fpp);
+        }
 
         fileInited = true;
     }
@@ -104,6 +166,25 @@ public class ModelHandler extends BaseAppState {
 
     private boolean boolYesNo(String yesNo) {
         return yesNo.equals("yes");
+    }
+
+    public void stopLight() {
+        for (Light light : lightNode.getLocalLightList()) {
+            rootNode.removeLight(light);
+        }
+        this.app.getViewPort().setBackgroundColor(ColorRGBA.Black);
+    }
+
+    public void startLight() {
+        for (Light light : lightNode.getLocalLightList()) {
+            rootNode.addLight(light);
+        }
+
+        this.app.getViewPort().setBackgroundColor(ColorRGBA.fromRGBA255(51, 204, 255, 255));
+    }
+
+    public Node getLightNode() {
+        return lightNode;
     }
 
     protected void loadPosition(int position, int trial) {
@@ -154,10 +235,6 @@ public class ModelHandler extends BaseAppState {
         rootNode.attachChild(modelNode);
     }
 
-    public String getAssetPath(String name) {
-        return "Models/Cues/" + name + "/" + name + ".glb";
-    }
-
     public void nextTrial() {
         this.getStateManager().getState(GameState.class).enabled = true;
         enabled = true;
@@ -177,7 +254,7 @@ public class ModelHandler extends BaseAppState {
         if (!this.getStateManager().getState(LogHandler.class).newRound(trialNumber, positionNumber)) {
             System.out.println("Failed to open log file at " + trialNumber + " " + positionNumber);
         }
-
+        timer = new Timer();
         if (probe) {
             timer.schedule(new TimerTask() {
                 @Override
@@ -188,7 +265,7 @@ public class ModelHandler extends BaseAppState {
         } else {
             timer.schedule(task, 60000);
         }
-        this.getStateManager().getState(GameState.class).startLight();
+        this.startLight();
         this.getStateManager().getState(GameState.class).getPlayer().warp(new Vector3f(startX, 1.0f, startZ));
 
     }
@@ -197,7 +274,7 @@ public class ModelHandler extends BaseAppState {
         this.getStateManager().getState(GameState.class).getPlayer().warp(new Vector3f(0, 3, 0));
         this.getStateManager().getState(GameState.class).enabled = false;
         this.enabled = false;
-        this.getStateManager().getState(GameState.class).stopLight();
+        this.stopLight();
         this.getStateManager().getState(GuiHandler.class).initGuiBetweenRounds(this);
     }
 
@@ -235,13 +312,14 @@ public class ModelHandler extends BaseAppState {
     }
 
     private void timeUp() {
-        Node Flag = (Node)assetManager.loadModel("Models/Cues/Flag/Flag.glb");
-        Flag.setLocalTranslation(new Vector3f(endX, 0, endZ));
+        Node Flag = (Node) assetManager.loadModel("models/Flag/Flag.glb");
+        Flag.scale(10f, 10f, 10f);
+        Flag.setLocalTranslation(new Vector3f(endX, this.app.getGround(), endZ));
         modelNode.attachChild(Flag);
     }
 
     public void setBluetoothManager(BluetoothManager bluetoothManager) {
-        this.bluetoothManager=bluetoothManager;
+        this.bluetoothManager = bluetoothManager;
     }
 
 }

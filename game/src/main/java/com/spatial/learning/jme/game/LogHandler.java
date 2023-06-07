@@ -42,7 +42,8 @@ public class LogHandler extends BaseAppState {
             outStream.close();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (NullPointerException ignored) {}
+        } catch (NullPointerException ignored) {
+        }
     }
 
     @Override
@@ -60,7 +61,9 @@ public class LogHandler extends BaseAppState {
             if (getState(GameState.class).enabled && name != null && initialized) {
                 BetterCharacterControl player = gameState.getPlayer();
                 Vector3f location = player.getRigidBody().getPhysicsLocation();
-                log(Math.round(location.getX()*100) + "\t" + Math.round(location.getZ()*100) + "\n");
+                Vector3f direction = getApplication().getCamera().getDirection();
+                log(Math.round(location.getX() * 100) + "\t" + Math.round(location.getZ() * 100) + "\t" + Math.round(location.getZ() * 100) + "\t"
+                        + direction.getX() + "\t" + direction.getY() + "\t" + direction.getZ() + "\n");
             }
         } catch (NullPointerException ignored) {
         }

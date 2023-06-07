@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/interpolator-v21/mtrl_fast_out_slow_in.xml",
+        "source": "com.google.cardboard.sdk-material-1.6.1-15:/interpolator-v21/mtrl_fast_out_slow_in.xml"
+    },
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/interpolator-v21/mtrl_fast_out_linear_in.xml",
+        "source": "com.google.cardboard.sdk-material-1.6.1-15:/interpolator-v21/mtrl_fast_out_linear_in.xml"
+    },
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/interpolator-v21/mtrl_linear_out_slow_in.xml",
+        "source": "com.google.cardboard.sdk-material-1.6.1-15:/interpolator-v21/mtrl_linear_out_slow_in.xml"
+    }
+]

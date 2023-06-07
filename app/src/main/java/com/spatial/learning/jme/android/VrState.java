@@ -16,7 +16,7 @@ import com.jme3.renderer.ViewPort;
 import com.spatial.learning.jme.game.GameState;
 
 public class VrState extends BaseAppState {
-    Application app;
+    SimpleApplication app;
     boolean enabled;
     float width, height;
     Camera cam, cam2;
@@ -26,10 +26,11 @@ public class VrState extends BaseAppState {
     private Sensor LASensor;
     private Sensor GYSensor;
     private SensorListener SensorListener;
-    Float defXg=null, defYg=null, defZg=null, defWg=null, xg=null, yg=null, zg=null, wg=null;
+    Float xa, ya, za, xg=null, yg=null, zg=null, wg=null;
     long prevLA, prevGY;
-    Vector3f prevVelocity=null, finalVelocity, sAccel, position=new Vector3f();
+    Vector3f prevVelocity=new Vector3f(), finalVelocity=new Vector3f(), sAccel=new Vector3f(), position=new Vector3f(), calibratedVector=new Vector3f();
     Quaternion calibratedQuaternion;
+    boolean calibrating = false;
 
     VrState(AndroidLauncher launcher) {
         this.launcher = launcher;
@@ -41,19 +42,13 @@ public class VrState extends BaseAppState {
         sensorManager.registerListener(SensorListener, GYSensor,SensorManager.SENSOR_DELAY_NORMAL);
     }
 
-    public void calibrate() {
-        sAccel=prevVelocity;
-        defXg = xg; defYg=yg; defZg=zg; defWg=wg;
-    }
-    public void position(CalibrateFragment.Mode mode) {
-        switch (mode) {
-            case topLeft:
-        }
+    public void calibrateStart() {
+        calibrating = true;
     }
 
     @Override
     protected void initialize(Application app) {
-        this.app = app;
+        this.app = (SimpleApplication) app;
     }
 
     @Override
@@ -68,11 +63,11 @@ public class VrState extends BaseAppState {
 
         cam = app.getCamera();
         cam2 = app.getCamera().clone();
-        cam.setViewPort(0f, 0f, 0.5f, 1.0f);
-        cam2.setViewPort(0.5f, 1f, 1f, 0.5f);
+        cam.setViewPort(0.0f , 1.0f   ,   0.0f , 1.0f);
+        cam2.setViewPort(0.5f , 1.0f   ,   0.0f , 0.5f);
         view2 = app.getRenderManager().createMainView("view2", cam2);
-        view2.attachScene(((SimpleApplication)app).getRootNode());
-        view2.attachScene(((SimpleApplication)app).getGuiNode());
+        view2.attachScene(app.getRootNode());
+        view2.attachScene(app.getGuiNode());
         enabled = true;
     }
 
@@ -96,29 +91,26 @@ public class VrState extends BaseAppState {
             float dt = (t-prevLA)/(10^9);
             ComputeFinalVelocity(prevVelocity, new Vector3f(x, 0, z), dt);
             try {
-//                app.getStateManager().getState(GameState.class).getPlayer().setWalkDirection(finalVelocity);
-//                app.getStateManager().getState(GameState.class).up = true;
-//                app.getStateManager().getState(GameState.class).setVelocityFactor(finalVelocity);
+                app.getStateManager().getState(GameState.class).getPlayer().setWalkDirection(finalVelocity);
+                app.getStateManager().getState(GameState.class).up = true;
+                System.out.println(""  +app.getStateManager().getState(GameState.class).getPlayer().getRigidBody().getPhysicsLocation().toString());
                 System.out.println("Final" + finalVelocity +"  " +dt);
+            } catch (NullPointerException ignored) {
             } catch (Throwable e) {
                 e.printStackTrace();
                 ((SimpleApplication)app).destroy();
             }
             prevVelocity=new Vector3f(x, 0, z);
-            System.out.println(""  +app.getStateManager().getState(GameState.class).getPlayer().getRigidBody().getPhysicsLocation().toString());
         }
         positionTrackerUpdate();
         prevLA = t;
     }
     public void GYSensorChanged(float x, float y, float z, float w, long t) {
-        if (!enabled) {
-            xg=x;
-            yg=y;
-            zg=z;
-            wg=w;
-        } else {
-//            app.getCamera().setRotation(app.getCamera().getRotation().add(new Quaternion(x-defXg, y-defYg, z-defZg, w-defWg)));
-        }
+        xg=x;
+        yg=y;
+        zg=z;
+        wg=w;
+        //app.getCamera().setRotation(app.getCamera().getRotation().add(new Quaternion(x-defXg, y-defYg, z-defZg, w-defWg)));
         prevGY = t;
     }
     public void ComputeFinalVelocity(Vector3f u, Vector3f a, float t) {
@@ -159,8 +151,6 @@ public class VrState extends BaseAppState {
         }
     }
     public void positionTrackerUpdate() {
-        if (!enabled&&prevVelocity!=null&&defXg!=null) {
 
-        }
     }
 }

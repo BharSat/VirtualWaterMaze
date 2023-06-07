@@ -1,0 +1,3 @@
+D:/bhargav/projects/SpatialLearningVWM/sdk/.cxx/Debug/61113c1o/arm64-v8a/CMakeFiles/GfxPluginCardboard.dir
+D:/bhargav/projects/SpatialLearningVWM/sdk/.cxx/Debug/61113c1o/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/bhargav/projects/SpatialLearningVWM/sdk/.cxx/Debug/61113c1o/arm64-v8a/CMakeFiles/rebuild_cache.dir

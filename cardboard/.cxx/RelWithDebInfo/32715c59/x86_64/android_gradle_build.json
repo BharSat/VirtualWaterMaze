@@ -1,0 +1,38 @@
+{
+  "buildFiles": [
+    "D:\\bhargav\\projects\\SpatialLearningVWM\\cardboard\\src\\main\\cpp\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "D:\\Programs\\AndroidSDK\\cmake\\3.18.1\\bin\\ninja.exe",
+      "-C",
+      "D:\\bhargav\\projects\\SpatialLearningVWM\\cardboard\\.cxx\\RelWithDebInfo\\32715c59\\x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "D:\\Programs\\AndroidSDK\\cmake\\3.18.1\\bin\\ninja.exe",
+    "-C",
+    "D:\\bhargav\\projects\\SpatialLearningVWM\\cardboard\\.cxx\\RelWithDebInfo\\32715c59\\x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "cardboard::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "cardboard",
+      "output": "D:\\bhargav\\projects\\SpatialLearningVWM\\cardboard\\build\\intermediates\\cxx\\RelWithDebInfo\\32715c59\\obj\\x86_64\\libcardboard.so",
+      "runtimeFiles": []
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "D:\\Programs\\AndroidSDK\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+      "cppCompilerExecutable": "D:\\Programs\\AndroidSDK\\ndk\\21.4.7075529\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

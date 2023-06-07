@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/xml/standalone_badge_offset.xml",
+        "source": "com.google.cardboard.sdk-material-1.6.1-15:/xml/standalone_badge_offset.xml"
+    },
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/xml/standalone_badge_gravity_bottom_end.xml",
+        "source": "com.google.cardboard.sdk-material-1.6.1-15:/xml/standalone_badge_gravity_bottom_end.xml"
+    },
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/xml/standalone_badge.xml",
+        "source": "com.google.cardboard.sdk-material-1.6.1-15:/xml/standalone_badge.xml"
+    },
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/xml/standalone_badge_gravity_bottom_start.xml",
+        "source": "com.google.cardboard.sdk-material-1.6.1-15:/xml/standalone_badge_gravity_bottom_start.xml"
+    },
+    {
+        "merged": "com.google.cardboard.sdk-merged_res-26:/xml/standalone_badge_gravity_top_start.xml",
+        "source": "com.google.cardboard.sdk-material-1.6.1-15:/xml/standalone_badge_gravity_top_start.xml"
+    }
+]

@@ -1,0 +1,2 @@
+ninja: Entering directory `D:\bhargav\projects\SpatialLearningVWM\sdk\.cxx\Debug\61113c1o\armeabi-v7a'
+ninja: no work to do.

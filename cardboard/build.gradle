@@ -1,0 +1,78 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    namespace 'com.spatial.learning.cardboard'
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 29
+        targetSdk 33
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+        consumerProguardFiles "consumer-rules.pro"
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.18.1"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+ext.jmonkeyengineVersion = "3.6.0-stable"
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation 'org.jmonkeyengine:jme3-android:' + jmonkeyengineVersion
+    implementation 'org.jmonkeyengine:jme3-android-native:' + jmonkeyengineVersion
+    implementation 'org.jmonkeyengine:jme3-core:' + jmonkeyengineVersion
+    implementation project(":sdk")
+}
+
+task extractNdk(type: Copy) {
+    if (file("${project.rootDir}/sdk/build/outputs/aar/sdk-release.aar").exists()) {
+        copy {
+            from zipTree("${project.rootDir}/sdk/build/outputs/aar/sdk-release.aar")
+            into "src/main/cpp/libraries"
+            include "jni/**/libGfxPluginCardboard.so"
+        }
+        copy {
+            from "${project.rootDir}/sdk/include/cardboard.h"
+            into "src/main/cpp/libraries/"
+        }
+    }
+}
+
+task deleteNdk(type: Delete) {
+    delete "libraries/jni"
+    delete "libraries/cardboard.h"
+}
+
+build.dependsOn(extractNdk)
+clean.dependsOn(deleteNdk)

@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.google.cardboard.sdk-mergeReleaseResources-24:/values-ldrtl-v17/values-ldrtl-v17.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Bhargav_NDL\\.gradle\\caches\\transforms-3\\b6f52d92dea29c0a7f49d4078033a89a\\transformed\\material-1.6.1\\res\\values-ldrtl-v17\\values-ldrtl-v17.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,191",
+                        "endColumns": "135,140",
+                        "endOffsets": "186,327"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.google.cardboard.sdk-merged_res-26:/values-ldrtl-v17/values-ldrtl-v17.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Bhargav_NDL\\.gradle\\caches\\transforms-3\\b6f52d92dea29c0a7f49d4078033a89a\\transformed\\material-1.6.1\\res\\values-ldrtl-v17\\values-ldrtl-v17.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,191",
+                        "endColumns": "135,140",
+                        "endOffsets": "186,327"
+                    }
+                }
+            ]
+        }
+    ]
+}

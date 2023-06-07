@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "D:\\Programs\\AndroidSDK\\cmake\\3.18.1\\bin\\ninja.exe",
+      "-C",
+      "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\.cxx\\RelWithDebInfo\\4h65v5w5\\arm64-v8a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "D:\\Programs\\AndroidSDK\\cmake\\3.18.1\\bin\\ninja.exe",
+    "-C",
+    "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\.cxx\\RelWithDebInfo\\4h65v5w5\\arm64-v8a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "GfxPluginCardboard::@6890427a1f51a3e7e1df": {
+      "artifactName": "GfxPluginCardboard",
+      "abi": "arm64-v8a",
+      "output": "D:\\bhargav\\projects\\SpatialLearningVWM\\sdk\\build\\intermediates\\cxx\\RelWithDebInfo\\4h65v5w5\\obj\\arm64-v8a\\libGfxPluginCardboard.so",
+      "runtimeFiles": []
+    }
+  }
+}
