@@ -63,7 +63,7 @@ public class LogHandler extends BaseAppState {
                 Vector3f location = player.getRigidBody().getPhysicsLocation();
                 Vector3f direction = getApplication().getCamera().getDirection();
                 log(Math.round(location.getX() * 100) + "\t" + Math.round(location.getZ() * 100) + "\t" + Math.round(location.getZ() * 100) + "\t"
-                        + direction.getX() + "\t" + direction.getY() + "\t" + direction.getZ() + "\n");
+                        + direction.getX() + "\t" + direction.getY() + "\t" + direction.getZ() + "\t" + System.nanoTime() + "\n");
             }
         } catch (NullPointerException ignored) {
         }

@@ -55,7 +55,6 @@ public class DataReader {
                     break;
                 default:
                     sessionTxt.add(line);
-                    // System.out.println(line);
                     break;
             }
         }
@@ -80,7 +79,6 @@ public class DataReader {
         for (int sessionCount = 1, lineCount = 1; sessionCount <= sessionNo; sessionCount++, lineCount += trialNo + 1) {
             sessionID = Integer.parseInt(sessionTxt.get(lineCount).substring(1).trim()) + " ";
             for (int curTrial = 1; curTrial <= trialNo; curTrial++) {
-                System.out.println(curTrial);
                 curLine = sessionTxt.get((lineCount + curTrial));
                 trialData = curLine.split(" ");
                 trialID = String.valueOf(Integer.parseInt(trialData[0].substring(2).trim()));
